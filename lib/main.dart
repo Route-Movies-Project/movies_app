@@ -12,9 +12,10 @@ class Movies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(430, 932),
+      designSize: const Size(430, 932),
       minTextAdapt: true,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Movies',
         theme: theme,
         routes: {},
