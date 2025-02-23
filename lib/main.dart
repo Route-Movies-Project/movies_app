@@ -18,7 +18,7 @@ class Movies extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Movies',
         theme: theme,
-        routes: {},
+        routes: const {},
       ),
     );
   }
