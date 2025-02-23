@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const Movies());
@@ -9,9 +10,13 @@ class Movies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Movies',
-      routes: {},
+    return ScreenUtilInit(
+      designSize: Size(430, 932),
+      minTextAdapt: true,
+      child: MaterialApp(
+        title: 'Movies',
+        routes: {},
+      ),
     );
   }
 }
