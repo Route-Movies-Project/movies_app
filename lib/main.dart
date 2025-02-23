@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/Themes/theme.dart';
 
 void main() {
   runApp(const Movies());
@@ -15,6 +16,7 @@ class Movies extends StatelessWidget {
       minTextAdapt: true,
       child: MaterialApp(
         title: 'Movies',
+        theme: theme,
         routes: {},
       ),
     );
