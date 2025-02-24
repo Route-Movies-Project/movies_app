@@ -11,7 +11,8 @@ class AppRoutes {
     UpdateProfile.routeName: (_) => const UpdateProfile(),
     OnBoarding.routeName: (_) => const OnBoarding(),
     ForgetPassScreen.routeName: (_) => ForgetPassScreen(),
-    RegisterBody.routeName: (_) => RegisterBody()
+    RegisterBody.routeName: (_) => const RegisterBody(),
   };
   static final String? initialRoute = RegisterBody.routeName;
+
 }

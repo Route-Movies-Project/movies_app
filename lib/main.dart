@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/theme.dart';
-import 'package:movies_app/register/register_body.dart';
 import 'package:movies_app/core/utils/constants/routes.dart';
-
 
 void main() {
   runApp(const Movies());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/Themes/theme.dart';
@@ -7,6 +8,9 @@ import 'package:movies_app/widgets/default_elevated_button.dart';
 import 'package:movies_app/widgets/default_text_field.dart';
 
 class RegisterBody extends StatefulWidget {
+
+  const RegisterBody({super.key});
+
   static const String routeName = '/register';
 
   @override
@@ -22,17 +26,26 @@ class _RegisterBodyState extends State<RegisterBody> {
   final TextEditingController phoneNumberController = TextEditingController();
 
   @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    phoneNumberController.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.yellow),
-            onPressed: () {},
+
+          title: const Text(
+            'Register',
           ),
-          title: Text('Register', style: TextStyle(color: ThemeColors.yellow)),
-          centerTitle: true,
+
+         
         ),
         body: SafeArea(
           child: Padding(
@@ -42,7 +55,9 @@ class _RegisterBodyState extends State<RegisterBody> {
               RegisterSlider(),
               Text('Avatar'),
               SizedBox(
-                height: 15,
+
+                height: 15.h,
+
               ),
               Container(
                 child: DeafultTextFormField(
