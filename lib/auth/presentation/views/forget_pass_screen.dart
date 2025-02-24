@@ -14,7 +14,7 @@ class ForgetPassScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Forget Password'),
         leading: IconButton(
@@ -31,6 +31,7 @@ class ForgetPassScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: 16.0.w,
           ),
+ forget_password_branch
           child: Column(
             children: [
               Image.asset(
@@ -57,6 +58,7 @@ class ForgetPassScreen extends StatelessWidget {
                 child: const Text("Verify Email"),
               ),
             ],
+
           ),
         ),
       ),

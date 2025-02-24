@@ -109,7 +109,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
             ),
             CustomElevatedButton(
               onPressed: () {},
-              child: Text("Update Data"),
+              child: const Text("Update Data"),
             ),
           ],
         ),

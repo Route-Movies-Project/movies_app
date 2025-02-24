@@ -1,13 +1,15 @@
+import 'package:movies_app/core/utils/constants/images.dart';
+
 class AvatarImages {
   static const List<String> avatarImages = [
-    'assets/images/profile_avatar_1.png',
-    'assets/images/profile_avatar_2.png',
-    'assets/images/profile_avatar_3.png',
-    'assets/images/profile_avatar_4.png',
-    'assets/images/profile_avatar_5.png',
-    'assets/images/profile_avatar_6.png',
-    'assets/images/profile_avatar_7.png',
-    'assets/images/profile_avatar_8.png',
-    'assets/images/profile_avatar_9.png',
+    AppAssets.avatar1,
+    AppAssets.avatar2,
+    AppAssets.avatar3,
+    AppAssets.avatar4,
+    AppAssets.avatar5,
+    AppAssets.avatar6,
+    AppAssets.avatar7,
+    AppAssets.avatar8,
+    AppAssets.avatar9,
   ];
 }
