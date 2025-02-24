@@ -32,10 +32,28 @@ final theme = ThemeData(
       foregroundColor: ThemeColors.black,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-          15,
+          15.r,
         ),
       ),
       minimumSize: Size(double.infinity, 55.h),
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      fixedSize: Size(double.infinity, 55.h),
+      textStyle: GoogleFonts.roboto(
+        color: ThemeColors.yellow,
+        fontSize: 20,
+      ),
+      foregroundColor: ThemeColors.yellow,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          15.r,
+        ),
+      ),
+      side: const BorderSide(
+        color: ThemeColors.yellow,
+      ),
     ),
   ),
   scaffoldBackgroundColor: ThemeColors.black,
