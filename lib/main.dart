@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/theme.dart';
 import 'package:movies_app/register/register_body.dart';
+import 'package:movies_app/core/utils/constants/routes.dart';
+
 
 void main() {
   runApp(const Movies());
@@ -13,17 +15,18 @@ class Movies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(430, 932),
+      designSize: const Size(430, 932),
       minTextAdapt: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Movies',
-        theme: theme,
-        routes: {
-          RegisterBody.routeName:(_) => RegisterBody(),
-        },
-        initialRoute: RegisterBody.routeName,
-      ),
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Movies',
+          theme: theme,
+          routes: AppRoutes.routes,
+          initialRoute: AppRoutes.initialRoute,
+        );
+      },
     );
   }
 }
