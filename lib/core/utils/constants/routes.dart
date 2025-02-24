@@ -11,5 +11,5 @@ class AppRoutes {
     OnBoarding.routeName: (_) => const OnBoarding(),
     ForgetPassScreen.routeName: (_) => ForgetPassScreen(),
   };
-  static final String? initialRoute = IntroScreen.routeName;
+  static final String? initialRoute = ForgetPassScreen.routeName;
 }
