@@ -14,4 +14,5 @@ class AppRoutes {
     RegisterBody.routeName: (_) => const RegisterBody(),
   };
   static final String? initialRoute = RegisterBody.routeName;
+
 }
