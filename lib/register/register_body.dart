@@ -4,7 +4,8 @@ import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/Themes/theme.dart';
 import 'package:movies_app/register/register_slider.dart';
 import 'package:movies_app/widgets/default_elevated_button.dart';
-import 'package:movies_app/widgets/default_text_form_field.dart';
+import 'package:movies_app/widgets/default_text_field.dart';
+
 
 class RegisterBody extends StatefulWidget {
   
@@ -51,51 +52,47 @@ class _RegisterBodyState extends State<RegisterBody> {
                 Text('Avatar'),
                SizedBox(height: 15,),
                  Container(
-                  height: MediaQuery.sizeOf(context).height*0.08,
-                  decoration:BoxDecoration(color: ThemeColors.grey, borderRadius: BorderRadius.circular(15)) ,
-                   child: DefaultTextFormField(
-                   controller: nameController,
+                 
+                   child: DeafultTextFormField(
+                   textEditingController: nameController,
                     hintText: 'Name'
-                   , prefixIconImageName: 'name',
-                    Validator: (value){},
-                    isPassword: false,),
+                   , prefixImageName: 'name',
+                    validator: (value){},
+                    ),
                  ),
                     SizedBox(height: MediaQuery.sizeOf(context).height*0.02,),
                 
                  Container(
-                  height: MediaQuery.sizeOf(context).height*0.08,
-                  decoration:BoxDecoration(color: ThemeColors.grey, borderRadius: BorderRadius.circular(15)) ,
-                   child: DefaultTextFormField(
-                   controller: emailController,
+                  
+                   child: DeafultTextFormField(
+                   textEditingController: emailController,
                     hintText: 'Email'
-                   , prefixIconImageName: 'email',
-                    Validator: (value){},
-                    isPassword: false,
+                   , prefixImageName: 'email',
+                    validator: (value){},
+                   
                     ),
                  ),
 
                    SizedBox(height: MediaQuery.sizeOf(context).height*0.02,),
                 
                  Container(
-                  height: MediaQuery.sizeOf(context).height*0.08,
-                  decoration:BoxDecoration(color: ThemeColors.grey, borderRadius: BorderRadius.circular(15)) ,
-                   child: DefaultTextFormField(
-                   controller: passwordController,
+                 
+                   child: DeafultTextFormField(
+                   textEditingController: passwordController,
                     hintText: 'password'
-                   , prefixIconImageName: 'lock',
-                    Validator: (value){},
+                   , prefixImageName: 'lock',
+                    validator: (value){},
                     isPassword: true,),
                  ),
                 SizedBox(height: MediaQuery.sizeOf(context).height*0.02,),
                 
                    Container(
-                    height: MediaQuery.sizeOf(context).height*0.08,
-                  decoration:BoxDecoration(color: ThemeColors.grey, borderRadius: BorderRadius.circular(15)) ,
-                     child: DefaultTextFormField(
-                  controller: confirmPasswordController,
+                   
+                     child: DeafultTextFormField(
+                  textEditingController: confirmPasswordController,
                     hintText: 'confirm password'
-                  , prefixIconImageName: 'lock',
-                  Validator: (value){},
+                  , prefixImageName: 'lock',
+                  validator: (value){},
                   isPassword: true,),
                    ),
                     
@@ -103,13 +100,12 @@ class _RegisterBodyState extends State<RegisterBody> {
                 SizedBox(height: MediaQuery.sizeOf(context).height*0.02,),
                 
                    Container(
-                    height: MediaQuery.sizeOf(context).height*0.08,
-                  decoration:BoxDecoration(color: ThemeColors.grey, borderRadius: BorderRadius.circular(15)) ,
-                     child: DefaultTextFormField(
-                   controller: confirmPasswordController,
+                    
+                     child: DeafultTextFormField(
+                   textEditingController: confirmPasswordController,
                    hintText: 'confirm password',
-                   prefixIconImageName: 'phone',
-                   Validator: (value){},
+                   prefixImageName: 'phone',
+                   validator: (value){},
                    isPassword: false,),
                    ),
                    
