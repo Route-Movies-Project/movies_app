@@ -57,23 +57,6 @@ final theme = ThemeData(
     ),
   ),
   scaffoldBackgroundColor: ThemeColors.black,
-  inputDecorationTheme: InputDecorationTheme(
-    
-    hintStyle: TextStyle(fontSize: 16 ,
-    fontWeight: FontWeight.w400,
-    color: ThemeColors.white,
-    ),
-     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 1 ,color:  ThemeColors.grey),
-      borderRadius: BorderRadius.circular(15), 
-    ),
-      focusedErrorBorder:
-    OutlineInputBorder(
-      borderSide: BorderSide(width: 1 ,color:  ThemeColors.grey),
-    ),
-   suffixIconColor: ThemeColors.white,
-    
-  ),
   textTheme: TextTheme(
     bodyLarge: GoogleFonts.inter(
       fontSize: 36.sp,
