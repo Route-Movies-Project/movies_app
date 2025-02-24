@@ -45,9 +45,9 @@ class ForgetPassScreen extends StatelessWidget {
                   hintText: 'Email',
                   prefixImageName: 'email',
                   textEditingController: emailController,
-                  // textInputFormatter: FilteringTextInputFormatter.allow(
-                  //   RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'),
-                  // ),
+                  textInputFormatter: FilteringTextInputFormatter.allow(
+                    RegExp(r'[a-zA-Z0-9._%+-@]'),
+                  ),
                 ),
                 const SizedBox(
                   height: 12,
