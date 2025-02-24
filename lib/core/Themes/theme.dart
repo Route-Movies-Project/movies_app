@@ -35,6 +35,7 @@ final theme = ThemeData(
           15.r,
         ),
       ),
+      minimumSize: Size(double.infinity, 55.h),
     ),
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(

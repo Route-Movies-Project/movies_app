@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/auth/presentation/views/forget_pass_screen.dart';
 import 'package:movies_app/introduction/view/intro_screen.dart';
 import 'package:movies_app/onboarding/view/onboarding_screen.dart';
 import 'package:movies_app/update-profile/view/update_profile.dart';
@@ -8,6 +9,7 @@ class AppRoutes {
     IntroScreen.routeName: (_) => const IntroScreen(),
     UpdateProfile.routeName: (_) => const UpdateProfile(),
     OnBoarding.routeName: (_) => const OnBoarding(),
+    ForgetPassScreen.routeName: (_) =>  ForgetPassScreen(),
   };
   static final String? initialRoute = IntroScreen.routeName;
 }
