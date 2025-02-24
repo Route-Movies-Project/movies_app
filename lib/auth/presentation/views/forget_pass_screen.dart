@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/widgets/custom_elevated_button.dart';
 import 'package:movies_app/widgets/default_text_field.dart';
@@ -27,37 +28,37 @@ class ForgetPassScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.0.w,
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Image.asset(
-                  AppAssets.forgetPasswordImage,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  fit: BoxFit.fill,
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                DeafultTextFormField(
-                  hintText: 'Email',
-                  prefixImageName: 'email',
-                  textEditingController: emailController,
-                  textInputFormatter: FilteringTextInputFormatter.allow(
-                    RegExp(r'[a-zA-Z0-9._%+-@]'),
-                  ),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                CustomElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Verify Email"),
-                ),
-              ],
-            ),
+ forget_password_branch
+          child: Column(
+            children: [
+              Image.asset(
+                AppAssets.forgetPasswordImage,
+                height: MediaQuery.of(context).size.height * 0.5,
+                fit: BoxFit.fill,
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+              DeafultTextFormField(
+                hintText: 'Email',
+                prefixImageName: 'email',
+                textEditingController: emailController,
+                // textInputFormatter: FilteringTextInputFormatter.allow(
+                //   RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'),
+                // ),
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+              CustomElevatedButton(
+                onPressed: () {},
+                child: const Text("Verify Email"),
+              ),
+            ],
+
           ),
         ),
       ),
