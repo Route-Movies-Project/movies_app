@@ -35,6 +35,7 @@ final theme = ThemeData(
           15,
         ),
       ),
+      minimumSize: Size(double.infinity, 55.h),
     ),
   ),
   scaffoldBackgroundColor: ThemeColors.black,
