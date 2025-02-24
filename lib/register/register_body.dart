@@ -8,6 +8,7 @@ import 'package:movies_app/widgets/default_elevated_button.dart';
 import 'package:movies_app/widgets/default_text_field.dart';
 
 class RegisterBody extends StatefulWidget {
+
   const RegisterBody({super.key});
 
   static const String routeName = '/register';
@@ -34,14 +35,17 @@ class _RegisterBodyState extends State<RegisterBody> {
     phoneNumberController.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+
           title: const Text(
             'Register',
           ),
-          centerTitle: true,
+
+         
         ),
         body: SafeArea(
           child: Padding(
@@ -51,7 +55,9 @@ class _RegisterBodyState extends State<RegisterBody> {
               RegisterSlider(),
               Text('Avatar'),
               SizedBox(
+
                 height: 15.h,
+
               ),
               Container(
                 child: DeafultTextFormField(
