@@ -11,4 +11,7 @@ class AppAssets {
   static const String avatar7 = 'assets/images/profile_avatar_7.png';
   static const String avatar8 = 'assets/images/profile_avatar_8.png';
   static const String avatar9 = 'assets/images/profile_avatar_9.png';
+  static const String passIcon = 'assets/icons/lock.svg';
+  static const String emailIcon = 'assets/icons/email.svg';
+  static const String appLogoo = 'assets/images/login_logo.png';
 }
