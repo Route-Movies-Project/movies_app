@@ -8,9 +8,10 @@ import 'package:movies_app/auth/presentation/widgets/custom_divider.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/core/utils/helper/validation_helper.dart';
-import 'package:movies_app/register/register_body.dart';
 import 'package:movies_app/widgets/custom_elevated_button.dart';
 import 'package:movies_app/widgets/default_text_field.dart';
+import 'package:movies_app/auth/presentation/views/register.dart';
+import 'package:movies_app/auth/presentation/widgets/register_body.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
@@ -39,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
+
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Form(
@@ -75,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: textTheme.bodyMedium!.copyWith(
                           color: ThemeColors.yellow,
                           fontSize: 14.sp,
+
                         ),
                       ),
                     ),
@@ -98,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.of(context)
-                                  .pushNamed(RegisterBody.routeName);
+                                  .pushNamed(Register.routeName);
                             },
                           text: 'Create One',
                           style: textTheme.bodyMedium!.copyWith(
