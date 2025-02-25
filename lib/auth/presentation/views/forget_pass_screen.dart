@@ -33,7 +33,7 @@ class ForgetPassScreen extends StatelessWidget {
                 SizedBox(
                   height: 12.h,
                 ),
-                DeafultTextFormField(
+                DefaultTextFormField(
                   hintText: 'Email',
                   prefixImageName: 'email',
                   textEditingController: emailController,

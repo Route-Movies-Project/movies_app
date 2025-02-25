@@ -64,7 +64,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
               ),
             ),
             SizedBox(height: 20.h),
-            DeafultTextFormField(
+            DefaultTextFormField(
               hintText: 'User Name',
               prefixImageName: 'username',
               textEditingController: usernameController,
@@ -72,7 +72,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
               textCapitalization: TextCapitalization.words,
             ),
             SizedBox(height: 20.h),
-            DeafultTextFormField(
+            DefaultTextFormField(
               hintText: 'Phone Number',
               prefixImageName: 'phone',
               textEditingController: phoneController,

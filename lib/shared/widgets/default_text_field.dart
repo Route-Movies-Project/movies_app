@@ -5,8 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 
-class DeafultTextFormField extends StatefulWidget {
-  const DeafultTextFormField({
+class DefaultTextFormField extends StatefulWidget {
+  const DefaultTextFormField({
     this.textEditingController,
     this.isPassword = false,
     this.validator,
@@ -33,10 +33,10 @@ class DeafultTextFormField extends StatefulWidget {
   final TextInputFormatter? textInputFormatter;
 
   @override
-  State<DeafultTextFormField> createState() => _DeafultTextFormFieldState();
+  State<DefaultTextFormField> createState() => _DefaultTextFormFieldState();
 }
 
-class _DeafultTextFormFieldState extends State<DeafultTextFormField> {
+class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
   late bool isObscure = widget.isPassword;
   @override
   Widget build(BuildContext context) {

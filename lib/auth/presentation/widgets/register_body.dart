@@ -49,7 +49,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                 SizedBox(
                   height: 15.h,
                 ),
-                DeafultTextFormField(
+                DefaultTextFormField(
                   textEditingController: nameController,
                   hintText: 'Name',
                   prefixImageName: 'name',
@@ -57,7 +57,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                 SizedBox(
                   height: 24.h,
                 ),
-                DeafultTextFormField(
+                DefaultTextFormField(
                   textEditingController: emailController,
                   hintText: 'Email',
                   prefixImageName: 'email',
@@ -68,7 +68,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                 SizedBox(
                   height: 24.h,
                 ),
-                DeafultTextFormField(
+                DefaultTextFormField(
                   textEditingController: passwordController,
                   hintText: 'password',
                   prefixImageName: 'lock',
@@ -80,7 +80,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                 SizedBox(
                   height: 24.h,
                 ),
-                DeafultTextFormField(
+                DefaultTextFormField(
                   textEditingController: confirmPasswordController,
                   hintText: 'confirm password',
                   prefixImageName: 'lock',
@@ -95,7 +95,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                 SizedBox(
                   height: 24.h,
                 ),
-                DeafultTextFormField(
+                DefaultTextFormField(
                   textEditingController: confirmPasswordController,
                   hintText: 'Phone Number',
                   prefixImageName: 'phone',

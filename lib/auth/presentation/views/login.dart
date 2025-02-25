@@ -2,16 +2,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/auth/presentation/views/forget_pass_screen.dart';
 import 'package:movies_app/auth/presentation/widgets/custom_divider.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/core/utils/helper/validation_helper.dart';
-import 'package:movies_app/widgets/custom_elevated_button.dart';
-import 'package:movies_app/widgets/default_text_field.dart';
 import 'package:movies_app/auth/presentation/views/register.dart';
-import 'package:movies_app/auth/presentation/widgets/register_body.dart';
+import 'package:movies_app/shared/widgets/custom_elevated_button.dart';
+import 'package:movies_app/shared/widgets/default_text_field.dart';
+import 'package:movies_app/shared/widgets/language_toggle_swtich.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
@@ -24,7 +23,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _text = TextEditingController();
   final _password = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  int languageValue = 0;
 
   @override
   void dispose() {
@@ -40,7 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
-
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Form(
@@ -50,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 67.h),
                   Image.asset(AppAssets.appLogo),
                   SizedBox(height: 60.h),
-                  DeafultTextFormField(
+                  DefaultTextFormField(
                     hintText: 'Email',
                     prefixImageName: 'email',
                     validator: (email) {
@@ -58,12 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   SizedBox(height: 24.h),
-                  DeafultTextFormField(
+                  DefaultTextFormField(
                     hintText: 'Password',
                     isPassword: true,
                     prefixImageName: 'lock',
                     validator: (password) {
-                      ValidationHelper.isValidPassword(password);
+                      return ValidationHelper.isValidPassword(password);
                     },
                   ),
                   SizedBox(height: 20.h),
@@ -77,7 +76,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: textTheme.bodyMedium!.copyWith(
                           color: ThemeColors.yellow,
                           fontSize: 14.sp,
-
                         ),
                       ),
                     ),
@@ -126,6 +124,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 34.h),
+                  LanguageToggleSwtich(
+                    languageValue: languageValue,
+                    onChanged: (i) {
+                      setState(
+                        () => languageValue = i,
+                      );
+                    },
+                  )
                 ],
               ),
             ),
