@@ -7,8 +7,11 @@ class Register extends StatelessWidget {
   static const String routeName = '/register';
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Register"),
+      ),
+      body: const SafeArea(
         child: Column(
           children: [
             RegisterHeader(),
