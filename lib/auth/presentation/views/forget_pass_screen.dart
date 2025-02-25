@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
-import 'package:movies_app/widgets/custom_elevated_button.dart';
-import 'package:movies_app/widgets/default_text_field.dart';
+import 'package:movies_app/shared/widgets/custom_elevated_button.dart';
+import 'package:movies_app/shared/widgets/default_text_field.dart';
 
 class ForgetPassScreen extends StatelessWidget {
   static const String routeName = 'forget-pass-screen';

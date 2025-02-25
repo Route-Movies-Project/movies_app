@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/auth/presentation/views/forget_pass_screen.dart';
+import 'package:movies_app/auth/presentation/views/register.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
-import 'package:movies_app/register/register_body.dart';
+import 'package:movies_app/auth/presentation/widgets/register_body.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
@@ -103,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Expanded(
                     child: Image.asset(
-                  AppAssets.appLogoo,
+                  AppAssets.appLogo,
                 )),
                 Expanded(
                   flex: 3,
@@ -212,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           InkWell(
                             onTap: () {
                               Navigator.of(context)
-                                  .pushNamed(RegisterBody.routeName);
+                                  .pushNamed(Register.routeName);
                             },
                             child: Text(
                               "Create One",

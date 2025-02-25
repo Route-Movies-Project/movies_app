@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
-import 'package:movies_app/update-profile/widgets/avatar_images.dart';
+import 'package:movies_app/shared/widgets/custom_elevated_button.dart';
+import 'package:movies_app/shared/widgets/default_text_field.dart';
+import 'package:movies_app/shared/widgets/avatar_images.dart';
 import 'package:movies_app/update-profile/widgets/custom_bottom_sheet.dart';
-import 'package:movies_app/widgets/custom_elevated_button.dart';
-import 'package:movies_app/widgets/default_text_field.dart';
 
 class UpdateProfileWidget extends StatefulWidget {
   const UpdateProfileWidget({super.key});
