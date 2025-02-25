@@ -4,8 +4,8 @@ import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/onboarding/widgets/custom_outlined_button.dart';
 import 'package:movies_app/onboarding/widgets/onbaording_texts.dart';
-import 'package:movies_app/widgets/custom_decoration_image.dart';
-import 'package:movies_app/widgets/custom_elevated_button.dart';
+import 'package:movies_app/shared/widgets/custom_decoration_image.dart';
+import 'package:movies_app/shared/widgets/custom_elevated_button.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({super.key});

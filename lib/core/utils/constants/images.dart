@@ -1,5 +1,4 @@
 class AppAssets {
-  static const String appLogo = 'assets/images/app logo.svg';
   static const String forgetPasswordImage = 'assets/images/forgotpassword.png';
   static const String movieposter = "assets/images/movieposter.png";
   static const String avatar1 = 'assets/images/profile_avatar_1.png';
@@ -13,5 +12,5 @@ class AppAssets {
   static const String avatar9 = 'assets/images/profile_avatar_9.png';
   static const String passIcon = 'assets/icons/lock.svg';
   static const String emailIcon = 'assets/icons/email.svg';
-  static const String appLogoo = 'assets/images/login_logo.png';
+  static const String appLogo = 'assets/images/login_logo.png';
 }

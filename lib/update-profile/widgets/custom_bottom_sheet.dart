@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
-import 'package:movies_app/update-profile/widgets/avatar_images.dart';
+import 'package:movies_app/shared/widgets/avatar_images.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   CustomBottomSheet({
