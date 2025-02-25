@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/auth/presentation/views/login.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/onboarding/widgets/custom_outlined_button.dart';
@@ -88,10 +89,15 @@ class _OnBoardingState extends State<OnBoarding> {
                   SizedBox(height: 24.h),
                   CustomElevatedButton(
                     onPressed: () {
-                      pageController.nextPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
+                      !isLastPage
+                          ? pageController.nextPage(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                            )
+                          : Navigator.pushReplacementNamed(
+                              context,
+                              LoginScreen.routeName,
+                            );
                     },
                     child: Text(
                       !isLastPage ? "Next" : "Finish",

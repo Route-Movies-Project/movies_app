@@ -15,5 +15,5 @@ class AppRoutes {
     Register.routeName: (_) => const Register(),
     LoginScreen.routeName: (_) => const LoginScreen(),
   };
-  static final String? initialRoute = LoginScreen.routeName;
+  static final String? initialRoute = IntroScreen.routeName;
 }

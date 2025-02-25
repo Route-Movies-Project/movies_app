@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/auth/presentation/views/login.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/core/utils/helper/validation_helper.dart';
@@ -132,7 +133,13 @@ class _RegisterBodyState extends State<RegisterBody> {
                       ),
                       TextSpan(
                         text: "Login",
-                        recognizer: TapGestureRecognizer()..onTap = () {},
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              LoginScreen.routeName,
+                            );
+                          },
                         style: HelperFunction.textTheme(context)
                             .bodyMedium!
                             .copyWith(
