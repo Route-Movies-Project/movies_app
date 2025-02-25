@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/auth/presentation/views/forget_pass_screen.dart';
+import 'package:movies_app/auth/presentation/views/login.dart';
 import 'package:movies_app/introduction/view/intro_screen.dart';
 import 'package:movies_app/onboarding/view/onboarding_screen.dart';
 import 'package:movies_app/register/register_body.dart';
@@ -12,7 +13,7 @@ class AppRoutes {
     OnBoarding.routeName: (_) => const OnBoarding(),
     ForgetPassScreen.routeName: (_) => ForgetPassScreen(),
     RegisterBody.routeName: (_) => const RegisterBody(),
+    LoginScreen.routeName: (_) => const LoginScreen(),
   };
-  static final String? initialRoute = RegisterBody.routeName;
-
+  static final String? initialRoute = LoginScreen.routeName;
 }
