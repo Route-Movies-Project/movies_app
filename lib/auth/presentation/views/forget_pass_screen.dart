@@ -27,8 +27,6 @@ class ForgetPassScreen extends StatelessWidget {
               children: [
                 Image.asset(
                   AppAssets.forgetPasswordImage,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  fit: BoxFit.fill,
                 ),
                 SizedBox(
                   height: 12.h,

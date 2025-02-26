@@ -45,7 +45,7 @@ class _OnBoardingState extends State<OnBoarding> {
             },
             itemBuilder: (context, index) {
               return CustomDecorationImage(
-                imageName: "assets/onboarding/${currentIndex + 1}.png",
+                imageName: "assets/images/${currentIndex + 1}.png",
               );
             },
           ),
