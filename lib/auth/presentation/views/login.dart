@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,7 +84,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 20.h),
                   CustomElevatedButton(
                     onPressed: () {},
-                    child: const Text('Login'),
+                    child: Text(
+                      "login".tr(),
+                    ),
                   ),
                   SizedBox(height: 20.h),
                   Text.rich(
@@ -130,6 +133,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     onChanged: (i) {
                       setState(
                         () => languageValue = i,
+                      );
+                      context.setLocale(
+                        languageValue == 0
+                            ? const Locale('en')
+                            : const Locale('ar'),
                       );
                     },
                   )
