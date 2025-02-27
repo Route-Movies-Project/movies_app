@@ -1,3 +1,11 @@
 {
-    "login":"Login"
+    "login":"Login",
+    "intro_title":"Find Your Next Favourite Movie Here",
+    "intro_content":"Get access to a huge library of movies to suit all tastes. You will surely like it.",
+    "onboarding_title1":"Discover Movies",
+    "onboarding_content1":"Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.",
+    "onboarding_title2":"Explore All Genres",
+    "onboarding_content2":"Discover movies from every genre, in all available qualities. Find something new and exciting to watch every day.",
+    "onboarding_title3":"Create Watchlists",
+    "onboarding_content3":"Save movies to your watchlist to keep track of what you want to watch next. Enjoy films in various qualities and genres."
 }
