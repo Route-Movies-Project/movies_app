@@ -43,11 +43,19 @@ class ValidationHelper {
       return "Phone number is required";
     }
 
-    // Egyptian mobile number regex
-    final RegExp egyptianPhoneRegex = RegExp(r'^(010|011|012|015)[0-9]{8}$');
+    // Ensure the number starts with +20
+    if (!value.startsWith("+20")) {
+      return "Phone number must start with +20";
+    }
 
-    if (!egyptianPhoneRegex.hasMatch(value)) {
-      return "Enter a valid Egyptian mobile number (e.g. 01012345678)";
+    // Remove the "+20" prefix for further validation
+    String numberWithoutCode = value.substring(3); // Remove +20
+
+    // Egyptian mobile number regex (must start with 010, 011, 012, or 015 and have 8 more digits)
+    final RegExp egyptianPhoneRegex = RegExp(r'^(10|11|12|15)[0-9]{8}$');
+
+    if (!egyptianPhoneRegex.hasMatch(numberWithoutCode)) {
+      return "Enter a valid Egyptian mobile number (e.g. +201012345678)";
     }
 
     return null;

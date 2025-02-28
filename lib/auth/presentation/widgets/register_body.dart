@@ -28,6 +28,11 @@ class _RegisterBodyState extends State<RegisterBody> {
   int languageValue = 0;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
     super.dispose();
     nameController.dispose();
@@ -97,11 +102,11 @@ class _RegisterBodyState extends State<RegisterBody> {
                   height: 24.h,
                 ),
                 DefaultTextFormField(
-                  textEditingController: confirmPasswordController,
+                  textEditingController: phoneNumberController,
                   hintText: 'Phone Number',
                   prefixImageName: 'phone',
                   textInputFormatter: FilteringTextInputFormatter.allow(
-                    RegExp(r'^(010|011|012|015)?[0-9]{0,8}$'),
+                    RegExp(r'^\+?(010|011|012|015)?[0-9]{0,15}$'),
                   ),
                   validator: (value) {
                     return ValidationHelper.validateEgyptianPhoneNumber(value);
