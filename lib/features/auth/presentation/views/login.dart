@@ -81,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
           _awesomeLoginDialog!.dismiss();
           _awesomeLoginDialog = AwesomeDialog(
             onDismissCallback: (type) {
+              context.read<AuthCubit>().close();
               Navigator.pushReplacementNamed(
                 context,
                 UpdateProfile.routeName,
