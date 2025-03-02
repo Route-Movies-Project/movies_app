@@ -4,7 +4,7 @@ import 'package:movies_app/features/auth/presentation/views/login.dart';
 import 'package:movies_app/features/auth/presentation/views/register.dart';
 import 'package:movies_app/features/introduction/view/intro_screen.dart';
 import 'package:movies_app/features/onboarding/view/onboarding_screen.dart';
-import 'package:movies_app/features/update-profile/view/update_profile.dart';
+import 'package:movies_app/features/update-profile/presentation/view/update_profile.dart';
 
 class AppRoutes {
   static final Map<String, Widget Function(BuildContext)> routes = {
