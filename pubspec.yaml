@@ -29,15 +29,18 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animated_toggle_switch: ^0.8.4
+  awesome_dialog: ^3.2.1
   carousel_slider: ^5.0.0
   cupertino_icons: ^1.0.8
   dio: ^5.8.0+1
   easy_localization: ^3.0.7+1
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.0
   flutter_native_splash: ^2.4.4
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.17
+  get_it: ^8.0.3
   google_fonts: ^6.2.1
   shared_preferences: ^2.5.2
 
