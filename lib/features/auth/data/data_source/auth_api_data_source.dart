@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:movies_app/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:movies_app/features/auth/data/model/login_request.dart';
@@ -24,11 +26,11 @@ class AuthApiDataSource implements AuthRemoteDataSource {
       if (response.statusCode == 201 || response.statusCode == 200) {
         return RegisterResponse.fromJson(response.data);
       } else {
-        print(response.data);
+        log(response.data);
         throw Exception("Failed to Register");
       }
     } on DioException catch (error) {
-      print(error.response!.data);
+      log(error.response!.data);
       throw Exception(error.response?.data["message"] ?? '');
     }
   }
@@ -43,11 +45,11 @@ class AuthApiDataSource implements AuthRemoteDataSource {
       if (response.statusCode == 201 || response.statusCode == 200) {
         return LoginResponse.fromJson(response.data);
       } else {
-        print(response.data);
+        log(response.data);
         throw Exception("Failed to Login");
       }
     } on DioException catch (error) {
-      print(error.response?.data ?? '');
+      log(error.response?.data ?? '');
       throw Exception(error.response?.data["message"] ?? '');
     }
   }
