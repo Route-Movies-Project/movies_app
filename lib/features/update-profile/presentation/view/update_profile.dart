@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:movies_app/features/update-profile/widgets/update_profile_widget.dart';
+import 'package:movies_app/features/update-profile/presentation/widgets/update_profile_widget.dart';
 
 class UpdateProfile extends StatelessWidget {
   const UpdateProfile({super.key});

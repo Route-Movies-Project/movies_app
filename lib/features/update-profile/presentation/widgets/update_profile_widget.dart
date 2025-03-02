@@ -1,6 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
@@ -13,7 +12,7 @@ import 'package:movies_app/core/utils/helper/validation_helper.dart';
 import 'package:movies_app/features/update-profile/cubit/update_profile_cubit.dart';
 import 'package:movies_app/features/update-profile/cubit/update_profile_states.dart';
 import 'package:movies_app/features/update-profile/data/model/update_profile_request.dart';
-import 'package:movies_app/features/update-profile/widgets/custom_bottom_sheet.dart';
+import 'package:movies_app/features/update-profile/presentation/widgets/custom_bottom_sheet.dart';
 
 class UpdateProfileWidget extends StatefulWidget {
   const UpdateProfileWidget({super.key});
