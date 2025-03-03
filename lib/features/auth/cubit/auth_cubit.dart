@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/features/auth/cubit/auth_states.dart';
 import 'package:movies_app/features/auth/data/data_source/auth_local_data_source.dart';
 import 'package:movies_app/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:movies_app/features/auth/data/model/login_request.dart';
 import 'package:movies_app/features/auth/data/model/register_request.dart';
 import 'package:movies_app/features/auth/repositories/auth_repositorie.dart';
-import 'package:movies_app/service/service_locator.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitial());
