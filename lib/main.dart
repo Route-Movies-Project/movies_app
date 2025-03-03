@@ -12,8 +12,9 @@ import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  setupLocator();
   Bloc.observer = MyBlocObserver();
+  setupLocator();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [
