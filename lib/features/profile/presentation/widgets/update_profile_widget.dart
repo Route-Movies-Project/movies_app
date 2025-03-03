@@ -10,24 +10,32 @@ import 'package:movies_app/core/shared/widgets/default_text_field.dart';
 import 'package:movies_app/core/shared/widgets/avatar_images.dart';
 import 'package:movies_app/core/utils/helper/validation_helper.dart';
 import 'package:movies_app/features/auth/presentation/views/login.dart';
-import 'package:movies_app/features/update-profile/cubit/update_profile_cubit.dart';
-import 'package:movies_app/features/update-profile/cubit/update_profile_states.dart';
-import 'package:movies_app/features/update-profile/data/model/update_profile_request.dart';
-import 'package:movies_app/features/update-profile/presentation/widgets/custom_bottom_sheet.dart';
+import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
+import 'package:movies_app/features/profile/cubit/profile_states.dart';
+import 'package:movies_app/features/profile/data/model/profile_model.dart';
+import 'package:movies_app/features/profile/data/model/update_profile_request.dart';
+import 'package:movies_app/features/profile/presentation/view/profile.dart';
+import 'package:movies_app/features/profile/presentation/widgets/custom_bottom_sheet.dart';
 
 class UpdateProfileWidget extends StatefulWidget {
-  const UpdateProfileWidget({super.key});
-
+  const UpdateProfileWidget({required this.profileModel, super.key});
+  final ProfileModel profileModel;
   @override
   State<UpdateProfileWidget> createState() => _UpdateProfileWidgetState();
 }
 
 class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
-  int selectedAvatarIndex = 7;
+  int selectedAvatarIndex = 0;
   final TextEditingController _emailController = TextEditingController();
   AwesomeDialog? _awesomeUpdateProfileDialog;
   AwesomeDialog? _awesomeDeleteProfileDialog;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+    selectedAvatarIndex = widget.profileModel.avaterId ?? 0;
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -36,7 +44,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UpdateProfileCubit, UpdateProfileStates>(
+    return BlocListener<ProfileCubit, ProfileStates>(
       listener: (context, state) {
         if (state is UpdateProfileLoading) {
           _awesomeUpdateProfileDialog = AwesomeDialog(
@@ -70,7 +78,10 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
         } else if (state is UpdateProfileSuccess) {
           _awesomeUpdateProfileDialog!.dismiss();
           _awesomeUpdateProfileDialog = AwesomeDialog(
-            onDismissCallback: (type) {},
+            dismissOnTouchOutside: false,
+            onDismissCallback: (type) {
+              Navigator.pushReplacementNamed(context, Profile.routeName);
+            },
             dialogBackgroundColor: ThemeColors.yellow,
             context: context,
             dialogType: DialogType.success,
@@ -80,7 +91,9 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                 .copyWith(color: ThemeColors.black),
             title: state.message,
             btnOkColor: ThemeColors.green,
-            btnOkOnPress: () {},
+            btnOkOnPress: () {
+              Navigator.pushReplacementNamed(context, Profile.routeName);
+            },
           )..show();
         }
       },
@@ -142,7 +155,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                 ),
               ),
               const Spacer(),
-              BlocListener<UpdateProfileCubit, UpdateProfileStates>(
+              BlocListener<ProfileCubit, ProfileStates>(
                 listener: (context, state) {
                   if (state is DeleteProfileLoading) {
                     _awesomeDeleteProfileDialog = AwesomeDialog(
@@ -197,7 +210,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                 },
                 child: CustomElevatedButton(
                   onPressed: () async {
-                    await context.read<UpdateProfileCubit>().deleteProfile();
+                    await context.read<ProfileCubit>().deleteProfile();
                   },
                   buttonStyle: ElevatedButton.styleFrom(
                     minimumSize: Size(double.infinity, 55.h),
@@ -213,7 +226,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
               CustomElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    context.read<UpdateProfileCubit>().updateProfile(
+                    context.read<ProfileCubit>().updateProfile(
                           UpdateProfileRequest(
                             email: _emailController.text,
                             avaterId: selectedAvatarIndex,

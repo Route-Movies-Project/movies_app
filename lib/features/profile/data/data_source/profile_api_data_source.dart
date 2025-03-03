@@ -1,15 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:movies_app/core/utils/constants/apis.dart';
 import 'package:movies_app/core/utils/constants/shared_prefs.dart';
-import 'package:movies_app/features/update-profile/data/data_source/update_profile_data_source.dart';
-import 'package:movies_app/features/update-profile/data/model/update_profile_request.dart';
-import 'package:movies_app/features/update-profile/data/model/update_profile_response.dart';
+import 'package:movies_app/features/profile/data/data_source/profile_data_source.dart';
+import 'package:movies_app/features/profile/data/model/delete_profile_response.dart';
+import 'package:movies_app/features/profile/data/model/profile_response.dart';
+import 'package:movies_app/features/profile/data/model/update_profile_request.dart';
+import 'package:movies_app/features/profile/data/model/update_profile_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UpdateProfileApiDataSource implements UpdateProfileDataSource {
+class ProfileApiDataSource implements ProfileDataSource {
   final _dio = Dio(
     BaseOptions(
-        baseUrl: ApiConstants.baseUrl, receiveDataWhenStatusError: true),
+      baseUrl: ApiConstants.baseUrl,
+      receiveDataWhenStatusError: true,
+    ),
   );
 
   @override
@@ -19,7 +23,7 @@ class UpdateProfileApiDataSource implements UpdateProfileDataSource {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final response = await _dio.patch(
-        ApiConstants.updateProfileEndPoint,
+        ApiConstants.profileEndPoint,
         data: updateProfileRequest.toJson(),
         options: Options(
           headers: {
@@ -40,11 +44,11 @@ class UpdateProfileApiDataSource implements UpdateProfileDataSource {
   }
 
   @override
-  Future<UpdateProfileResponse> deleteProfile() async {
+  Future<DeleteProfileResponse> deleteProfile() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final response = await _dio.delete(
-        ApiConstants.updateProfileEndPoint,
+        ApiConstants.profileEndPoint,
         options: Options(
           headers: {
             "Content-Type": "application/json",
@@ -54,12 +58,35 @@ class UpdateProfileApiDataSource implements UpdateProfileDataSource {
         ),
       );
       if (response.statusCode == 201 || response.statusCode == 200) {
-        return UpdateProfileResponse.fromJson(response.data);
+        return DeleteProfileResponse.fromJson(response.data);
       } else {
         throw Exception("Failed to Update Profile");
       }
     } on DioException catch (e) {
       throw Exception(e.response?.data["message"] ?? '');
+    }
+  }
+
+  @override
+  Future<ProfileResponse> getProfile() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final response = await _dio.get(
+        ApiConstants.profileEndPoint,
+        options: Options(
+          headers: {
+            "Authorization":
+                "Bearer ${prefs.getString(SharedPrefsConstants.tokenKey)}"
+          },
+        ),
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return ProfileResponse.fromJson(response.data);
+      } else {
+        throw Exception("Failed To Get Profile");
+      }
+    } on DioException catch (e) {
+      throw Exception(e.response!.data["message"] ?? '');
     }
   }
 }

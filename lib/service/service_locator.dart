@@ -3,8 +3,8 @@ import 'package:movies_app/features/auth/data/data_source/auth_api_data_source.d
 import 'package:movies_app/features/auth/data/data_source/auth_local_data_source.dart';
 import 'package:movies_app/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:movies_app/features/auth/data/data_source/auth_shared_prefs_data_source.dart';
-import 'package:movies_app/features/update-profile/data/data_source/update_profile_api_data_source.dart';
-import 'package:movies_app/features/update-profile/data/data_source/update_profile_data_source.dart';
+import 'package:movies_app/features/profile/data/data_source/profile_api_data_source.dart';
+import 'package:movies_app/features/profile/data/data_source/profile_data_source.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -15,7 +15,7 @@ void setupLocator() {
   getIt.registerLazySingleton<AuthLocalDataSource>(
     () => AuthSharedPrefsDataSource(),
   );
-  getIt.registerLazySingleton<UpdateProfileDataSource>(
-    () => UpdateProfileApiDataSource(),
+  getIt.registerLazySingleton<ProfileDataSource>(
+    () => ProfileApiDataSource(),
   );
 }
