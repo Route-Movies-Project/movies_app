@@ -4,7 +4,7 @@ import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/shared/widgets/avatar_images.dart';
 
 class CustomBottomSheet extends StatelessWidget {
-  CustomBottomSheet({
+  const CustomBottomSheet({
     super.key,
     required this.onAvatarSelected,
     required this.selectedAvatarIndex,
