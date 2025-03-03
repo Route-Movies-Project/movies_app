@@ -3,4 +3,5 @@ class ApiConstants {
   static const registerEndPoint = "auth/register";
   static const loginEndPoint = "auth/login";
   static const profileEndPoint = "profile";
+  static const resetPasswordEndPoint = "auth/reset-password";
 }

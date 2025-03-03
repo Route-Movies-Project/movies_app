@@ -10,7 +10,7 @@ import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/features/auth/cubit/auth_cubit.dart';
 import 'package:movies_app/features/auth/cubit/auth_states.dart';
 import 'package:movies_app/features/auth/data/model/login_request.dart';
-import 'package:movies_app/features/auth/presentation/views/forget_pass_screen.dart';
+import 'package:movies_app/features/profile/presentation/view/reset_pass_screen.dart';
 import 'package:movies_app/features/auth/presentation/widgets/custom_divider.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       child: InkWell(
                         onTap: () => Navigator.of(context)
-                            .pushNamed(ForgetPassScreen.routeName),
+                            .pushNamed(ResetPassScreen.routeName),
                         child: Text(
                           "Forget Password ?",
                           style: textTheme.bodyMedium!.copyWith(

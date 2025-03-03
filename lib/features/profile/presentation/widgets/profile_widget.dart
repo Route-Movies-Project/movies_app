@@ -134,7 +134,7 @@ class ProfileWidget extends StatelessWidget {
                               flex: 2,
                               child: CustomElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushReplacementNamed(
+                                  Navigator.pushNamed(
                                     context,
                                     UpdateProfile.routeName,
                                     arguments: state.data,
