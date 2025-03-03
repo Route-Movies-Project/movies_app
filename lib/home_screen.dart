@@ -33,72 +33,84 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(children: [
-      _screens[_selectedIndex],
-      Positioned(
-        left: 16.h,
-        right: 16.h,
-        bottom: 16.h,
-        child: Container(
-          height: 92.h,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16.r),
-            child: BottomNavigationBar(
-              currentIndex: _selectedIndex,
-              onTap: _onItemTapped,
-              items: [
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    AppAssets.homeTap,
-                    width: 26.w,
-                    height: 23.h,
-                    colorFilter: ColorFilter.mode(
-                      _selectedIndex == 0
-                          ? ThemeColors.yellow
-                          : ThemeColors.white,
-                      BlendMode.srcIn,
+      body: Stack(
+        children: [
+          _screens[_selectedIndex],
+          Positioned(
+            left: 16.h,
+            right: 16.h,
+            bottom: 16.h,
+            child: SizedBox(
+              height: 92.h,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16.r),
+                child: BottomNavigationBar(
+                  currentIndex: _selectedIndex,
+                  onTap: _onItemTapped,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        AppAssets.homeTap,
+                        width: 26.w,
+                        height: 23.h,
+                        colorFilter: ColorFilter.mode(
+                          _selectedIndex == 0
+                              ? ThemeColors.yellow
+                              : ThemeColors.white,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      label: 'Home',
                     ),
-                  ),
-                  label: 'Home',
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        AppAssets.searchTap,
+                        width: 26.w,
+                        height: 23.h,
+                        colorFilter: ColorFilter.mode(
+                          _selectedIndex == 1
+                              ? ThemeColors.yellow
+                              : ThemeColors.white,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      label: 'Search',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        AppAssets.exploreTap,
+                        width: 26.w,
+                        height: 23.h,
+                        colorFilter: ColorFilter.mode(
+                          _selectedIndex == 2
+                              ? ThemeColors.yellow
+                              : ThemeColors.white,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      label: 'Browse',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        AppAssets.profileTap,
+                        width: 26.w,
+                        height: 23.h,
+                        colorFilter: ColorFilter.mode(
+                          _selectedIndex == 3
+                              ? ThemeColors.yellow
+                              : ThemeColors.white,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      label: 'Profile',
+                    ),
+                  ],
                 ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    AppAssets.searchTap,
-                    width: 26.w,
-                    height: 23.h,
-                    color: _selectedIndex == 1
-                        ? ThemeColors.yellow
-                        : ThemeColors.white,
-                  ),
-                  label: 'Search',
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    AppAssets.exploreTap,
-                    width: 26.w,
-                    height: 23.h,
-                    color: _selectedIndex == 2
-                        ? ThemeColors.yellow
-                        : ThemeColors.white,
-                  ),
-                  label: 'Browse',
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    AppAssets.profileTap,
-                    width: 26.w,
-                    height: 23.h,
-                    color: _selectedIndex == 3
-                        ? ThemeColors.yellow
-                        : ThemeColors.white,
-                  ),
-                  label: 'Profile',
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      )
-    ]));
+          )
+        ],
+      ),
+    );
   }
 }
