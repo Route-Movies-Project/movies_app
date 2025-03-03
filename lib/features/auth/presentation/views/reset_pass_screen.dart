@@ -4,9 +4,9 @@ import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
 import 'package:movies_app/core/shared/widgets/default_text_field.dart';
 
-class ForgetPassScreen extends StatelessWidget {
+class ResetPassScreen extends StatelessWidget {
   static const String routeName = 'forget-pass-screen';
-  ForgetPassScreen({super.key});
+  ResetPassScreen({super.key});
 
   final TextEditingController emailController = TextEditingController();
 

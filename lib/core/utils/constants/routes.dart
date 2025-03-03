@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/auth/presentation/views/forget_pass_screen.dart';
+import 'package:movies_app/features/auth/presentation/views/reset_pass_screen.dart';
 import 'package:movies_app/features/auth/presentation/views/login.dart';
 import 'package:movies_app/features/auth/presentation/views/register.dart';
 import 'package:movies_app/features/home/homt_tab.dart';
@@ -13,7 +13,7 @@ class AppRoutes {
     IntroScreen.routeName: (_) => const IntroScreen(),
     UpdateProfile.routeName: (_) => const UpdateProfile(),
     OnBoarding.routeName: (_) => const OnBoarding(),
-    ForgetPassScreen.routeName: (_) => ForgetPassScreen(),
+    ResetPassScreen.routeName: (_) => ResetPassScreen(),
     Register.routeName: (_) => const Register(),
     LoginScreen.routeName: (_) => const LoginScreen(),
     HometTab.routeName: (_) => const HometTab(),
