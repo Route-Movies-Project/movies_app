@@ -13,6 +13,7 @@ import 'package:movies_app/core/utils/helper/validation_helper.dart';
 import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
 import 'package:movies_app/features/profile/cubit/profile_states.dart';
 import 'package:movies_app/features/profile/data/model/reset_request.dart';
+import 'package:movies_app/features/profile/presentation/view/profile.dart';
 
 class ResetPassScreen extends StatefulWidget {
   static const String routeName = 'forget-pass-screen';
@@ -65,7 +66,7 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
           _awesomeLoginDialog!.dismiss();
           _awesomeLoginDialog = AwesomeDialog(
             onDismissCallback: (type) {
-              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, Profile.routeName);
             },
             dialogBackgroundColor: ThemeColors.yellow,
             context: context,

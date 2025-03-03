@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:movies_app/core/error/exception.dart';
+import 'package:movies_app/core/error/faliure.dart';
 import 'package:movies_app/core/utils/constants/shared_prefs.dart';
 import 'package:movies_app/features/profile/data/data_source/profile_data_source.dart';
 import 'package:movies_app/features/profile/data/model/delete_profile_response.dart';
@@ -14,29 +17,48 @@ class ProfileRepository {
 
   ProfileRepository(this._profileDataSource);
 
-  Future<UpdateProfileResponse> updateProfile(
-      UpdateProfileRequest updateProfileRequest) async {
-    final response =
-        await _profileDataSource.updateProfile(updateProfileRequest);
-    return response;
+  Future<Either<Faliure, UpdateProfileResponse>> updateProfile(
+    UpdateProfileRequest updateProfileRequest,
+  ) async {
+    try {
+      final response =
+          await _profileDataSource.updateProfile(updateProfileRequest);
+      return Right(response);
+    } on RemoteExpetion catch (e) {
+      return Left(Faliure(e.message));
+    }
   }
 
-  Future<DeleteProfileResponse> deleteProfile() async {
-    final response = await _profileDataSource.deleteProfile();
-    return response;
+  Future<Either<Faliure, DeleteProfileResponse>> deleteProfile() async {
+    try {
+      final response = await _profileDataSource.deleteProfile();
+      return Right(response);
+    } on RemoteExpetion catch (e) {
+      return Left(Faliure(e.message));
+    }
   }
 
-  Future<ProfileResponse> getProfile() async {
-    final response = await _profileDataSource.getProfile();
-    return response;
+  Future<Either<Faliure, ProfileResponse>> getProfile() async {
+    try {
+      final response = await _profileDataSource.getProfile();
+      return Right(response);
+    } on RemoteExpetion catch (e) {
+      return Left(Faliure(e.message));
+    }
   }
 
-  
-  Future<ResetResponse> resetPassword(ResetRequest resetRequest) async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString(SharedPrefsConstants.tokenKey);
-    final response = await _profileDataSource.resetPassword(resetRequest, token!);
-    return response;
+  Future<Either<Faliure, ResetResponse>> resetPassword(
+      ResetRequest resetRequest) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString(SharedPrefsConstants.tokenKey);
+      final response = await _profileDataSource.resetPassword(
+        resetRequest,
+        token!,
+      );
+      return Right(response);
+    } on MoviesAppExceptions catch (e) {
+      return Left(Faliure(e.message));
+    }
   }
-
 }

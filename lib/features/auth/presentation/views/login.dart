@@ -35,6 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AwesomeDialog? _awesomeLoginDialog;
   int languageValue = 0;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {},
+    );
+  }
 
   @override
   void dispose() {
@@ -85,7 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 context,
                 Profile.routeName,
               );
-              context.read<AuthCubit>().close();
             },
             dialogBackgroundColor: ThemeColors.yellow,
             context: context,

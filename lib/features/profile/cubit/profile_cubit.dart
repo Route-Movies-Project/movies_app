@@ -1,56 +1,50 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/features/profile/cubit/profile_states.dart';
-import 'package:movies_app/features/profile/data/data_source/profile_data_source.dart';
 import 'package:movies_app/features/profile/data/model/reset_request.dart';
 import 'package:movies_app/features/profile/data/model/update_profile_request.dart';
 import 'package:movies_app/features/profile/repository/profile_repository.dart';
 
 class ProfileCubit extends Cubit<ProfileStates> {
-  ProfileCubit() : super(ProfileInitial());
+  ProfileCubit(this._profilerepository) : super(ProfileInitial());
 
-  final ProfileRepository _profilerepository = ProfileRepository(
-    getIt.get<ProfileDataSource>(),
-  );
+  final ProfileRepository _profilerepository;
   Future<void> updateProfile(UpdateProfileRequest updateProfileRequest) async {
-    try {
-      emit(UpdateProfileLoading());
-      final updateProfileResponse =
-          await _profilerepository.updateProfile(updateProfileRequest);
-      emit(UpdateProfileSuccess(updateProfileResponse.message));
-    } catch (e) {
-      emit(UpdateProfileError(e.toString()));
-    }
+    emit(UpdateProfileLoading());
+    final response = await _profilerepository.updateProfile(
+      updateProfileRequest,
+    );
+    response.fold(
+      (faliure) => emit(UpdateProfileError(faliure.message)),
+      (response) => emit(UpdateProfileSuccess(response.message)),
+    );
   }
 
   Future<void> deleteProfile() async {
-    try {
-      emit(DeleteProfileLoading());
-      final deleteProfileResponse = await _profilerepository.deleteProfile();
-      emit(DeleteProfileSuccess(deleteProfileResponse.message));
-    } catch (e) {
-      emit(DeleteProfileError(e.toString()));
-    }
+    emit(DeleteProfileLoading());
+    final response = await _profilerepository.deleteProfile();
+    response.fold(
+      (faliure) => emit(DeleteProfileError(faliure.message)),
+      (response) => emit(DeleteProfileSuccess(response.message)),
+    );
   }
 
   Future<void> getProfile() async {
-    try {
-      emit(ProfileLoading());
-      final profileResponse = await _profilerepository.getProfile();
-      emit(ProfileSuccess(profileResponse.data));
-    } catch (e) {
-      emit(ProfileError(e.toString()));
-    }
+    emit(ProfileLoading());
+    final response = await _profilerepository.getProfile();
+    response.fold(
+      (faliure) => emit(ProfileError(faliure.message)),
+      (response) => emit(ProfileSuccess(response.data)),
+    );
   }
 
   Future<void> resetPassword(ResetRequest resetRequest) async {
-    try {
-      emit(ResetLoading());
-      final resetResponse =
-          await _profilerepository.resetPassword(resetRequest);
-      emit(ResetSuccess(resetResponse));
-    } catch (e) {
-      emit(ResetError(e.toString()));
-    }
+    emit(ResetLoading());
+    final response = await _profilerepository.resetPassword(
+      resetRequest,
+    );
+    response.fold(
+      (faliure) => emit(ResetError(faliure.message)),
+      (response) => emit(ResetSuccess(response)),
+    );
   }
 }

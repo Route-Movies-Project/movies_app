@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movies_app/core/error/exception.dart';
 import 'package:movies_app/core/utils/constants/apis.dart';
 import 'package:movies_app/core/utils/constants/shared_prefs.dart';
 import 'package:movies_app/features/profile/data/data_source/profile_data_source.dart';
@@ -38,10 +39,11 @@ class ProfileApiDataSource implements ProfileDataSource {
       if (response.statusCode == 201 || response.statusCode == 200) {
         return UpdateProfileResponse.fromJson(response.data);
       } else {
-        throw Exception("Failed to Update Profile");
+        throw RemoteExpetion(response.data["messsage"]);
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data["message"] ?? '');
+      throw RemoteExpetion(
+          e.response?.data["message"] ?? 'Failed To Update Profile');
     }
   }
 
@@ -65,7 +67,8 @@ class ProfileApiDataSource implements ProfileDataSource {
         throw Exception("Failed to Update Profile");
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data["message"] ?? '');
+      throw RemoteExpetion(
+          e.response?.data["message"] ?? 'Failed To Delete Profile');
     }
   }
 
@@ -88,13 +91,14 @@ class ProfileApiDataSource implements ProfileDataSource {
         throw Exception("Failed To Get Profile");
       }
     } on DioException catch (e) {
-      throw Exception(e.response!.data["message"] ?? '');
+      throw RemoteExpetion(
+          e.response?.data["message"] ?? 'Failed To get Profile');
     }
   }
 
   @override
-  
-  Future<ResetResponse> resetPassword(ResetRequest request, String token) async {
+  Future<ResetResponse> resetPassword(
+      ResetRequest request, String token) async {
     try {
       final response = await _dio.patch(
         ApiConstants.resetPasswordEndPoint,
@@ -107,10 +111,13 @@ class ProfileApiDataSource implements ProfileDataSource {
       if (response.statusCode == 200) {
         return ResetResponse.fromJson(response.data);
       } else {
-        throw Exception(response.data['message'] ?? 'Failed to reset password');
+        throw RemoteExpetion(
+            response.data['message'] ?? 'Failed to reset password');
       }
     } on DioException catch (error) {
-      throw Exception(error.response?.data['message'] ?? 'An unexpected error occurred');
+      throw RemoteExpetion(
+        error.response?.data['message'] ?? 'An unexpected error occurred',
+      );
     }
   }
 }

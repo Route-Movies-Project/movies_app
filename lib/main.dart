@@ -25,8 +25,8 @@ void main() async {
       path: 'assets/translations',
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => AuthCubit()),
-          BlocProvider(create: (context) => ProfileCubit()),
+          BlocProvider(create: (context) => getIt.get<AuthCubit>()),
+          BlocProvider(create: (context) => getIt.get<ProfileCubit>()),
         ],
         child: const Movies(),
       ),
