@@ -19,7 +19,7 @@ import 'package:movies_app/features/auth/presentation/views/register.dart';
 import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
 import 'package:movies_app/core/shared/widgets/default_text_field.dart';
 import 'package:movies_app/core/shared/widgets/language_toggle_swtich.dart';
-import 'package:movies_app/features/update-profile/view/update_profile.dart';
+import 'package:movies_app/features/profile/presentation/view/profile.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onDismissCallback: (type) {
               Navigator.pushReplacementNamed(
                 context,
-                UpdateProfile.routeName,
+                Profile.routeName,
               );
               context.read<AuthCubit>().close();
             },
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
             titleTextStyle: HelperFunction.textTheme(context)
                 .bodyMedium!
                 .copyWith(color: ThemeColors.black),
-            title: "User Created Successfully",
+            title: state.loginResponse.message,
             btnOkColor: ThemeColors.green,
             btnOkOnPress: () {},
           )..show();
@@ -117,6 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       textEditingController: _emailController,
                       hintText: 'Email',
                       prefixImageName: 'email',
+                      textInputType: TextInputType.emailAddress,
                       validator: (email) {
                         return ValidationHelper.isValidEmail(email);
                       },

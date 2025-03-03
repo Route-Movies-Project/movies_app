@@ -24,11 +24,9 @@ class AuthApiDataSource implements AuthRemoteDataSource {
       if (response.statusCode == 201 || response.statusCode == 200) {
         return RegisterResponse.fromJson(response.data);
       } else {
-        print(response.data);
-        throw Exception("Failed to Register");
+        throw Exception(response.data["message"]);
       }
     } on DioException catch (error) {
-      print(error.response!.data);
       throw Exception(error.response?.data["message"] ?? '');
     }
   }
@@ -43,11 +41,9 @@ class AuthApiDataSource implements AuthRemoteDataSource {
       if (response.statusCode == 201 || response.statusCode == 200) {
         return LoginResponse.fromJson(response.data);
       } else {
-        print(response.data);
-        throw Exception("Failed to Login");
+        throw Exception(response.data["message"]);
       }
     } on DioException catch (error) {
-      print(error.response?.data ?? '');
       throw Exception(error.response?.data["message"] ?? '');
     }
   }
