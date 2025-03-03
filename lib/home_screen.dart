@@ -52,9 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     AppAssets.homeTap,
                     width: 26.w,
                     height: 23.h,
-                    color: _selectedIndex == 0
-                        ? ThemeColors.yellow
-                        : ThemeColors.white,
+                    colorFilter: ColorFilter.mode(
+                      _selectedIndex == 0
+                          ? ThemeColors.yellow
+                          : ThemeColors.white,
+                      BlendMode.srcIn,
+                    ),
                   ),
                   label: 'Home',
                 ),

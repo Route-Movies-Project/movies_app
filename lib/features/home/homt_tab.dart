@@ -7,10 +7,10 @@ class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
   @override
-  State<HomeTab> createState() => _HomtTabState();
+  State<HomeTab> createState() => _HomeTabState();
 }
 
-class _HomtTabState extends State<HomeTab> {
+class _HomeTabState extends State<HomeTab> {
   List<String> images = [
     "assets/images/5f51f696241415.5eb2d19f8b3e1 1 (1).png",
     "assets/images/1917_-_Sam_Mendes_-_Hollywood_War_Film_Classic_English_Movie_Poster_9ef86295-4756-4c71-bb4e-20745c5fbc1a 5.png",
