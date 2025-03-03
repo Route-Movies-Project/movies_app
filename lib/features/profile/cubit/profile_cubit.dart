@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/features/profile/cubit/profile_states.dart';
 import 'package:movies_app/features/profile/data/data_source/profile_data_source.dart';
+import 'package:movies_app/features/profile/data/model/reset_request.dart';
 import 'package:movies_app/features/profile/data/model/update_profile_request.dart';
 import 'package:movies_app/features/profile/repository/profile_repository.dart';
 import 'package:movies_app/service/service_locator.dart';
@@ -39,6 +40,17 @@ class ProfileCubit extends Cubit<ProfileStates> {
       emit(ProfileSuccess(profileResponse.data));
     } catch (e) {
       emit(ProfileError(e.toString()));
+    }
+  }
+
+
+  Future<void> resetPassword(ResetRequest resetRequest) async {
+    try {
+      emit(ResetLoading());
+      final resetResponse = await _profilerepository.resetPassword(resetRequest);
+      emit(ResetSuccess(resetResponse));
+    } catch (e) {
+      emit(ResetError(e.toString()));
     }
   }
 }

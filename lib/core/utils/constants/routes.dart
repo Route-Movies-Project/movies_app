@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/auth/presentation/views/reset_pass_screen.dart';
+import 'package:movies_app/features/profile/presentation/view/reset_pass_screen.dart';
 import 'package:movies_app/features/auth/presentation/views/login.dart';
 import 'package:movies_app/features/auth/presentation/views/register.dart';
 import 'package:movies_app/features/home/homt_tab.dart';

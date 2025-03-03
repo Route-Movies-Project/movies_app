@@ -1,4 +1,5 @@
 import 'package:movies_app/features/profile/data/model/profile_model.dart';
+import 'package:movies_app/features/profile/data/model/reset_response.dart';
 
 abstract class ProfileStates {}
 
@@ -38,4 +39,16 @@ class ProfileSuccess extends ProfileStates {
 class ProfileError extends ProfileStates {
   final String errorMessage;
   ProfileError(this.errorMessage);
+}
+
+class ResetLoading extends ProfileStates {}
+
+class ResetSuccess extends ProfileStates {
+  final ResetResponse resetResponse;
+  ResetSuccess(this.resetResponse);
+}
+
+class ResetError extends ProfileStates {
+  final String errorMessage;
+  ResetError(this.errorMessage);
 }
