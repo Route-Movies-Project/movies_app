@@ -99,7 +99,7 @@ class _RegisterBodyState extends State<RegisterBody> {
             titleTextStyle: HelperFunction.textTheme(context)
                 .bodyMedium!
                 .copyWith(color: ThemeColors.black),
-            title: "User Created Successfully",
+            title: state.registerResponse.message,
             btnOkColor: ThemeColors.green,
             btnOkOnPress: () {},
           )..show();
@@ -128,6 +128,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                     textEditingController: _emailController,
                     hintText: 'Email',
                     prefixImageName: 'email',
+                    textInputType: TextInputType.emailAddress,
                     validator: (value) {
                       return ValidationHelper.isValidEmail(value);
                     },

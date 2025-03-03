@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
             titleTextStyle: HelperFunction.textTheme(context)
                 .bodyMedium!
                 .copyWith(color: ThemeColors.black),
-            title: "User Created Successfully",
+            title: state.loginResponse.message,
             btnOkColor: ThemeColors.green,
             btnOkOnPress: () {},
           )..show();
@@ -117,6 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       textEditingController: _emailController,
                       hintText: 'Email',
                       prefixImageName: 'email',
+                      textInputType: TextInputType.emailAddress,
                       validator: (email) {
                         return ValidationHelper.isValidEmail(email);
                       },

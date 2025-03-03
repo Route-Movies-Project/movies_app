@@ -5,4 +5,5 @@ abstract class UpdateProfileDataSource {
   Future<UpdateProfileResponse> updateProfile(
     UpdateProfileRequest updateProfileRequest,
   );
+  Future<UpdateProfileResponse> deleteProfile();
 }

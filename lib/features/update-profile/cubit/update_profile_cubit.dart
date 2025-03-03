@@ -22,4 +22,15 @@ class UpdateProfileCubit extends Cubit<UpdateProfileStates> {
       emit(UpdateProfileError(e.toString()));
     }
   }
+
+  Future<void> deleteProfile() async {
+    try {
+      emit(DeleteProfileLoading());
+      final deleteProfileResponse =
+          await _updateProfilerepository.deleteProfile();
+      emit(DeleteProfileSuccess(deleteProfileResponse.message));
+    } catch (e) {
+      emit(DeleteProfileError(e.toString()));
+    }
+  }
 }

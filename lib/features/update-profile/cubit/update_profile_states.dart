@@ -13,3 +13,15 @@ class UpdateProfileError extends UpdateProfileStates {
   final String errorMessage;
   UpdateProfileError(this.errorMessage);
 }
+
+class DeleteProfileLoading extends UpdateProfileStates {}
+
+class DeleteProfileSuccess extends UpdateProfileStates {
+  final String message;
+  DeleteProfileSuccess(this.message);
+}
+
+class DeleteProfileError extends UpdateProfileStates {
+  final String errorMessage;
+  DeleteProfileError(this.errorMessage);
+}

@@ -14,4 +14,9 @@ class UpdateProfileRepository {
         await _updateProfileDataSource.updateProfile(updateProfileRequest);
     return response;
   }
+
+  Future<UpdateProfileResponse> deleteProfile() async {
+    final response = await _updateProfileDataSource.deleteProfile();
+    return response;
+  }
 }
