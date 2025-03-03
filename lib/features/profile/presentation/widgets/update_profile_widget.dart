@@ -15,6 +15,7 @@ import 'package:movies_app/features/profile/cubit/profile_states.dart';
 import 'package:movies_app/features/profile/data/model/profile_model.dart';
 import 'package:movies_app/features/profile/data/model/update_profile_request.dart';
 import 'package:movies_app/features/profile/presentation/view/profile.dart';
+import 'package:movies_app/features/profile/presentation/view/reset_pass_screen.dart';
 import 'package:movies_app/features/profile/presentation/widgets/custom_bottom_sheet.dart';
 
 class UpdateProfileWidget extends StatefulWidget {
@@ -147,7 +148,9 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                 child: InkWell(
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, ResetPassScreen.routeName);
+                  },
                   child: Text(
                     'Reset password',
                     style: HelperFunction.textTheme(context).bodyMedium,
