@@ -68,4 +68,20 @@ final theme = ThemeData(
       color: ThemeColors.white,
     ),
   ),
+
+  bottomNavigationBarTheme:  const BottomNavigationBarThemeData(
+    backgroundColor: ThemeColors.grey,
+    selectedItemColor: ThemeColors.yellow,
+    unselectedItemColor: ThemeColors.white,
+    selectedIconTheme: IconThemeData(
+      color: ThemeColors.yellow,
+    ),
+    unselectedIconTheme: IconThemeData(
+      color: ThemeColors.white,
+    ),
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+    type: BottomNavigationBarType.fixed,
+    // elevation: 0,
+  ),
 );
