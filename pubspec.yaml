@@ -32,6 +32,7 @@ dependencies:
   awesome_dialog: ^3.2.1
   carousel_slider: ^5.0.0
   cupertino_icons: ^1.0.8
+  dartz: ^0.10.1
   dio: ^5.8.0+1
   easy_localization: ^3.0.7+1
   flutter:

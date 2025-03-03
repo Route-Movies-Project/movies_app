@@ -14,22 +14,28 @@ class AuthCubit extends Cubit<AuthStates> {
     getIt.get<AuthLocalDataSource>(),
   );
   Future<void> regsiter(RegisterRequest registerRequest) async {
-    try {
-      emit(RegisterLoading());
-      final registerResponse = await _authRepositorie.register(registerRequest);
-      emit(RegisterSuccess(registerResponse));
-    } catch (e) {
-      emit(RegisterError(e.toString()));
-    }
+    emit(RegisterLoading());
+    final response = await _authRepositorie.register(registerRequest);
+    response.fold(
+      (faliure) => emit(
+        RegisterError(faliure.message),
+      ),
+      (registerResponse) => emit(
+        RegisterSuccess(registerResponse),
+      ),
+    );
   }
 
   Future<void> login(LoginRequest loginRequest) async {
-    try {
-      emit(LoginLoading());
-      final loginResponse = await _authRepositorie.login(loginRequest);
-      emit(LoginSuccess(loginResponse));
-    } catch (e) {
-      emit(LoginError(e.toString()));
-    }
+    emit(LoginLoading());
+    final response = await _authRepositorie.login(loginRequest);
+    response.fold(
+      (faliure) => emit(
+        LoginError(faliure.message),
+      ),
+      (loginResponse) => emit(
+        LoginSuccess(loginResponse),
+      ),
+    );
   }
 }
