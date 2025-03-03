@@ -13,4 +13,8 @@ class AppAssets {
   static const String passIcon = 'assets/icons/lock.svg';
   static const String emailIcon = 'assets/icons/email.svg';
   static const String appLogo = 'assets/images/login_logo.png';
+  static const String homeTap = 'assets/icons/home.svg';
+  static const String searchTap = 'assets/icons/search.svg';
+  static const String exploreTap = 'assets/icons/explore.svg';
+  static const String profileTap = 'assets/icons/Profiel.svg';
 }
