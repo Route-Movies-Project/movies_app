@@ -20,7 +20,6 @@ import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
 import 'package:movies_app/core/shared/widgets/default_text_field.dart';
 import 'package:movies_app/core/shared/widgets/language_toggle_swtich.dart';
 import 'package:movies_app/features/profile/presentation/view/profile.dart';
-import 'package:movies_app/features/profile/presentation/view/update_profile.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = 'login_screen';
