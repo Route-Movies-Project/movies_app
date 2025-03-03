@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class HometTab extends StatefulWidget {
+class HomeTab extends StatefulWidget {
   static const String routeName = 'home_tab';
-  const HometTab({super.key});
+  const HomeTab({super.key});
 
   @override
-  State<HometTab> createState() => _HomtTabState();
+  State<HomeTab> createState() => _HomtTabState();
 }
 
-class _HomtTabState extends State<HometTab> {
+class _HomtTabState extends State<HomeTab> {
   List<String> images = [
     "assets/images/5f51f696241415.5eb2d19f8b3e1 1 (1).png",
     "assets/images/1917_-_Sam_Mendes_-_Hollywood_War_Film_Classic_English_Movie_Poster_9ef86295-4756-4c71-bb4e-20745c5fbc1a 5.png",
@@ -72,13 +72,13 @@ class _HomtTabState extends State<HometTab> {
                                         color: Colors.black.withOpacity(0.7),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
-                                      child: Row(
+                                      child: const Row(
                                         children: [
-                                          const Icon(Icons.star,
+                                          Icon(Icons.star,
                                               color: Colors.yellow, size: 16),
-                                          const SizedBox(width: 4),
+                                          SizedBox(width: 4),
                                           Text("7.4",
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   color: Colors.white)),
                                         ],
                                       ),
@@ -94,7 +94,7 @@ class _HomtTabState extends State<HometTab> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Action",
                     style: TextStyle(
                       color: ThemeColors.white,
@@ -104,7 +104,7 @@ class _HomtTabState extends State<HometTab> {
                   ),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         "See More",
                         style: TextStyle(
                           color: ThemeColors.yellow,
@@ -114,14 +114,14 @@ class _HomtTabState extends State<HometTab> {
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.arrow_forward),
+                        icon: const Icon(Icons.arrow_forward),
                         color: ThemeColors.yellow,
                       )
                     ],
                   )
                 ],
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.2,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -131,7 +131,7 @@ class _HomtTabState extends State<HometTab> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Stack(
                         children: [
-                          Image.asset("${images[index]}"),
+                          Image.asset(images[index]),
                           Positioned(
                               top: 10,
                               left: 5,
@@ -142,14 +142,13 @@ class _HomtTabState extends State<HometTab> {
                                   color: Colors.black.withOpacity(0.7),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   children: [
-                                    const Icon(Icons.star,
+                                    Icon(Icons.star,
                                         color: Colors.yellow, size: 16),
-                                    const SizedBox(width: 4),
+                                    SizedBox(width: 4),
                                     Text("7.4",
-                                        style: const TextStyle(
-                                            color: Colors.white)),
+                                        style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
                               ))

@@ -82,6 +82,6 @@ final theme = ThemeData(
     showSelectedLabels: false,
     showUnselectedLabels: false,
     type: BottomNavigationBarType.fixed,
-    // elevation: 0,
+    elevation: 0,
   ),
 );

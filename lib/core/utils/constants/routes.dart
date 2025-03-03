@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/features/profile/presentation/view/reset_pass_screen.dart';
 import 'package:movies_app/features/auth/presentation/views/login.dart';
 import 'package:movies_app/features/auth/presentation/views/register.dart';
-import 'package:movies_app/features/home/homt_tab.dart';
 import 'package:movies_app/features/introduction/view/intro_screen.dart';
 import 'package:movies_app/features/onboarding/view/onboarding_screen.dart';
 import 'package:movies_app/features/profile/presentation/view/profile.dart';
 import 'package:movies_app/features/profile/presentation/view/update_profile.dart';
+import 'package:movies_app/home_screen.dart';
 
 class AppRoutes {
   static final Map<String, Widget Function(BuildContext)> routes = {
@@ -16,7 +16,7 @@ class AppRoutes {
     ResetPassScreen.routeName: (_) => ResetPassScreen(),
     Register.routeName: (_) => const Register(),
     LoginScreen.routeName: (_) => const LoginScreen(),
-    HometTab.routeName: (_) => const HometTab(),
+    HomeScreen.routeName: (_) => const HomeScreen(),
     Profile.routeName: (_) => const Profile(),
   };
 
