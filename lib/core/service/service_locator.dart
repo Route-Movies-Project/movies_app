@@ -15,8 +15,8 @@ void setupLocator() {
       AuthRepositorie(AuthApiDataSource(), AuthSharedPrefsDataSource()),
     ),
   );
-  getIt.registerSingleton<ProfileCubit>(
-    ProfileCubit(
+  getIt.registerLazySingleton<ProfileCubit>(
+    () => ProfileCubit(
       ProfileRepository(
         ProfileApiDataSource(),
       ),
