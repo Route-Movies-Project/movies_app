@@ -22,7 +22,7 @@ class ProfileWidget extends StatelessWidget {
       body: BlocBuilder<ProfileCubit, ProfileStates>(
         builder: (context, state) {
           if (state is ProfileLoading) {
-            return const Expanded(
+            return const SizedBox.expand(
               child: LoadingIndicator(),
             );
           } else if (state is ProfileError) {
