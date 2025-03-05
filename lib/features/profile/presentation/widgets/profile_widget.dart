@@ -181,7 +181,8 @@ class ProfileWidget extends StatelessWidget {
                               child: Column(
                                 children: [
                                   SvgPicture.asset(
-                                      "assets/icons/watchlist.svg"),
+                                    "assets/icons/watchlist.svg",
+                                  ),
                                   SizedBox(
                                     height: 10.h,
                                   ),

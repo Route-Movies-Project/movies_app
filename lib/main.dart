@@ -4,16 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/theme.dart';
 import 'package:movies_app/core/observer/app_bloc_observer.dart';
+import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/utils/constants/routes.dart';
 import 'package:movies_app/features/auth/cubit/auth_cubit.dart';
 import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
-import 'package:movies_app/service/service_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  setupLocator();
   Bloc.observer = MyBlocObserver();
+  setupLocator();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -25,8 +26,8 @@ void main() async {
       path: 'assets/translations',
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => AuthCubit()),
-          BlocProvider(create: (context) => ProfileCubit()),
+          BlocProvider(create: (context) => getIt.get<AuthCubit>()),
+          BlocProvider(create: (context) => getIt.get<ProfileCubit>()),
         ],
         child: const Movies(),
       ),

@@ -61,6 +61,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
           .copyWith(fontSize: 20.sp),
       maxLines: widget.maxLines,
       decoration: InputDecoration(
+        errorMaxLines: 2,
         filled: true,
         fillColor: ThemeColors.grey,
         prefixIcon: widget.prefixImageName != null
