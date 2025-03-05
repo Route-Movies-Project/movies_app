@@ -9,7 +9,6 @@ import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
 import 'package:movies_app/core/shared/widgets/default_text_field.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/core/utils/helper/validation_helper.dart';
-
 import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
 import 'package:movies_app/features/profile/cubit/profile_states.dart';
 import 'package:movies_app/features/profile/data/model/reset_request.dart';
@@ -25,8 +24,10 @@ class ResetPassScreen extends StatefulWidget {
 
 class _ResetPassScreenState extends State<ResetPassScreen> {
   final TextEditingController oldPasswordController = TextEditingController();
+
   final TextEditingController newPasswordController = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
   AwesomeDialog? _awesomeLoginDialog;
 
   @override
