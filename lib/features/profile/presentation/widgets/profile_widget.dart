@@ -67,7 +67,7 @@ class ProfileWidget extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              width: 46.w,
+                              width: 30.w,
                             ),
                             Expanded(
                               child: Column(
