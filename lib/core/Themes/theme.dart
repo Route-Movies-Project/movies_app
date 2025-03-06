@@ -68,8 +68,7 @@ final theme = ThemeData(
       color: ThemeColors.white,
     ),
   ),
-
-  bottomNavigationBarTheme:  const BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: ThemeColors.grey,
     selectedItemColor: ThemeColors.yellow,
     unselectedItemColor: ThemeColors.white,

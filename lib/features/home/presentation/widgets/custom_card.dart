@@ -1,14 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
+import 'package:movies_app/features/home/data/model/movie_response.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard(
-      {required this.customWidth,
-      required this.customHeight,
-      required this.imageName,
-      super.key});
-  final String imageName;
+  const CustomCard({
+    required this.customWidth,
+    required this.customHeight,
+    required this.movie,
+    super.key,
+  });
+  final Movie movie;
   final double customWidth;
   final double customHeight;
 
@@ -18,12 +22,34 @@ class CustomCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8.w),
       child: Stack(
         children: [
-          Container(
+          SizedBox(
             height: customHeight,
             width: customWidth,
-            child: Image.asset(
-              imageName,
-              fit: BoxFit.fill,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.r),
+              child: CachedNetworkImage(
+                imageUrl: movie.largeCoverImage,
+                placeholder: (context, url) => Shimmer.fromColors(
+                  baseColor: const Color(0xFF121312), // Your requested color
+                  highlightColor:
+                      Colors.grey.shade700, // Adjust for better contrast
+                  child: Container(
+                    width: customWidth,
+                    height: customHeight, // Adjust height as needed
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF121312), // Same base color
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: ThemeColors.yellow,
+                ),
+                fit: BoxFit.cover,
+                height: customHeight,
+                width: customWidth,
+              ),
             ),
           ),
           Positioned(
@@ -40,7 +66,7 @@ class CustomCard extends StatelessWidget {
                   Icon(Icons.star, color: ThemeColors.yellow, size: 16.sp),
                   SizedBox(width: 4.w),
                   Text(
-                    "7.7",
+                    movie.rating.toString(),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],

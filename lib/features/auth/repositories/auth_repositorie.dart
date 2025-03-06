@@ -15,7 +15,8 @@ class AuthRepositorie {
 
   AuthRepositorie(this._authRemoteDataSource, this._authLocalDataSource);
   Future<Either<Faliure, RegisterResponse>> register(
-      RegisterRequest registerRequest) async {
+    RegisterRequest registerRequest,
+  ) async {
     try {
       final repsonse = await _authRemoteDataSource.register(registerRequest);
       return Right(repsonse);
