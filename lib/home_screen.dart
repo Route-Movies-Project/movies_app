@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
-import 'package:movies_app/features/home/view/home_tab.dart';
+import 'package:movies_app/features/home/presentation/view/home_tab.dart';
 import 'package:movies_app/features/profile/presentation/view/profile.dart';
 
 class HomeScreen extends StatefulWidget {
