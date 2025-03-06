@@ -58,218 +58,207 @@ class _HomtTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider.value(
-          value: movieCubit,
-        ),
-        BlocProvider.value(
-          value: movieGenreCubit,
-        ),
-      ],
-      child: SafeArea(
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                BlocBuilder<MoviesCubit, MoviesStates>(
-                  builder: (context, state) {
-                    if (state is MoviesLoading) {
-                      return const LoadingWidget();
-                    } else if (state is MoviesError) {
-                      return ErrorWidget(state.errorMessage);
-                    } else if (state is MoviesSuccess) {
-                      List<Movie> movies = state.movies;
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              BlocBuilder<MoviesCubit, MoviesStates>(
+                bloc: movieCubit,
+                builder: (context, state) {
+                  if (state is MoviesLoading) {
+                    return const LoadingWidget();
+                  } else if (state is MoviesError) {
+                    return ErrorWidget(state.errorMessage);
+                  } else if (state is MoviesSuccess) {
+                    List<Movie> movies = state.movies;
 
-                      return Stack(
-                        children: [
-                          Stack(
-                            children: [
-                              CachedNetworkImage(
-                                imageUrl: movies[currentIndex].largeCoverImage,
-                                fadeInDuration: const Duration(seconds: 1),
-                                fadeOutDuration: const Duration(seconds: 1),
-                                fadeInCurve: Curves.easeIn,
-                                fadeOutCurve: Curves.easeOut,
-                                placeholder: (context, url) =>
-                                    Shimmer.fromColors(
-                                  baseColor: const Color(0xFF121312),
-                                  highlightColor: Colors.grey.shade700,
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 645.h,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFF121312),
-                                    ),
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(
-                                  Icons.error,
-                                  color: ThemeColors.yellow,
-                                ),
-                                fit: BoxFit.cover,
-                                height: 645.h,
-                                width: double.infinity,
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: 645.h,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      ThemeColors.black.withValues(alpha: 0.8),
-                                      ThemeColors.black.withValues(alpha: 0.6),
-                                      ThemeColors.black,
-                                    ],
+                    return Stack(
+                      children: [
+                        Stack(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: movies[currentIndex].largeCoverImage,
+                              fadeInDuration: const Duration(seconds: 1),
+                              fadeOutDuration: const Duration(seconds: 1),
+                              fadeInCurve: Curves.easeIn,
+                              fadeOutCurve: Curves.easeOut,
+                              placeholder: (context, url) => Shimmer.fromColors(
+                                baseColor: const Color(0xFF121312),
+                                highlightColor: Colors.grey.shade700,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 645.h,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF121312),
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Image.asset("assets/images/availablenow.png"),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16.0),
-                                child: CarouselSlider.builder(
-                                  options: CarouselOptions(
-                                    onPageChanged: (index, reason) {
-                                      setState(() {
-                                        currentIndex = index;
-                                      });
-                                    },
-                                    scrollDirection: Axis.horizontal,
-                                    enlargeCenterPage: true,
-                                    enlargeStrategy:
-                                        CenterPageEnlargeStrategy.height,
-                                    enlargeFactor: 0.4,
-                                    viewportFraction: 0.6,
-                                    height: 350.h,
-                                  ),
-                                  itemCount: movies.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index, _) {
-                                    return CustomCard(
-                                      customWidth: 234.w,
-                                      customHeight: 351.h,
-                                      movie: movies[index],
-                                    );
-                                  },
-                                ),
+                              errorWidget: (context, url, error) => const Icon(
+                                Icons.error,
+                                color: ThemeColors.yellow,
                               ),
-                              Image.asset("assets/images/watchnow.png"),
-                            ],
-                          ),
-                        ],
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  },
-                ),
-                BlocBuilder<MoviesGenreCubit, MoviesStates>(
-                  builder: (context, state) {
-                    if (state is MoviesGenreLoading) {
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 120.h),
-                        child: SizedBox(
-                          height: 220.h,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 3,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.w),
-                                child: Shimmer.fromColors(
-                                  baseColor: const Color(0xFF282A28),
-                                  highlightColor: Colors.grey.shade500,
-                                  child: Container(
-                                    width: 146.w,
-                                    height: 220.h,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFF282A28),
-                                      borderRadius: BorderRadius.circular(
-                                        20.r,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      );
-                    } else if (state is MoviesGenreError) {
-                      return ErrorWidget(state.errorMessage);
-                    } else if (state is MoviesGenreSuccess) {
-                      List<Movie> movies = state.movies;
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  mygenre,
-                                  style: HelperFunction.textTheme(context)
-                                      .bodyMedium!
-                                      .copyWith(fontSize: 20.sp),
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "See More",
-                                        style: HelperFunction.textTheme(context)
-                                            .bodyMedium!
-                                            .copyWith(
-                                                color: ThemeColors.yellow),
-                                      ),
-                                      SizedBox(width: 4.w),
-                                      Icon(
-                                        Icons.arrow_forward,
-                                        size: 14.sp,
-                                        color: ThemeColors.yellow,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                              fit: BoxFit.cover,
+                              height: 645.h,
+                              width: double.infinity,
                             ),
-                          ),
-                          SizedBox(height: 12.h),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 120.h),
-                            child: SizedBox(
-                              height: 220.h,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
+                            Container(
+                              width: double.infinity,
+                              height: 645.h,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    ThemeColors.black.withValues(alpha: 0.8),
+                                    ThemeColors.black.withValues(alpha: 0.6),
+                                    ThemeColors.black,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Image.asset("assets/images/availablenow.png"),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
+                              child: CarouselSlider.builder(
+                                options: CarouselOptions(
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      currentIndex = index;
+                                    });
+                                  },
+                                  scrollDirection: Axis.horizontal,
+                                  enlargeCenterPage: true,
+                                  enlargeStrategy:
+                                      CenterPageEnlargeStrategy.height,
+                                  enlargeFactor: 0.4,
+                                  viewportFraction: 0.6,
+                                  height: 350.h,
+                                ),
                                 itemCount: movies.length,
-                                itemBuilder: (context, index) {
+                                itemBuilder:
+                                    (BuildContext context, int index, _) {
                                   return CustomCard(
-                                    customWidth: 146.w,
-                                    customHeight: 220.h,
+                                    customWidth: 234.w,
+                                    customHeight: 351.h,
                                     movie: movies[index],
                                   );
                                 },
                               ),
                             ),
+                            Image.asset("assets/images/watchnow.png"),
+                          ],
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
+              BlocBuilder<MoviesGenreCubit, MoviesStates>(
+                bloc: movieGenreCubit,
+                builder: (context, state) {
+                  if (state is MoviesGenreLoading) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 120.h),
+                      child: SizedBox(
+                        height: 220.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w),
+                              child: Shimmer.fromColors(
+                                baseColor: const Color(0xFF282A28),
+                                highlightColor: Colors.grey.shade500,
+                                child: Container(
+                                  width: 146.w,
+                                  height: 220.h,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF282A28),
+                                    borderRadius: BorderRadius.circular(
+                                      20.r,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  } else if (state is MoviesGenreError) {
+                    return ErrorWidget(state.errorMessage);
+                  } else if (state is MoviesGenreSuccess) {
+                    List<Movie> movies = state.movies;
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                mygenre,
+                                style: HelperFunction.textTheme(context)
+                                    .bodyMedium!
+                                    .copyWith(fontSize: 20.sp),
+                              ),
+                              InkWell(
+                                onTap: () {},
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "See More",
+                                      style: HelperFunction.textTheme(context)
+                                          .bodyMedium!
+                                          .copyWith(color: ThemeColors.yellow),
+                                    ),
+                                    SizedBox(width: 4.w),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      size: 14.sp,
+                                      color: ThemeColors.yellow,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
-                        ],
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  },
-                ),
-              ],
-            ),
+                        ),
+                        SizedBox(height: 12.h),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 120.h),
+                          child: SizedBox(
+                            height: 220.h,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: movies.length,
+                              itemBuilder: (context, index) {
+                                return CustomCard(
+                                  customWidth: 146.w,
+                                  customHeight: 220.h,
+                                  movie: movies[index],
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
