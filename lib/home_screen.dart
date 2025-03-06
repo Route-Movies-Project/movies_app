@@ -17,11 +17,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _screens = [
-    HomeTab(),
-    HomeTab(),
-    HomeTab(),
-    Profile(),
+  static final List<Widget> _screens = [
+    const HomeTab(),
+    const HomeTab(),
+    const HomeTab(),
+    const Profile(),
   ];
 
   void _onItemTapped(int index) {

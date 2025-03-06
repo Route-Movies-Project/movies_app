@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
-import 'package:movies_app/features/onboarding/view/onboarding_screen.dart';
 import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
+import 'package:movies_app/features/onboarding/view/onboarding_screen.dart';
 
 class IntroWidget extends StatelessWidget {
   const IntroWidget({super.key});
