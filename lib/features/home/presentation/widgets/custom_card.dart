@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
+import 'package:movies_app/features/movie_detials/presentation/views/movie_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomCard extends StatelessWidget {
@@ -18,61 +19,66 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
-      child: Stack(
-        children: [
-          SizedBox(
-            height: customHeight,
-            width: customWidth,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20.r),
-              child: CachedNetworkImage(
-                imageUrl: movie.largeCoverImage,
-                placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: const Color(0xFF121312),
-                  highlightColor: Colors.grey.shade700,
-                  child: Container(
-                    width: customWidth,
-                    height: customHeight,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF121312),
-                      borderRadius: BorderRadius.circular(20.r),
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, MovieDetailsScreen.routeName, arguments: movie);
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
+        child: Stack(
+          children: [
+            SizedBox(
+              height: customHeight,
+              width: customWidth,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.r),
+                child: CachedNetworkImage(
+                  imageUrl: movie.largeCoverImage,
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: const Color(0xFF121312),
+                    highlightColor: Colors.grey.shade700,
+                    child: Container(
+                      width: customWidth,
+                      height: customHeight,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF121312),
+                        borderRadius: BorderRadius.circular(20.r),
+                      ),
                     ),
                   ),
-                ),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                  color: ThemeColors.yellow,
-                ),
-                fit: BoxFit.cover,
-                height: customHeight,
-                width: customWidth,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 10,
-            left: 5,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.7),
-                borderRadius: BorderRadius.circular(20.r),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.star, color: ThemeColors.yellow, size: 16.sp),
-                  SizedBox(width: 4.w),
-                  Text(
-                    movie.rating.toString(),
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                    color: ThemeColors.yellow,
                   ),
-                ],
+                  fit: BoxFit.cover,
+                  height: customHeight,
+                  width: customWidth,
+                ),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              top: 10,
+              left: 5,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.7),
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.star, color: ThemeColors.yellow, size: 16.sp),
+                    SizedBox(width: 4.w),
+                    Text(
+                      movie.rating.toString(),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
