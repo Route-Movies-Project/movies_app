@@ -13,6 +13,7 @@ import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_states.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
 import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
+import 'package:movies_app/features/home/presentation/widgets/loading_genre_widget.dart';
 import 'package:movies_app/features/home/presentation/widgets/loading_widget.dart';
 import 'package:movies_app/features/home/presentation/widgets/movies_genre.dart';
 import 'package:shimmer/shimmer.dart';
@@ -33,9 +34,7 @@ class _HomtTabState extends State<HomeTab> {
   final random = Random();
   void generateGenre() {
     String genre = MoviesGenre.movieGenres[random.nextInt(
-      Random().nextInt(
-        MoviesGenre.movieGenres.length,
-      ),
+      MoviesGenre.movieGenres.length,
     )];
 
     setState(() {
@@ -165,35 +164,7 @@ class _HomtTabState extends State<HomeTab> {
                 bloc: movieGenreCubit,
                 builder: (context, state) {
                   if (state is MoviesGenreLoading) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 120.h),
-                      child: SizedBox(
-                        height: 220.h,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 3,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.w),
-                              child: Shimmer.fromColors(
-                                baseColor: const Color(0xFF282A28),
-                                highlightColor: Colors.grey.shade500,
-                                child: Container(
-                                  width: 146.w,
-                                  height: 220.h,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF282A28),
-                                    borderRadius: BorderRadius.circular(
-                                      20.r,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    );
+                    return LoadingGenreWidget(mygenre: mygenre);
                   } else if (state is MoviesGenreError) {
                     return ErrorWidget(state.errorMessage);
                   } else if (state is MoviesGenreSuccess) {
