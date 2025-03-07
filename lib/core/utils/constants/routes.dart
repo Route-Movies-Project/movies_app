@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/features/movie_detials/presentation/views/movie_details_screen.dart';
 import 'package:movies_app/features/profile/presentation/view/reset_pass_screen.dart';
 import 'package:movies_app/features/auth/presentation/views/login.dart';
 import 'package:movies_app/features/auth/presentation/views/register.dart';
@@ -18,6 +19,7 @@ class AppRoutes {
     LoginScreen.routeName: (_) => const LoginScreen(),
     HomeScreen.routeName: (_) => const HomeScreen(),
     Profile.routeName: (_) => const Profile(),
+    MovieDetailsScreen.routeName: (_) => const MovieDetailsScreen(),
   };
 
   static final String initialRoute = IntroScreen.routeName;
