@@ -5,6 +5,8 @@ import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
+import 'package:movies_app/features/movie_detials/presentation/widgets/info_card.dart';
+import 'package:movies_app/features/movie_detials/presentation/widgets/screenShot_item.dart';
 import 'package:movies_app/features/onboarding/widgets/custom_outlined_button.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -76,24 +78,34 @@ class MovieDetailsScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: 40,
-                              height: 40,
+                              width: 37.w,
+                              height: 58.h,
                               decoration: BoxDecoration(
                                 color: Colors.black.withOpacity(0.5),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Icon(Icons.arrow_back_ios_new,
-                                  color: Colors.white),
+                              child: IconButton(
+                                icon: const Icon(Icons.arrow_back_ios),
+                                color: ThemeColors.white,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
                             ),
                             Container(
-                              width: 40,
-                              height: 40,
+                              width: 50.w,
+                              height: 58.h,
                               decoration: BoxDecoration(
                                 color: Colors.black.withOpacity(0.5),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Icon(Icons.bookmark_border,
-                                  color: Colors.white),
+                              child: IconButton(
+                                icon: const Icon(Icons.bookmark_border),
+                                color: ThemeColors.white,
+                                onPressed: () {
+                                  // Handle bookmark action here
+                                },
+                              ),
                             ),
                           ],
                         ),
@@ -118,38 +130,23 @@ class MovieDetailsScreen extends StatelessWidget {
                         ),
                       ),
 
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
 
                       // Movie Title
-                      const Text(
-                        "Doctor Strange in the Multiverse",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const Text(
-                        "of Madness",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                      Text(
+                        movie.title,
+                        style: HelperFunction.textTheme(context).titleLarge,
                       ),
 
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
 
                       // Year
-                      const Text(
-                        "2022",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
+                      Text(
+                        movie.year.toString(),
+                        style: HelperFunction.textTheme(context).bodyMedium,
                       ),
 
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                     ],
                   ),
                 ),
@@ -171,13 +168,57 @@ class MovieDetailsScreen extends StatelessWidget {
               ),
               child: const Text('Watch'),
             ),
-          )
-          
+          ),
+          SizedBox(height: 20.h),
+          // Rating Info
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              info_card(
+                text: movie.torrents.length.toString(),
+                icon: Icons.favorite,
+              ),
+              info_card(
+                text: movie.runtime.toString(),
+                icon: Icons.timelapse,
+              ),
+              info_card(
+                text: movie.rating.toString(),
+                icon: Icons.star,
+              ),
+            ],
+          ),
+          SizedBox(height: 20.h),
+          // ScreenShots
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'ScreenShots',
+                style: HelperFunction.textTheme(context).titleLarge,
+              ),
+            ),
+          ),
+          SizedBox(height: 10.h),
+          screenShot_item(
+            imgeUrl: movie.largeCoverImage,
+          ),
+          screenShot_item(
+            imgeUrl: movie.smallCoverImage,
+          ),
+          screenShot_item(
+            imgeUrl: movie.mediumCoverImage,
+          ),
         ],
       ),
     ));
   }
 }
+
+
+
+
 
 
 //  Stack(
@@ -260,13 +301,13 @@ class MovieDetailsScreen extends StatelessWidget {
 //                             color: ThemeColors.black.withOpacity(0.5),
 //                             borderRadius: BorderRadius.circular(12),
 //                           ),
-//                           child: IconButton(
-//                             icon: const Icon(Icons.bookmark_border),
-//                             color: ThemeColors.white,
-//                             onPressed: () {
-//                               // Handle bookmark action here
-//                             },
-//                           ),
+                          // child: IconButton(
+                          //   icon: const Icon(Icons.bookmark_border),
+                          //   color: ThemeColors.white,
+                          //   onPressed: () {
+                          //     // Handle bookmark action here
+                          //   },
+                          // ),
 //                         ),
 //                       ],
 //                     ),
@@ -276,10 +317,10 @@ class MovieDetailsScreen extends StatelessWidget {
 //                   const Spacer(),
 
 //                   // Movie Title
-//                   Text(
-//                     movie.title,
-//                     style: HelperFunction.textTheme(context).titleLarge,
-//                   ),
+                  // Text(
+                  //   movie.title,
+                  //   style: HelperFunction.textTheme(context).titleLarge,
+                  // ),
 //                   const SizedBox(height: 10),
 
 //                   // Year
