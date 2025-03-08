@@ -67,6 +67,11 @@ final theme = ThemeData(
       fontSize: 16.sp,
       color: ThemeColors.white,
     ),
+    titleLarge: GoogleFonts.roboto(
+      fontSize: 24.sp,
+      fontWeight: FontWeight.w700,
+      color: ThemeColors.white,
+    )
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: ThemeColors.grey,

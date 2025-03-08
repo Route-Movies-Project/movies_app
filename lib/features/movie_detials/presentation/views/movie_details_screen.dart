@@ -15,7 +15,6 @@ class MovieDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final movie = ModalRoute.of(context)?.settings.arguments as Movie;
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Stack(
         children: [
           // Background Image with Gradient Overlay
@@ -64,135 +63,133 @@ class MovieDetailsScreen extends StatelessWidget {
           ),
           // Content
           SafeArea(
-            child: Column(
-              children: [
-                // App Bar
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(
+                children: [
+                  // App Bar
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 40.w,
+                          height: 40.h,
+                          decoration: BoxDecoration(
+                            color: ThemeColors.black.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_back_ios_new),
+                            color: ThemeColors.white,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                        Container(
+                          width: 40.w,
+                          height: 40.h,
+                          decoration: BoxDecoration(
+                            color: ThemeColors.black.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: IconButton(
+                            icon: const Icon(Icons.bookmark_border),
+                            color: ThemeColors.white,
+                            onPressed: () {
+                              // Handle bookmark action here
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Spacer for main content
+                  const Spacer(),
+
+                  // Movie Title
+                  Text(
+                    movie.title,
+                    style: HelperFunction.textTheme(context).titleLarge,
+                  ),
+                  const SizedBox(height: 10),
+
+                  // Year
+                  const Text(
+                    "2022",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // Watch Button
+                  CustomElevatedButton(
+                    onPressed: () {
+                      // Handle watch action here
+                    },
+                    buttonStyle: ElevatedButton.styleFrom(
+                      minimumSize: Size(double.infinity, 55.h),
+                      backgroundColor: ThemeColors.red,
+                      foregroundColor: ThemeColors.white,
+                    ),
+                    child: const Text('Watch'),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Ratings Row
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 40.w,
-                        height: 40.h,
-                        decoration: BoxDecoration(
-                          color: ThemeColors.black.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: IconButton(
-                          icon: const Icon(Icons.arrow_back_ios_new),
-                          color: ThemeColors.white,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
+                      // Likes
+                      Row(
+                        children: [
+                          Icon(Icons.favorite, color: Colors.amber, size: 22),
+                          SizedBox(width: 8),
+                          Text("15",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white)),
+                        ],
                       ),
-                      Container(
-                        width: 40.w,
-                        height: 40.h,
-                        decoration: BoxDecoration(
-                          color: ThemeColors.black.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: IconButton(
-                          icon: const Icon(Icons.bookmark_border),
-                          color: ThemeColors.white,
-                          onPressed: () {
-                            // Handle bookmark action here
-                          },
-                        ),
+
+                      SizedBox(width: 30),
+
+                      // Duration
+                      Row(
+                        children: [
+                          Icon(Icons.access_time,
+                              color: Colors.amber, size: 22),
+                          SizedBox(width: 8),
+                          Text("90",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white)),
+                        ],
+                      ),
+
+                      SizedBox(width: 30),
+
+                      // Rating
+                      Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.amber, size: 22),
+                          SizedBox(width: 8),
+                          Text("7.6",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white)),
+                        ],
                       ),
                     ],
                   ),
-                ),
 
-                // Spacer for main content
-                const Spacer(),
-
-                // Play Button
-
-                const SizedBox(height: 20),
-
-                // Movie Title
-                Text(
-                  movie.title,
-                  style: HelperFunction.textTheme(context)
-                      .bodyMedium!
-                      .copyWith(color: ThemeColors.yellow),
-                ),
-                const SizedBox(height: 10),
-
-                // Year
-                const Text(
-                  "2022",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                ),
-
-                const SizedBox(height: 30),
-
-                // Watch Button
-                CustomElevatedButton(
-                  onPressed: () {
-                    // Handle watch action here
-                  },
-                  buttonStyle: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 55.h),
-                    backgroundColor: ThemeColors.red,
-                    foregroundColor: ThemeColors.white,
-                  ),
-                  child: const Text('Watch'),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Ratings Row
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Likes
-                    Row(
-                      children: [
-                        Icon(Icons.favorite, color: Colors.amber, size: 22),
-                        SizedBox(width: 8),
-                        Text("15",
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.white)),
-                      ],
-                    ),
-
-                    SizedBox(width: 30),
-
-                    // Duration
-                    Row(
-                      children: [
-                        Icon(Icons.access_time, color: Colors.amber, size: 22),
-                        SizedBox(width: 8),
-                        Text("90",
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.white)),
-                      ],
-                    ),
-
-                    SizedBox(width: 30),
-
-                    // Rating
-                    Row(
-                      children: [
-                        Icon(Icons.star, color: Colors.amber, size: 22),
-                        SizedBox(width: 8),
-                        Text("7.6",
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.white)),
-                      ],
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 20),
-              ],
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
         ],
