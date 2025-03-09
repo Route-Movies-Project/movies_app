@@ -26,8 +26,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomtTabState extends State<HomeTab> {
-  final movieCubit = getIt.get<MoviesCubit>();
-  final movieGenreCubit = getIt.get<MoviesGenreCubit>();
+  final movieGenreCubit = getIt<MoviesGenreCubit>();
   int currentIndex = 0;
   String mygenre = "";
   final random = Random();
@@ -57,8 +56,16 @@ class _HomtTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: BlocProvider(
-          create: (context) => movieCubit..getMovies(),
+        body: RefreshIndicator(
+          backgroundColor: ThemeColors.yellow,
+          color: ThemeColors.black,
+          onRefresh: () async {
+            generateGenre();
+            await Future.wait([
+              context.read<MoviesCubit>().getMovies(),
+              movieGenreCubit.getGenreMovies(4, 1, mygenre),
+            ]);
+          },
           child: SingleChildScrollView(
             child: Column(
               children: [
