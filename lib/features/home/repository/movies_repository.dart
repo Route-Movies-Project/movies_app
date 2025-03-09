@@ -1,17 +1,19 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movies_app/core/error/exception.dart';
 import 'package:movies_app/core/error/faliure.dart';
-import 'package:movies_app/features/home/data/data_source/movies_api_data_source.dart';
+import 'package:movies_app/features/home/data/data_source/movies_data_source.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
 
+@singleton
 class MoviesRepository {
-  final MoviesApiDataSource _moviesApiDataSource;
+  final MoviesDataSource _moviesDataSource;
 
-  MoviesRepository(this._moviesApiDataSource);
+  MoviesRepository(this._moviesDataSource);
 
   Future<Either<Faliure, MoviesResponse>> getMovies() async {
     try {
-      final response = await _moviesApiDataSource.getMovies();
+      final response = await _moviesDataSource.getMovies();
       return Right(response);
     } on RemoteExpetion catch (e) {
       return Left(Faliure(e.message));
@@ -25,7 +27,7 @@ class MoviesRepository {
   ) async {
     try {
       final response =
-          await _moviesApiDataSource.getGenreMovies(limit, page, genre);
+          await _moviesDataSource.getGenreMovies(limit, page, genre);
       return Right(response);
     } on RemoteExpetion catch (e) {
       return Left(Faliure(e.message));

@@ -55,10 +55,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i381.AuthSharedPrefsDataSource());
     gh.singleton<_i992.MoviesDataSource>(() => _i579.MoviesApiDataSource());
     gh.singleton<_i423.ProfileDataSource>(() => _i654.ProfileApiDataSource());
-    gh.singleton<_i790.MoviesCubit>(
-        () => _i790.MoviesCubit(gh<_i806.MoviesRepository>()));
-    gh.singleton<_i298.MoviesGenreCubit>(
-        () => _i298.MoviesGenreCubit(gh<_i806.MoviesRepository>()));
+    gh.singleton<_i806.MoviesRepository>(
+        () => _i806.MoviesRepository(gh<_i992.MoviesDataSource>()));
     gh.singleton<_i364.ProfileRepository>(
         () => _i364.ProfileRepository(gh<_i423.ProfileDataSource>()));
     gh.singleton<_i266.AuthRepositorie>(() => _i266.AuthRepositorie(
@@ -67,6 +65,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.singleton<_i127.AuthCubit>(
         () => _i127.AuthCubit(gh<_i266.AuthRepositorie>()));
+    gh.singleton<_i790.MoviesCubit>(
+        () => _i790.MoviesCubit(gh<_i806.MoviesRepository>()));
+    gh.singleton<_i298.MoviesGenreCubit>(
+        () => _i298.MoviesGenreCubit(gh<_i806.MoviesRepository>()));
     gh.singleton<_i625.ProfileCubit>(
         () => _i625.ProfileCubit(gh<_i364.ProfileRepository>()));
     return this;

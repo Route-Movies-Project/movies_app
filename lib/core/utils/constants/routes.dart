@@ -14,7 +14,7 @@ class AppRoutes {
     IntroScreen.routeName: (_) => const IntroScreen(),
     UpdateProfile.routeName: (_) => const UpdateProfile(),
     OnBoarding.routeName: (_) => const OnBoarding(),
-    ResetPassScreen.routeName: (_) => ResetPassScreen(),
+    ResetPassScreen.routeName: (_) => const ResetPassScreen(),
     Register.routeName: (_) => const Register(),
     LoginScreen.routeName: (_) => const LoginScreen(),
     HomeScreen.routeName: (_) => const HomeScreen(),
