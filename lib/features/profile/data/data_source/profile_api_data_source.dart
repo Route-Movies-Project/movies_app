@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movies_app/core/error/exception.dart';
 import 'package:movies_app/core/utils/constants/apis.dart';
 import 'package:movies_app/core/utils/constants/shared_prefs.dart';
@@ -11,6 +12,7 @@ import 'package:movies_app/features/profile/data/model/update_profile_request.da
 import 'package:movies_app/features/profile/data/model/update_profile_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@Singleton(as: ProfileDataSource)
 class ProfileApiDataSource implements ProfileDataSource {
   final _dio = Dio(
     BaseOptions(

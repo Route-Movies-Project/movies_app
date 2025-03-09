@@ -1,14 +1,16 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movies_app/core/error/exception.dart';
 import 'package:movies_app/core/error/faliure.dart';
-import 'package:movies_app/features/auth/data/data_source/auth_local_data_source.dart';
-import 'package:movies_app/features/auth/data/data_source/auth_remote_data_source.dart';
+import 'package:movies_app/features/auth/data/data_source/local/auth_local_data_source.dart';
+import 'package:movies_app/features/auth/data/data_source/remote/auth_remote_data_source.dart';
 import 'package:movies_app/features/auth/data/model/login_request.dart';
 import 'package:movies_app/features/auth/data/model/login_response.dart';
 import 'package:movies_app/features/auth/data/model/register_request.dart';
 import 'package:movies_app/features/auth/data/model/register_response.dart';
 
+@singleton
 class AuthRepositorie {
   final AuthRemoteDataSource _authRemoteDataSource;
   final AuthLocalDataSource _authLocalDataSource;

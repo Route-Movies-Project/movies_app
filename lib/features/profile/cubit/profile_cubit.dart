@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movies_app/features/profile/cubit/profile_states.dart';
 import 'package:movies_app/features/profile/data/model/reset_request.dart';
 import 'package:movies_app/features/profile/data/model/update_profile_request.dart';
 import 'package:movies_app/features/profile/repository/profile_repository.dart';
 
+@singleton
 class ProfileCubit extends Cubit<ProfileStates> {
   ProfileCubit(this._profilerepository) : super(ProfileInitial());
 

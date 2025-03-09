@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movies_app/core/error/exception.dart';
 import 'package:movies_app/core/error/faliure.dart';
 import 'package:movies_app/core/utils/constants/shared_prefs.dart';
@@ -12,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/model/update_profile_request.dart';
 
+@singleton
 class ProfileRepository {
   final ProfileDataSource _profileDataSource;
 

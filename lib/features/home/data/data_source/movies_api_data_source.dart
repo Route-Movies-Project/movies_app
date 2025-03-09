@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movies_app/core/error/exception.dart';
 import 'package:movies_app/core/utils/constants/apis.dart';
 import 'package:movies_app/features/home/data/data_source/movies_data_source.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
 
+@Singleton(as: MoviesDataSource)
 class MoviesApiDataSource implements MoviesDataSource {
   final Dio _dio = Dio(
     BaseOptions(

@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:movies_app/core/utils/constants/shared_prefs.dart';
 import 'package:movies_app/features/auth/data/data_source/local/auth_local_data_source.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@Singleton(as: AuthLocalDataSource)
 class AuthSharedPrefsDataSource implements AuthLocalDataSource {
   @override
   Future<void> saveToken(String token) async {
