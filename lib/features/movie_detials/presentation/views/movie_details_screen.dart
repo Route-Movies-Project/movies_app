@@ -1,27 +1,35 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/core/Themes/colors.dart';
+import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
 import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
+import 'package:movies_app/features/home/presentation/widgets/loading_widget.dart';
+import 'package:movies_app/features/movie_detials/cubit/suggestion_cubit.dart';
+import 'package:movies_app/features/movie_detials/cubit/suggestion_states.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_cast_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_genre_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_title.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/info_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/screenShot_item.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   static const routeName = '/movie-details';
-  const MovieDetailsScreen({super.key});
+  MovieDetailsScreen({super.key});
+  final suggestionMoviesCubit = getIt<SuggestionCubit>();
 
   @override
   Widget build(BuildContext context) {
     final movie = ModalRoute.of(context)?.settings.arguments as Movie;
+    suggestionMoviesCubit.getSuggestionMovies(movie.id);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -156,6 +164,9 @@ class MovieDetailsScreen extends StatelessWidget {
               child: CustomElevatedButton(
                 onPressed: () {
                   // handle watch button
+                  launchUrl(
+                    Uri.parse(movie.url),
+                  );
                 },
                 buttonStyle: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 55.h),
@@ -199,6 +210,44 @@ class MovieDetailsScreen extends StatelessWidget {
             SizedBox(height: 20.h),
             // Similar Movies
             const CustomTitle(titleName: 'Similar Movies'),
+            BlocBuilder<SuggestionCubit, SuggestionStates>(
+              bloc: suggestionMoviesCubit,
+              builder: (context, state) {
+                if (state is SuggestionLoading) {
+                  return const LoadingWidget();
+                } else if (state is SuggestionError) {
+                  return ErrorWidget(state.errorMessage);
+                } else if (state is SuggestionSuccess) {
+                  List<Movie> suggestionMovies = state.movies;
+                  return SizedBox(
+                      height: 610.h,
+                      width: double.infinity,
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: suggestionMovies.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 16.h,
+                          crossAxisSpacing: 20.w,
+                          childAspectRatio: 189.w / 279.h,
+                        ),
+                        itemBuilder: (context, index) {
+                          return CustomCard(
+                            customWidth: 189.w,
+                            customHeight: 279.h,
+                            movie: suggestionMovies[index],
+                          );
+                        },
+                      ));
+                } else {
+                  return const SizedBox(
+                    child: Text('No similar movies found'),
+                  );
+                }
+              },
+            ),
+            /*
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: SizedBox(
@@ -224,6 +273,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
+            */
             SizedBox(height: 16.h),
             const CustomTitle(titleName: 'Summary'),
             SizedBox(height: 8.h),
@@ -232,7 +282,7 @@ class MovieDetailsScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  movie.summary,
+                  movie.summary == '' ? 'No summary available' : movie.summary,
                   style: HelperFunction.textTheme(context).bodyMedium,
                 ),
               ),
