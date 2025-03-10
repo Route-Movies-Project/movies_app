@@ -1,3 +1,5 @@
+import 'package:movies_app/features/auth/domain/entities/user.dart';
+
 class UserModel {
   final String email;
   final String password;
@@ -31,5 +33,16 @@ class UserModel {
         createdAt: DateTime.parse(json['createdAt'] as String),
         updatedAt: DateTime.parse(json['updatedAt'] as String),
         v: json['__v'] as int,
+      );
+  User toEntity() => User(
+        email: email,
+        password: password,
+        name: name,
+        phone: phone,
+        avaterId: avaterId,
+        id: id,
+        createdAt: createdAt,
+        updatedAt: updatedAt,
+        v: v,
       );
 }

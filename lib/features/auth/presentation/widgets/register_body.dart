@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
-import 'package:movies_app/features/auth/cubit/auth_cubit.dart';
-import 'package:movies_app/features/auth/cubit/auth_states.dart';
+import 'package:movies_app/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:movies_app/features/auth/presentation/cubit/auth_states.dart';
 import 'package:movies_app/features/auth/data/model/register_request.dart';
 import 'package:movies_app/features/auth/presentation/views/login.dart';
 import 'package:movies_app/core/Themes/colors.dart';
@@ -99,7 +99,7 @@ class _RegisterBodyState extends State<RegisterBody> {
             titleTextStyle: HelperFunction.textTheme(context)
                 .bodyMedium!
                 .copyWith(color: ThemeColors.black),
-            title: state.registerResponse.message,
+            title: "User Created Successfully",
             btnOkColor: ThemeColors.green,
             btnOkOnPress: () {},
           )..show();

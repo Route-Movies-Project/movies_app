@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movies_app/features/auth/cubit/auth_states.dart';
+import 'package:movies_app/features/auth/domain/repositories/auth_repositorie.dart';
+import 'package:movies_app/features/auth/presentation/cubit/auth_states.dart';
 import 'package:movies_app/features/auth/data/model/login_request.dart';
 import 'package:movies_app/features/auth/data/model/register_request.dart';
-import 'package:movies_app/features/auth/repositories/auth_repositorie.dart';
 
 @singleton
 class AuthCubit extends Cubit<AuthStates> {
@@ -16,8 +16,8 @@ class AuthCubit extends Cubit<AuthStates> {
       (faliure) => emit(
         RegisterError(faliure.message),
       ),
-      (registerResponse) => emit(
-        RegisterSuccess(registerResponse),
+      (user) => emit(
+        RegisterSuccess(user),
       ),
     );
   }
@@ -29,8 +29,8 @@ class AuthCubit extends Cubit<AuthStates> {
       (faliure) => emit(
         LoginError(faliure.message),
       ),
-      (loginResponse) => emit(
-        LoginSuccess(loginResponse),
+      (token) => emit(
+        LoginSuccess(token),
       ),
     );
   }

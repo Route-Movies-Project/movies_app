@@ -1,5 +1,5 @@
-import 'package:movies_app/features/auth/data/model/login_response.dart';
-import 'package:movies_app/features/auth/data/model/register_response.dart';
+import 'package:movies_app/features/auth/domain/entities/token.dart';
+import 'package:movies_app/features/auth/domain/entities/user.dart';
 
 abstract class AuthStates {}
 
@@ -8,8 +8,8 @@ class AuthInitial extends AuthStates {}
 class RegisterLoading extends AuthStates {}
 
 class RegisterSuccess extends AuthStates {
-  final RegisterResponse registerResponse;
-  RegisterSuccess(this.registerResponse);
+  final User user;
+  RegisterSuccess(this.user);
 }
 
 class RegisterError extends AuthStates {
@@ -20,8 +20,8 @@ class RegisterError extends AuthStates {
 class LoginLoading extends AuthStates {}
 
 class LoginSuccess extends AuthStates {
-  final LoginResponse loginResponse;
-  LoginSuccess(this.loginResponse);
+  final Token token;
+  LoginSuccess(this.token);
 }
 
 class LoginError extends AuthStates {

@@ -7,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
-import 'package:movies_app/features/auth/cubit/auth_cubit.dart';
-import 'package:movies_app/features/auth/cubit/auth_states.dart';
+import 'package:movies_app/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:movies_app/features/auth/presentation/cubit/auth_states.dart';
 import 'package:movies_app/features/auth/data/model/login_request.dart';
 import 'package:movies_app/features/profile/presentation/view/reset_pass_screen.dart';
 import 'package:movies_app/features/auth/presentation/widgets/custom_divider.dart';
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
             titleTextStyle: HelperFunction.textTheme(context)
                 .bodyMedium!
                 .copyWith(color: ThemeColors.black),
-            title: state.loginResponse.message,
+            title: "Success Login",
             btnOkColor: ThemeColors.green,
             btnOkOnPress: () {},
           )..show();
