@@ -1,11 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
-import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
-import 'package:movies_app/features/movie_detials/cubit/suggestion_cubit.dart';
 import 'package:movies_app/features/movie_detials/presentation/views/movie_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
