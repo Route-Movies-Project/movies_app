@@ -19,7 +19,7 @@ class CustomCastCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: Container(
         width: double.infinity,
-        height: 92.h,
+        height: 100.h,
         decoration: BoxDecoration(
           color: ThemeColors.grey,
           borderRadius: BorderRadius.circular(16.r),
