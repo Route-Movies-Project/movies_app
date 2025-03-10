@@ -73,7 +73,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 // Content
                 SafeArea(
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.7,
+                    height: 645.h,
                     child: Column(
                       children: [
                         // App Bar
@@ -86,7 +86,7 @@ class MovieDetailsScreen extends StatelessWidget {
                                 width: 37.w,
                                 height: 58.h,
                                 decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.5),
+                                  color: Colors.black.withValues(alpha: 0.5),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: IconButton(
@@ -101,7 +101,7 @@ class MovieDetailsScreen extends StatelessWidget {
                                 width: 50.w,
                                 height: 58.h,
                                 decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.5),
+                                  color: Colors.black.withValues(alpha: 0.5),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: IconButton(
@@ -125,9 +125,13 @@ class MovieDetailsScreen extends StatelessWidget {
                         SizedBox(height: 20.h),
 
                         // Movie Title
-                        Text(
-                          movie.title,
-                          style: HelperFunction.textTheme(context).titleLarge,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Text(
+                            movie.title,
+                            textAlign: TextAlign.center,
+                            style: HelperFunction.textTheme(context).titleLarge,
+                          ),
                         ),
 
                         SizedBox(height: 10.h),
