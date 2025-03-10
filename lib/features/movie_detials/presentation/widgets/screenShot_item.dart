@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
-class screenShot_item extends StatelessWidget {
-  const screenShot_item({
+class ScreenshotItem extends StatelessWidget {
+  const ScreenshotItem({
     super.key,
     required this.imgeUrl,
   });

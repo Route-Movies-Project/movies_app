@@ -218,16 +218,22 @@ class _HomtTabState extends State<HomeTab> {
                             padding: EdgeInsets.only(bottom: 120.h),
                             child: SizedBox(
                               height: 220.h,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: movies.length,
-                                itemBuilder: (context, index) {
-                                  return CustomCard(
-                                    customWidth: 146.w,
-                                    customHeight: 220.h,
-                                    movie: movies[index],
-                                  );
-                                },
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 16.w),
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: movies.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(right: 16.w),
+                                      child: CustomCard(
+                                        customWidth: 146.w,
+                                        customHeight: 220.h,
+                                        movie: movies[index],
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),

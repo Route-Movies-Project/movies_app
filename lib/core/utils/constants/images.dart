@@ -17,4 +17,5 @@ class AppAssets {
   static const String searchTap = 'assets/icons/search.svg';
   static const String exploreTap = 'assets/icons/explore.svg';
   static const String profileTap = 'assets/icons/Profiel.svg';
+  static const String playTap = 'assets/icons/Play_Movie.svg';
 }
