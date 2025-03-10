@@ -10,12 +10,9 @@ import 'package:movies_app/core/utils/constants/apis.dart';
 
 @Singleton(as: AuthRemoteDataSource)
 class AuthApiDataSource implements AuthRemoteDataSource {
-  final _dio = Dio(
-    BaseOptions(
-      baseUrl: ApiConstants.baseUrl,
-      receiveDataWhenStatusError: true,
-    ),
-  );
+  final Dio _dio;
+
+  const AuthApiDataSource(this._dio);
 
   @override
   Future<RegisterResponse> register(RegisterRequest registerRequest) async {

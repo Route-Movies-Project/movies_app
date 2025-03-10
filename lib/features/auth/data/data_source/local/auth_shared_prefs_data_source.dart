@@ -5,15 +5,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @Singleton(as: AuthLocalDataSource)
 class AuthSharedPrefsDataSource implements AuthLocalDataSource {
+  final SharedPreferences _prefs;
+
+  AuthSharedPrefsDataSource(this._prefs);
+
   @override
   Future<void> saveToken(String token) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(SharedPrefsConstants.tokenKey, token);
+    _prefs.setString(SharedPrefsConstants.tokenKey, token);
   }
 
   @override
   Future<String> getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(SharedPrefsConstants.tokenKey) ?? '';
+    String token = _prefs.getString(SharedPrefsConstants.tokenKey) ?? '';
+    return token;
   }
 }

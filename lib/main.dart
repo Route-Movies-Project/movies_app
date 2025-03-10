@@ -9,11 +9,11 @@ import 'package:movies_app/core/utils/constants/routes.dart';
 import 'package:movies_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   Bloc.observer = MyBlocObserver();
-  setupLocator();
+  await setupLocator();
 
   runApp(
     EasyLocalization(

@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movies_app/core/error/exception.dart';
+import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/utils/constants/apis.dart';
-import 'package:movies_app/core/utils/constants/shared_prefs.dart';
+import 'package:movies_app/features/auth/data/data_source/local/auth_local_data_source.dart';
 import 'package:movies_app/features/profile/data/data_source/profile_data_source.dart';
 import 'package:movies_app/features/profile/data/model/delete_profile_response.dart';
 import 'package:movies_app/features/profile/data/model/profile_response.dart';
@@ -10,7 +11,6 @@ import 'package:movies_app/features/profile/data/model/reset_request.dart';
 import 'package:movies_app/features/profile/data/model/reset_response.dart';
 import 'package:movies_app/features/profile/data/model/update_profile_request.dart';
 import 'package:movies_app/features/profile/data/model/update_profile_response.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 @Singleton(as: ProfileDataSource)
 class ProfileApiDataSource implements ProfileDataSource {
@@ -26,7 +26,6 @@ class ProfileApiDataSource implements ProfileDataSource {
     UpdateProfileRequest updateProfileRequest,
   ) async {
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
       final response = await _dio.patch(
         ApiConstants.profileEndPoint,
         data: updateProfileRequest.toJson(),
@@ -34,7 +33,7 @@ class ProfileApiDataSource implements ProfileDataSource {
           headers: {
             "Content-Type": "application/json",
             "Authorization":
-                "Bearer ${prefs.getString(SharedPrefsConstants.tokenKey)}"
+                "Bearer ${await getIt<AuthLocalDataSource>().getToken()}"
           },
         ),
       );
@@ -52,14 +51,13 @@ class ProfileApiDataSource implements ProfileDataSource {
   @override
   Future<DeleteProfileResponse> deleteProfile() async {
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
       final response = await _dio.delete(
         ApiConstants.profileEndPoint,
         options: Options(
           headers: {
             "Content-Type": "application/json",
             "Authorization":
-                "Bearer ${prefs.getString(SharedPrefsConstants.tokenKey)}"
+                "Bearer ${await getIt<AuthLocalDataSource>().getToken()}"
           },
         ),
       );
@@ -77,13 +75,12 @@ class ProfileApiDataSource implements ProfileDataSource {
   @override
   Future<ProfileResponse> getProfile() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
       final response = await _dio.get(
         ApiConstants.profileEndPoint,
         options: Options(
           headers: {
             "Authorization":
-                "Bearer ${prefs.getString(SharedPrefsConstants.tokenKey)}"
+                "Bearer ${await getIt<AuthLocalDataSource>().getToken()}"
           },
         ),
       );

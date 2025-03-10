@@ -4,4 +4,4 @@ import 'package:movies_app/core/service/service_locator.config.dart';
 
 final GetIt getIt = GetIt.instance;
 @InjectableInit()
-void setupLocator() => getIt.init();
+Future<void> setupLocator() async => getIt.init();

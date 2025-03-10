@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/features/auth/presentation/cubit/auth_cubit.dart';
@@ -160,12 +161,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          context.read<AuthCubit>().login(
-                                LoginRequest(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                ),
-                              );
+                          getIt<AuthCubit>().login(
+                            LoginRequest(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ),
+                          );
                         }
                       },
                       child: Text(

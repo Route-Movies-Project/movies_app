@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
 import 'package:movies_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:movies_app/features/auth/presentation/cubit/auth_states.dart';
@@ -183,17 +184,16 @@ class _RegisterBodyState extends State<RegisterBody> {
                     child: const Text("Create Account"),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        await context.read<AuthCubit>().regsiter(
-                              RegisterRequest(
-                                name: _nameController.text,
-                                email: _emailController.text,
-                                password: _passwordController.text,
-                                confirmPassword:
-                                    _confirmPasswordController.text,
-                                phone: _phoneNumberController.text,
-                                avaterId: widget.selectedAvatarId,
-                              ),
-                            );
+                        await getIt<AuthCubit>().regsiter(
+                          RegisterRequest(
+                            name: _nameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            confirmPassword: _confirmPasswordController.text,
+                            phone: _phoneNumberController.text,
+                            avaterId: widget.selectedAvatarId,
+                          ),
+                        );
                       }
                     },
                   ),

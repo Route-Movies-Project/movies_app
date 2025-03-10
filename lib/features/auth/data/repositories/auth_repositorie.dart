@@ -33,8 +33,8 @@ class AuthRepositorieImpl implements AuthRepositorie {
   Future<Either<Faliure, Token>> login(LoginRequest loginRequest) async {
     try {
       final response = await _authRemoteDataSource.login(loginRequest);
-      log("token: ${response.token}");
       _authLocalDataSource.saveToken(response.token);
+      log(await _authLocalDataSource.getToken());
       return Right(response.toEntity());
     } on MoviesAppExceptions catch (e) {
       return Left(Faliure(e.message));
