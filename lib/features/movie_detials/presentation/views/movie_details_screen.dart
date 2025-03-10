@@ -228,7 +228,7 @@ class MovieDetailsScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Following the events of Spider-Man No Way Home, Doctor Strange unwittingly casts a forbidden spell that accidentally opens up the multiverse. With help from Wong and Scarlet Witch, Strange confronts various versions of himself as well as teaming up with the young America Chavez while traveling through various realities and working to restore reality as he knows it. Along the way, Strange and his allies realize they must take on a powerful new adversary who seeks to take over the multiverse.—Blazer346',
+                  movie.summary,
                   style: HelperFunction.textTheme(context).bodyMedium,
                 ),
               ),
@@ -266,7 +266,7 @@ class MovieDetailsScreen extends StatelessWidget {
               child: GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 5,
+                itemCount: movie.genres.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 11.h,
@@ -274,7 +274,9 @@ class MovieDetailsScreen extends StatelessWidget {
                   childAspectRatio: 122.w / 36.h,
                 ),
                 itemBuilder: (context, index) {
-                  return const CustomGenreCard(genreName: 'Action');
+                  return CustomGenreCard(
+                    genreName: movie.genres[index],
+                  );
                 },
               ),
             ),
