@@ -14,6 +14,7 @@ import 'package:movies_app/features/movie_detials/presentation/widgets/custom_ti
 import 'package:movies_app/features/movie_detials/presentation/widgets/info_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/screenShot_item.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   static const routeName = '/movie-details';
@@ -152,6 +153,9 @@ class MovieDetailsScreen extends StatelessWidget {
               child: CustomElevatedButton(
                 onPressed: () {
                   // handle watch button
+                  launchUrl(
+                    Uri.parse(movie.url),
+                  );
                 },
                 buttonStyle: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 55.h),
@@ -228,7 +232,7 @@ class MovieDetailsScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  movie.summary,
+                  movie.summary == '' ? 'No summary available' : movie.summary,
                   style: HelperFunction.textTheme(context).bodyMedium,
                 ),
               ),
