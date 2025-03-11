@@ -15,6 +15,7 @@ import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
 import 'package:movies_app/features/home/presentation/widgets/loading_genre_widget.dart';
 import 'package:movies_app/features/home/presentation/widgets/loading_widget.dart';
 import 'package:movies_app/features/home/presentation/widgets/movies_genre.dart';
+import 'package:movies_app/features/movie_detials/presentation/views/movie_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeTab extends StatefulWidget {
@@ -61,6 +62,7 @@ class _HomtTabState extends State<HomeTab> {
           color: ThemeColors.black,
           onRefresh: () async {
             generateGenre();
+            currentIndex = 0;
             await Future.wait([
               context.read<MoviesCubit>().getMovies(),
               movieGenreCubit.getGenreMovies(4, 1, mygenre),
@@ -151,6 +153,13 @@ class _HomtTabState extends State<HomeTab> {
                                   itemBuilder:
                                       (BuildContext context, int index, _) {
                                     return CustomCard(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          MovieDetailsScreen.routeName,
+                                          arguments: movies[index],
+                                        );
+                                      },
                                       customWidth: 234.w,
                                       customHeight: 351.h,
                                       movie: movies[index],
@@ -227,6 +236,13 @@ class _HomtTabState extends State<HomeTab> {
                                     return Padding(
                                       padding: EdgeInsets.only(right: 16.w),
                                       child: CustomCard(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            MovieDetailsScreen.routeName,
+                                            arguments: movies[index],
+                                          );
+                                        },
                                         customWidth: 146.w,
                                         customHeight: 220.h,
                                         movie: movies[index],

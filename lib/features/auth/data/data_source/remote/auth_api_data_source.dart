@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movies_app/core/error/api_error_handler.dart';
 import 'package:movies_app/core/error/exception.dart';
 import 'package:movies_app/features/auth/data/data_source/remote/auth_remote_data_source.dart';
 import 'package:movies_app/features/auth/data/model/login_request.dart';
@@ -21,15 +22,12 @@ class AuthApiDataSource implements AuthRemoteDataSource {
         ApiConstants.baseUrl + ApiConstants.registerEndPoint,
         data: registerRequest.toJson(),
       );
-      if (response.statusCode == 201 || response.statusCode == 200) {
-        return RegisterResponse.fromJson(response.data);
-      } else {
-        throw RemoteExpetion(response.data["message"]);
-      }
+
+      return RegisterResponse.fromJson(response.data);
     } on DioException catch (error) {
-      throw RemoteExpetion(
-        error.response?.data["message"] ?? 'Failed To Register',
-      );
+      throw ApiErrorHandler.handleDioError(error);
+    } catch (error) {
+      throw RemoteExpetion(error.toString());
     }
   }
 
@@ -40,15 +38,12 @@ class AuthApiDataSource implements AuthRemoteDataSource {
         ApiConstants.loginEndPoint,
         data: loginRequest.toJson(),
       );
-      if (response.statusCode == 201 || response.statusCode == 200) {
-        return LoginResponse.fromJson(response.data);
-      } else {
-        throw RemoteExpetion(response.data["message"]);
-      }
+
+      return LoginResponse.fromJson(response.data);
     } on DioException catch (error) {
-      throw RemoteExpetion(
-        error.response?.data["message"] ?? 'Failed To Login',
-      );
+      throw ApiErrorHandler.handleDioError(error);
+    } catch (error) {
+      throw RemoteExpetion(error.toString());
     }
   }
 }

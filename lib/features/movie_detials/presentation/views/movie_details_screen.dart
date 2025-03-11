@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,24 +23,39 @@ import 'package:movies_app/features/movie_detials/presentation/widgets/screenSho
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MovieDetailsScreen extends StatelessWidget {
+class MovieDetailsScreen extends StatefulWidget {
   static const routeName = '/movie-details';
-  MovieDetailsScreen({super.key});
-  final suggestionMoviesCubit = getIt<SuggestionCubit>();
+  const MovieDetailsScreen({super.key});
 
   @override
+  State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
+}
+
+class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
+  final suggestionMoviesCubit = getIt<SuggestionCubit>();
+  late Movie movie;
+  bool isAssigned = false;
+  final scrollController = ScrollController();
+  @override
   Widget build(BuildContext context) {
-    final movie = ModalRoute.of(context)?.settings.arguments as Movie;
-    suggestionMoviesCubit.getSuggestionMovies(movie.id);
+    if (!isAssigned) {
+      movie = ModalRoute.of(context)!.settings.arguments as Movie;
+      suggestionMoviesCubit.getSuggestionMovies(movie.id);
+      isAssigned = true;
+    }
     return Scaffold(
       body: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           children: [
             Stack(
               children: [
                 // Background Image
                 CachedNetworkImage(
-                  imageUrl: movie.largeCoverImage,
+                  imageUrl: movie.largeCoverImage == null ||
+                          movie.largeCoverImage.isEmpty
+                      ? movie.mediumCoverImage
+                      : movie.largeCoverImage,
                   fadeInDuration: const Duration(seconds: 1),
                   fadeOutDuration: const Duration(seconds: 1),
                   fadeInCurve: Curves.easeIn,
@@ -199,10 +216,13 @@ class MovieDetailsScreen extends StatelessWidget {
             const CustomTitle(titleName: 'Screenshots'),
             SizedBox(height: 10.h),
             ScreenshotItem(
-              imgeUrl: movie.largeCoverImage,
+              imgeUrl:
+                  movie.largeCoverImage == null || movie.largeCoverImage.isEmpty
+                      ? movie.mediumCoverImage
+                      : movie.largeCoverImage,
             ),
             ScreenshotItem(
-              imgeUrl: movie.smallCoverImage,
+              imgeUrl: movie.mediumCoverImage,
             ),
             ScreenshotItem(
               imgeUrl: movie.mediumCoverImage,
@@ -220,26 +240,40 @@ class MovieDetailsScreen extends StatelessWidget {
                 } else if (state is SuggestionSuccess) {
                   List<Movie> suggestionMovies = state.movies;
                   return SizedBox(
-                      height: 610.h,
-                      width: double.infinity,
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: suggestionMovies.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 16.h,
-                          crossAxisSpacing: 20.w,
-                          childAspectRatio: 189.w / 279.h,
-                        ),
-                        itemBuilder: (context, index) {
-                          return CustomCard(
-                            customWidth: 189.w,
-                            customHeight: 279.h,
-                            movie: suggestionMovies[index],
-                          );
-                        },
-                      ));
+                    height: 610.h,
+                    width: double.infinity,
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: suggestionMovies.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 16.h,
+                        crossAxisSpacing: 20.w,
+                        childAspectRatio: 189.w / 279.h,
+                      ),
+                      itemBuilder: (context, index) {
+                        return CustomCard(
+                          onTap: () {
+                            scrollController.animateTo(
+                              0.0,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                            );
+                            suggestionMoviesCubit.getSuggestionMovies(
+                              suggestionMovies[index].id,
+                            );
+                            setState(() {
+                              movie = suggestionMovies[index];
+                            });
+                          },
+                          customWidth: 189.w,
+                          customHeight: 279.h,
+                          movie: suggestionMovies[index],
+                        );
+                      },
+                    ),
+                  );
                 } else {
                   return const SizedBox(
                     child: Text('No similar movies found'),

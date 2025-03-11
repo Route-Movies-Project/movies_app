@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
-import 'package:movies_app/features/movie_detials/presentation/views/movie_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomCard extends StatelessWidget {
@@ -11,19 +10,18 @@ class CustomCard extends StatelessWidget {
     required this.customWidth,
     required this.customHeight,
     required this.movie,
+    required this.onTap,
     super.key,
   });
   final Movie movie;
   final double customWidth;
   final double customHeight;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, MovieDetailsScreen.routeName,
-            arguments: movie);
-      },
+      onTap: onTap,
       child: Stack(
         children: [
           SizedBox(

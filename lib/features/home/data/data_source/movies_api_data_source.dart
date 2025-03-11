@@ -18,6 +18,9 @@ class MoviesApiDataSource implements MoviesDataSource {
     try {
       final response = await _dio.get(
         ApiConstants.moviesListEndPoint,
+        queryParameters: {
+          "order_by": "asc",
+        },
       );
       if (response.statusCode == 200) {
         return MoviesResponse.fromJson(response.data);
