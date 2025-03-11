@@ -59,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is LoginLoading) {
           _awesomeLoginDialog = AwesomeDialog(
             dismissOnTouchOutside: false,
+            dismissOnBackKeyPress: false,
             dialogBackgroundColor: ThemeColors.yellow,
             context: context,
             dialogType: DialogType.noHeader,

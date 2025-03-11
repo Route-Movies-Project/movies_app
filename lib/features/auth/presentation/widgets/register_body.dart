@@ -58,6 +58,7 @@ class _RegisterBodyState extends State<RegisterBody> {
         if (state is RegisterLoading) {
           _awesomeRegisterDialog = AwesomeDialog(
             dismissOnTouchOutside: false,
+            dismissOnBackKeyPress: false,
             dialogBackgroundColor: ThemeColors.yellow,
             context: context,
             dialogType: DialogType.noHeader,
