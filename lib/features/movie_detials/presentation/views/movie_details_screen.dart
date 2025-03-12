@@ -16,7 +16,6 @@ import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart
 import 'package:movies_app/features/movie_detials/cubit/suggestions_cubit.dart';
 import 'package:movies_app/features/movie_detials/cubit/movie_details_states.dart';
 import 'package:movies_app/features/movie_detials/data/model/movie_details_response.dart';
-import 'package:movies_app/features/movie_detials/presentation/widgets/custom_cast_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_genre_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_title.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/info_card.dart';
@@ -170,14 +169,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                 ),
 
                                 SizedBox(height: 210.h),
-                                // Play Button
                                 SvgPicture.asset(AppAssets.playTap),
-                                // Spacer for main content
                                 const Spacer(),
-
                                 SizedBox(height: 20.h),
-
-                                // Movie Title
                                 Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 16.w),
@@ -188,16 +182,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                         .titleLarge,
                                   ),
                                 ),
-
                                 SizedBox(height: 10.h),
-
-                                // Year
                                 Text(
                                   movieDetails.year.toString(),
                                   style: HelperFunction.textTheme(context)
                                       .bodyMedium,
                                 ),
-
                                 SizedBox(height: 20.h),
                               ],
                             ),
@@ -211,7 +201,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       ),
                       child: CustomElevatedButton(
                         onPressed: () {
-                          // handle watch button
                           launchUrl(
                             Uri.parse(movieDetails.url),
                           );
@@ -246,17 +235,21 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     SizedBox(height: 20.h),
                     const CustomTitle(titleName: 'Screenshots'),
                     SizedBox(height: 10.h),
-                    ScreenshotItem(
-                      imgeUrl: movieDetails.largeCoverImage == null ||
-                              movieDetails.largeCoverImage.isEmpty
-                          ? movieDetails.mediumCoverImage
-                          : movieDetails.largeCoverImage,
-                    ),
-                    ScreenshotItem(
-                      imgeUrl: movieDetails.largeCoverImage,
-                    ),
-                    ScreenshotItem(
-                      imgeUrl: movieDetails.largeCoverImage,
+
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {},
+                          child: ScreenshotItem(
+                            imgeUrl: movieDetails.largeCoverImage == null ||
+                                    movieDetails.largeCoverImage.isEmpty
+                                ? movieDetails.mediumCoverImage
+                                : movieDetails.largeCoverImage,
+                          ),
+                        );
+                      },
+                      itemCount: 3,
                     ),
                     SizedBox(height: 20.h),
                     // Similar Movies
@@ -271,8 +264,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                         } else if (state is SuggestionSuccess) {
                           List<Movie> suggestionMovies = state.movies;
                           return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.w,
+                              vertical: 16.h,
+                            ),
                             child: GridView.builder(
+                              padding: EdgeInsets.zero,
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: suggestionMovies.length,
@@ -314,7 +311,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       },
                     ),
 
-                    SizedBox(height: 16.h),
                     const CustomTitle(titleName: 'Summary'),
                     SizedBox(height: 8.h),
                     Padding(
@@ -329,38 +325,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16.h),
-                    const CustomTitle(titleName: 'Cast'),
-                    SizedBox(height: 13.h),
-                    const CustomCastCard(
-                      imageName: 'assets/images/HayleyAtwell.png',
-                      actorName: 'HayleyAtwell',
-                      characterName: 'Captain Carter',
+                    SizedBox(
+                      height: 20.h,
                     ),
-                    SizedBox(height: 8.h),
-                    const CustomCastCard(
-                      imageName: 'assets/images/HayleyAtwell.png',
-                      actorName: 'HayleyAtwell',
-                      characterName: 'Captain Carter',
-                    ),
-                    SizedBox(height: 8.h),
-                    const CustomCastCard(
-                      imageName: 'assets/images/HayleyAtwell.png',
-                      actorName: 'HayleyAtwell',
-                      characterName: 'Captain Carter',
-                    ),
-                    SizedBox(height: 8.h),
-                    const CustomCastCard(
-                      imageName: 'assets/images/HayleyAtwell.png',
-                      actorName: 'HayleyAtwell',
-                      characterName: 'Captain Carter',
-                    ),
-                    SizedBox(height: 16.h),
                     const CustomTitle(titleName: 'Genres'),
+                    SizedBox(
+                      height: 16.h,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(
                           bottom: 16.h, left: 16.w, right: 16.w),
                       child: GridView.builder(
+                        padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: movieDetails.genres.length,
