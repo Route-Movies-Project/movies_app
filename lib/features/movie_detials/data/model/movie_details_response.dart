@@ -100,7 +100,9 @@ class MovieDetails {
       titleLong: json["title_long"] ?? "",
       slug: json["slug"] ?? "",
       year: json["year"] ?? 0,
-      rating: json["rating"] ?? 0.0,
+      rating: (json["rating"] is int)
+          ? (json["rating"] as int).toDouble()
+          : (json["rating"] ?? 0.0),
       runtime: json["runtime"] ?? 0,
       genres: json["genres"] == null
           ? []
