@@ -13,8 +13,8 @@ import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
 import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
 import 'package:movies_app/features/home/presentation/widgets/loading_widget.dart';
-import 'package:movies_app/features/movie_detials/cubit/suggestion_cubit.dart';
-import 'package:movies_app/features/movie_detials/cubit/suggestion_states.dart';
+import 'package:movies_app/features/movie_detials/cubit/suggestions_cubit.dart';
+import 'package:movies_app/features/movie_detials/cubit/movie_details_states.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_cast_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_genre_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_title.dart';
@@ -230,7 +230,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             SizedBox(height: 20.h),
             // Similar Movies
             const CustomTitle(titleName: 'Similar Movies'),
-            BlocBuilder<SuggestionCubit, SuggestionStates>(
+            BlocBuilder<SuggestionCubit, MovieDetailsStates>(
               bloc: suggestionMoviesCubit,
               builder: (context, state) {
                 if (state is SuggestionLoading) {

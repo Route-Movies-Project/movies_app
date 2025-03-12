@@ -58,21 +58,20 @@ final theme = ThemeData(
   ),
   scaffoldBackgroundColor: ThemeColors.black,
   textTheme: TextTheme(
-    bodyLarge: GoogleFonts.inter(
-      fontSize: 36.sp,
-      fontWeight: FontWeight.w500,
-      color: ThemeColors.white,
-    ),
-    bodyMedium: GoogleFonts.roboto(
-      fontSize: 16.sp,
-      color: ThemeColors.white,
-    ),
-    titleLarge: GoogleFonts.roboto(
-      fontSize: 24.sp,
-      fontWeight: FontWeight.w700,
-      color: ThemeColors.white,
-    )
-  ),
+      bodyLarge: GoogleFonts.inter(
+        fontSize: 36.sp,
+        fontWeight: FontWeight.w500,
+        color: ThemeColors.white,
+      ),
+      bodyMedium: GoogleFonts.roboto(
+        fontSize: 16.sp,
+        color: ThemeColors.white,
+      ),
+      titleLarge: GoogleFonts.roboto(
+        fontSize: 24.sp,
+        fontWeight: FontWeight.w700,
+        color: ThemeColors.white,
+      )),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: ThemeColors.grey,
     selectedItemColor: ThemeColors.yellow,

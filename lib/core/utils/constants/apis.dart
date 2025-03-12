@@ -7,4 +7,5 @@ class ApiConstants {
   static const loginEndPoint = "auth/login";
   static const profileEndPoint = "profile";
   static const resetPasswordEndPoint = "auth/reset-password";
+  static const movieDetialsEndPoint = "v2/movie_details.json";
 }

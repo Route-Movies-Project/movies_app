@@ -19,7 +19,7 @@ class AppRoutes {
     LoginScreen.routeName: (_) => const LoginScreen(),
     HomeScreen.routeName: (_) => const HomeScreen(),
     Profile.routeName: (_) => const Profile(),
-    MovieDetailsScreen.routeName: (_) =>  MovieDetailsScreen(),
+    MovieDetailsScreen.routeName: (_) => MovieDetailsScreen(),
   };
 
   static final String initialRoute = IntroScreen.routeName;
