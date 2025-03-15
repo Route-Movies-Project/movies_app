@@ -50,6 +50,7 @@ import 'package:movies_app/features/home/repository/movies_repository.dart'
     as _i806;
 import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart'
     as _i230;
+
 import 'package:movies_app/features/movie_detials/cubit/suggestions_cubit.dart'
     as _i562;
 import 'package:movies_app/features/movie_detials/data/data_source/movie_details_data_source.dart'

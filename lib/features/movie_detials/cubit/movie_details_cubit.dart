@@ -17,9 +17,11 @@ class MovieDetailsCubit extends Cubit<MovieDetailsStates> {
           errorMessage: l.message,
         ),
       ),
-      (r) => emit(
-        MovieDetailsSuccess(r),
-      ),
+      (r) {
+        emit(
+          MovieDetailsSuccess(r),
+        );
+      },
     );
   }
 }

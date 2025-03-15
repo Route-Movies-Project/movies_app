@@ -13,7 +13,6 @@ import 'package:movies_app/features/favourites/presentation/cubit/add_to_favouri
 import 'package:movies_app/features/favourites/presentation/cubit/delete_favourite_cubit.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/favourites_states.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart';
-import 'package:movies_app/features/home/data/model/movie_response.dart';
 import 'package:movies_app/features/movie_detials/data/model/movie_details_response.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_arrow_back.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_gradient.dart';
@@ -24,10 +23,9 @@ class CustomHeaderImage extends StatelessWidget {
   const CustomHeaderImage({
     super.key,
     required this.movieDetails,
-    required this.movie,
   });
   final MovieDetails movieDetails;
-  final Movie movie;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -115,24 +113,25 @@ class CustomHeaderImage extends StatelessWidget {
                                   ),
                                 ),
                                 child: IconButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (state.isFavourite == true) {
-                                      getIt<DeleteFavouriteCubit>()
-                                          .deleteFavouirte(movie.id);
+                                      await getIt<DeleteFavouriteCubit>()
+                                          .deleteFavouirte(movieDetails.id);
                                     } else {
-                                      getIt<AddToFavouritesCubit>()
+                                      await getIt<AddToFavouritesCubit>()
                                           .addToFavourite(
                                         FavouriteModel(
-                                          movieId: movie.id.toString(),
-                                          name: movie.title,
-                                          rating: movie.rating,
-                                          imageUrl: movie.largeCoverImage,
-                                          year: movie.year.toString(),
+                                          movieId: movieDetails.id.toString(),
+                                          name: movieDetails.title,
+                                          rating: movieDetails.rating,
+                                          imageUrl:
+                                              movieDetails.largeCoverImage,
+                                          year: movieDetails.year.toString(),
                                         ),
                                       );
                                     }
                                     getIt<IsFavouriteCubit>()
-                                        .getIsFavourite(movie.id);
+                                        .getIsFavourite(movieDetails.id);
                                   },
                                   icon: Icon(
                                     state.isFavourite == true

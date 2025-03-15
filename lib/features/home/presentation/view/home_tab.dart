@@ -162,7 +162,7 @@ class _HomtTabState extends State<HomeTab> {
                                           Navigator.pushNamed(
                                             context,
                                             MovieDetailsScreen.routeName,
-                                            arguments: movies[index],
+                                            arguments: movies[index].id,
                                           );
                                         },
                                         customWidth: 234.w,
@@ -245,11 +245,9 @@ class _HomtTabState extends State<HomeTab> {
                                         padding: EdgeInsets.only(right: 16.w),
                                         child: CustomCard(
                                           onTap: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              MovieDetailsScreen.routeName,
-                                              arguments: movies[index],
-                                            );
+                                            Navigator.pushNamed(context,
+                                                MovieDetailsScreen.routeName,
+                                                arguments: movies[index].id);
                                           },
                                           customWidth: 146.w,
                                           customHeight: 220.h,

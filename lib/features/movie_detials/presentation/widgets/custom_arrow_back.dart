@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
+import 'package:movies_app/core/service/service_locator.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/add_to_favourites_cubit.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/delete_favourite_cubit.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/favourites_states.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart';
 
 class CustomArrowBack extends StatelessWidget {
   const CustomArrowBack({super.key});
@@ -17,7 +22,12 @@ class CustomArrowBack extends StatelessWidget {
         icon: const Icon(Icons.arrow_back_ios),
         color: ThemeColors.white,
         onPressed: () {
-          Navigator.pop(context);
+          if (getIt<AddToFavouritesCubit>().state is FavouritesLoading ||
+              getIt<DeleteFavouriteCubit>().state is DeleteFavouriteLoading ||
+              getIt<IsFavouriteCubit>().state is IsFavouriteLoading) {
+          } else {
+            Navigator.of(context).pop();
+          }
         },
       ),
     );

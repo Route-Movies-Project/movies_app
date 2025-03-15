@@ -7,7 +7,6 @@ import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/add_to_favourites_cubit.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/delete_favourite_cubit.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart';
-import 'package:movies_app/features/home/data/model/movie_response.dart';
 import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/movie_detials/cubit/suggestions_cubit.dart';
 import 'package:movies_app/features/movie_detials/cubit/movie_details_states.dart';
@@ -33,7 +32,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   final suggestionMoviesCubit = getIt<SuggestionCubit>();
   final movieDetailsCubit = getIt<MovieDetailsCubit>();
   final isFavouriteCubit = getIt<IsFavouriteCubit>();
-  late Movie movie;
+  late int movieId;
   bool isAssigned = false;
   bool isFavourite = false;
   final scrollController = ScrollController();
@@ -45,10 +44,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     if (!isAssigned) {
-      movie = ModalRoute.of(context)!.settings.arguments as Movie;
-      movieDetailsCubit.getMovieDetails(movie.id);
-      suggestionMoviesCubit.getSuggestionMovies(movie.id);
-      isFavouriteCubit.getIsFavourite(movie.id);
+      movieId = ModalRoute.of(context)!.settings.arguments as int;
+      movieDetailsCubit.getMovieDetails(movieId);
+      suggestionMoviesCubit.getSuggestionMovies(movieId);
+      isFavouriteCubit.getIsFavourite(movieId);
       isAssigned = true;
     }
     return Scaffold(
@@ -89,7 +88,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   children: [
                     CustomHeaderImage(
                       movieDetails: movieDetails,
-                      movie: movie,
                     ),
                     CustomWatchButton(
                       movieDetails: movieDetails,

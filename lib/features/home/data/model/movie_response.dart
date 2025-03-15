@@ -71,7 +71,7 @@ class Movie {
     required this.mediumCoverImage,
     required this.largeCoverImage,
     required this.state,
-    required this.torrents,
+    this.torrents,
     required this.dateUploaded,
     required this.dateUploadedUnix,
   });
@@ -99,10 +99,38 @@ class Movie {
   final String mediumCoverImage;
   final String largeCoverImage;
   final String state;
-  final List<Torrent> torrents;
+  final List<Torrent>? torrents;
   final DateTime? dateUploaded;
   final int dateUploadedUnix;
-
+  factory Movie.defaultMovie() {
+    return Movie(
+      id: 0,
+      url: "https://example.com",
+      imdbCode: "tt000000",
+      title: "Default Movie",
+      titleEnglish: "Default Movie",
+      titleLong: "Default Movie (2024)",
+      slug: "default-movie",
+      year: 2024,
+      rating: 0.0,
+      runtime: 120,
+      genres: const ["Action", "Drama"],
+      summary: "This is a default movie summary.",
+      descriptionFull: "This is a full description of the default movie.",
+      synopsis: "This is a synopsis of the default movie.",
+      ytTrailerCode: "default123",
+      language: "English",
+      mpaRating: "PG-13",
+      backgroundImage: "https://example.com/bg.jpg",
+      backgroundImageOriginal: "https://example.com/bg_original.jpg",
+      smallCoverImage: "https://example.com/small_cover.jpg",
+      mediumCoverImage: "https://example.com/medium_cover.jpg",
+      largeCoverImage: "https://example.com/large_cover.jpg",
+      state: "available",
+      dateUploaded: DateTime.now(),
+      dateUploadedUnix: 1710500000,
+    );
+  }
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
       id: json["id"] ?? 0,
