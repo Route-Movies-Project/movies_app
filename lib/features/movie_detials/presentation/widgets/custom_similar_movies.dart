@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/service/service_locator.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
 import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
 import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart';
@@ -51,6 +53,8 @@ class CustomSimilarMovies extends StatelessWidget {
               movieDetailsCubit.getMovieDetails(
                 suggestionMovies[index].id,
               );
+              getIt<IsFavouriteCubit>()
+                  .getIsFavourite(suggestionMovies[index].id);
             },
             customWidth: 189.w,
             customHeight: 279.h,
