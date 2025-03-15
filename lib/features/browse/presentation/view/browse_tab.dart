@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/service/service_locator.dart';
+import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
 import 'package:movies_app/features/browse/presentation/widgets/custom_tab_item.dart';
-import 'package:movies_app/features/home/cubit/movies_cubit.dart';
+import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_states.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
 import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
-import 'package:movies_app/features/home/presentation/widgets/loading_widget.dart';
 import 'package:movies_app/features/home/presentation/widgets/movies_genre.dart';
 import 'package:movies_app/features/movie_detials/presentation/views/movie_details_screen.dart';
 
@@ -19,49 +20,74 @@ class BrowseTab extends StatefulWidget {
 
 class _BrowseTabState extends State<BrowseTab> {
   final scrollController = ScrollController();
+  int selectedIndex = 0;
+  bool isSelected = false;
+  final MoviesGenreCubit movieGenreCubit = getIt<MoviesGenreCubit>();
+
+  @override
+  void initState() {
+    super.initState();
+    movieGenreCubit.getGenreMovies(
+      100,
+      1,
+      MoviesGenre.movieGenres[selectedIndex],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: Column(
-        children: [
-          SizedBox(height: 32.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.w),
-            child: DefaultTabController(
-              length: MoviesGenre.movieGenres.length,
-              child: TabBar(
-                padding: EdgeInsets.only(left: 8.w),
-                labelPadding: EdgeInsets.symmetric(horizontal: 4.w),
-                isScrollable: true,
-                indicatorColor: Colors.transparent,
-                dividerColor: Colors.transparent,
-                tabAlignment: TabAlignment.start,
-                tabs: MoviesGenre.movieGenres
-                    .map(
-                      (genre) => CustomTabItem(genre: genre),
-                    )
-                    .toList(),
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 32.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: DefaultTabController(
+            length: MoviesGenre.movieGenres.length,
+            child: TabBar(
+              isScrollable: true,
+              indicatorColor: Colors.transparent,
+              dividerColor: Colors.transparent,
+              tabAlignment: TabAlignment.start,
+              labelPadding: EdgeInsets.symmetric(horizontal: 6.w),
+              tabs: MoviesGenre.movieGenres
+                  .map((genre) => CustomTabItem(
+                      isSelected: selectedIndex ==
+                          MoviesGenre.movieGenres.indexOf(genre),
+                      genre: genre))
+                  .toList(),
+              onTap: (index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+                movieGenreCubit.getGenreMovies(
+                  100,
+                  1,
+                  MoviesGenre.movieGenres[selectedIndex],
+                );
+              },
             ),
           ),
-          BlocBuilder<MoviesCubit, MoviesStates>(
+        ),
+        SizedBox(height: 25.h),
+        Expanded(
+          child: BlocBuilder<MoviesGenreCubit, MoviesStates>(
             builder: (context, state) {
-              if (state is MoviesLoading) {
-                return const LoadingWidget();
-              } else if (state is MoviesError) {
+              if (state is MoviesGenreLoading) {
+                return const LoadingIndicator();
+              } else if (state is MoviesGenreError) {
                 return ErrorWidget(state.errorMessage);
-              } else if (state is MoviesSuccess) {
+              } else if (state is MoviesGenreSuccess) {
                 List<Movie> movies = state.movies;
                 return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 16.h,
+                  padding: EdgeInsets.only(
+                    left: 16.w,
+                    right: 16.w,
+                    bottom: 110.h,
                   ),
                   child: GridView.builder(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: movies.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -75,7 +101,7 @@ class _BrowseTabState extends State<BrowseTab> {
                           Navigator.pushNamed(
                             context,
                             MovieDetailsScreen.routeName,
-                            arguments: movies[index],
+                            arguments: movies[index].id,
                           );
                         },
                         customWidth: 189.w,
@@ -90,8 +116,8 @@ class _BrowseTabState extends State<BrowseTab> {
               }
             },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

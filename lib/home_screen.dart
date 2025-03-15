@@ -7,6 +7,7 @@ import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/features/browse/presentation/view/browse_tab.dart';
 import 'package:movies_app/features/home/cubit/movies_cubit.dart';
+import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart';
 import 'package:movies_app/features/home/presentation/view/home_tab.dart';
 import 'package:movies_app/features/profile/presentation/view/profile.dart';
 
@@ -42,8 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider.value(
-        value: moviesCubit,
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => getIt.get<MoviesCubit>()),
+          BlocProvider(create: (context) => getIt.get<MoviesGenreCubit>()),
+        ],
         child: Stack(
           children: [
             _screens[_selectedIndex],
