@@ -12,6 +12,7 @@ class CustomNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
+      // ignore: unnecessary_null_comparison
       imageUrl: movieDetails.largeCoverImage == null ||
               movieDetails.largeCoverImage.isEmpty
           ? movieDetails.mediumCoverImage

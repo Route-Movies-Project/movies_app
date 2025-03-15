@@ -7,12 +7,13 @@ import 'package:movies_app/features/movie_detials/cubit/suggestions_cubit.dart';
 
 class CustomSimilarMovies extends StatelessWidget {
   const CustomSimilarMovies({
+    super.key,
     required this.movieDetailsCubit,
     required this.suggestionMovies,
     required this.suggestionMoviesCubit,
     required this.scrollController,
-    super.key,
   });
+
   final ScrollController scrollController;
   final SuggestionCubit suggestionMoviesCubit;
   final List<Movie> suggestionMovies;

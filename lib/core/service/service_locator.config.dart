@@ -31,8 +31,12 @@ import 'package:movies_app/features/favourites/data_source/data/favourite_api_da
     as _i664;
 import 'package:movies_app/features/favourites/data_source/data/favourites_data_source.dart'
     as _i554;
-import 'package:movies_app/features/favourites/presentation/cubit/favourites_cubit.dart'
-    as _i759;
+import 'package:movies_app/features/favourites/presentation/cubit/add_to_favourites_cubit.dart'
+    as _i472;
+import 'package:movies_app/features/favourites/presentation/cubit/delete_favourite_cubit.dart'
+    as _i70;
+import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart'
+    as _i962;
 import 'package:movies_app/features/favourites/repository/favourites_repository.dart'
     as _i847;
 import 'package:movies_app/features/home/cubit/movies_cubit.dart' as _i790;
@@ -106,8 +110,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i230.MovieDetailsCubit(gh<_i692.MovieDetailsRepository>()));
     gh.singleton<_i562.SuggestionCubit>(
         () => _i562.SuggestionCubit(gh<_i692.MovieDetailsRepository>()));
-    gh.singleton<_i759.FavouritesCubit>(
-        () => _i759.FavouritesCubit(gh<_i847.FavouritesRepository>()));
+    gh.singleton<_i472.AddToFavouritesCubit>(
+        () => _i472.AddToFavouritesCubit(gh<_i847.FavouritesRepository>()));
+    gh.singleton<_i70.DeleteFavouriteCubit>(
+        () => _i70.DeleteFavouriteCubit(gh<_i847.FavouritesRepository>()));
+    gh.singleton<_i962.IsFavouriteCubit>(
+        () => _i962.IsFavouriteCubit(gh<_i847.FavouritesRepository>()));
     gh.singleton<_i790.MoviesCubit>(
         () => _i790.MoviesCubit(gh<_i806.MoviesRepository>()));
     gh.singleton<_i298.MoviesGenreCubit>(

@@ -25,9 +25,12 @@ class FavouriteApiDataSource implements FavouritesDataSource {
       final response = await _dio.post(
         ApiConstants.addToFavouriteEndPoint,
         data: favouriteRequest.toJson(),
-        queryParameters: {
-          "Authorization": "Bearer ${getIt<AuthLocalDataSource>().getToken()}"
-        },
+        options: Options(
+          headers: {
+            "Authorization":
+                "Bearer ${await getIt<AuthLocalDataSource>().getToken()}",
+          },
+        ),
       );
       return FavouritesResponse.fromJson(response.data);
     } on DioException catch (e) {
@@ -40,11 +43,14 @@ class FavouriteApiDataSource implements FavouritesDataSource {
   @override
   Future<DeleteFavouriteResposne> deleteFavourite(int movieId) async {
     try {
-      final response = await _dio.post(
+      final response = await _dio.delete(
         "${ApiConstants.deleteFavouriteEndPoint}/$movieId",
-        queryParameters: {
-          "Authorization": "Bearer ${getIt<AuthLocalDataSource>().getToken()}"
-        },
+        options: Options(
+          headers: {
+            "Authorization":
+                "Bearer ${await getIt<AuthLocalDataSource>().getToken()}",
+          },
+        ),
       );
       return DeleteFavouriteResposne.fromJson(response.data);
     } on DioException catch (e) {
@@ -57,11 +63,14 @@ class FavouriteApiDataSource implements FavouritesDataSource {
   @override
   Future<IsFavouriteRepsonse> getIsFavourite(int movieId) async {
     try {
-      final response = await _dio.post(
+      final response = await _dio.get(
         "${ApiConstants.isFavouriteEndPoint}/$movieId",
-        queryParameters: {
-          "Authorization": "Bearer ${getIt<AuthLocalDataSource>().getToken()}"
-        },
+        options: Options(
+          headers: {
+            "Authorization":
+                "Bearer ${await getIt<AuthLocalDataSource>().getToken()}",
+          },
+        ),
       );
       return IsFavouriteRepsonse.fromJson(response.data);
     } on DioException catch (e) {

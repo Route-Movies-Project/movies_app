@@ -18,6 +18,7 @@ class CustomScreenshot extends StatelessWidget {
           return InkWell(
             onTap: () {},
             child: ScreenshotItem(
+              // ignore: unnecessary_null_comparison
               imgeUrl: movieDetails.largeCoverImage == null ||
                       movieDetails.largeCoverImage.isEmpty
                   ? movieDetails.mediumCoverImage
