@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
+import 'package:movies_app/features/browse/presentation/view/browse_tab.dart';
 import 'package:movies_app/features/home/cubit/movies_cubit.dart';
 import 'package:movies_app/features/home/presentation/view/home_tab.dart';
 import 'package:movies_app/features/profile/presentation/view/profile.dart';
@@ -23,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static final List<Widget> _screens = [
     const HomeTab(),
     const HomeTab(),
-    const HomeTab(),
+    const BrowseTab(),
     const Profile(),
   ];
   @override
