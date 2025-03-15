@@ -10,6 +10,9 @@ import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
+import 'package:movies_app/features/favourites/data_source/model/favourites_request.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/favourites_cubit.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/favourites_states.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
 import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
 import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart';
@@ -23,6 +26,7 @@ import 'package:movies_app/features/movie_detials/presentation/widgets/movie_sug
 import 'package:movies_app/features/movie_detials/presentation/widgets/screenshot_item.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   static const routeName = '/movie-details';
@@ -35,20 +39,35 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   final suggestionMoviesCubit = getIt<SuggestionCubit>();
   final movieDetailsCubit = getIt<MovieDetailsCubit>();
+  final favouritesCubit = getIt<FavouritesCubit>();
   late Movie movie;
   bool isAssigned = false;
+  bool isFavourite = false;
   final scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!isAssigned) {
       movie = ModalRoute.of(context)!.settings.arguments as Movie;
       movieDetailsCubit.getMovieDetails(movie.id);
       suggestionMoviesCubit.getSuggestionMovies(movie.id);
+      favouritesCubit.getIsFavourite(movie.id);
       isAssigned = true;
     }
     return Scaffold(
-      body: BlocProvider.value(
-        value: getIt<MovieDetailsCubit>(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider.value(
+            value: getIt<MovieDetailsCubit>(),
+          ),
+          BlocProvider.value(
+            value: getIt<FavouritesCubit>(),
+          ),
+        ],
         child: BlocBuilder<MovieDetailsCubit, MovieDetailsStates>(
           builder: (context, state) {
             if (state is MovieDetailsLoading) {
@@ -71,7 +90,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   children: [
                     Stack(
                       children: [
-                        // Background Image
                         CachedNetworkImage(
                           imageUrl: movieDetails.largeCoverImage == null ||
                                   movieDetails.largeCoverImage.isEmpty
@@ -100,7 +118,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           height: 645.h,
                           width: double.infinity,
                         ),
-                        // Gradient Overlay
+
                         Container(
                           width: double.infinity,
                           height: 645.h,
@@ -157,11 +175,66 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                         ),
-                                        child: IconButton(
-                                          icon:
-                                              const Icon(Icons.bookmark_border),
-                                          color: ThemeColors.white,
-                                          onPressed: () {},
+                                        child: BlocListener<FavouritesCubit,
+                                            FavouritesStates>(
+                                          listener: (context, state) {
+                                            if (state is FavouritesLoading) {
+                                            } else if (state
+                                                is FavouritesError) {
+                                              Fluttertoast.showToast(
+                                                msg: state.errorMessage,
+                                                backgroundColor:
+                                                    ThemeColors.yellow,
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                textColor: ThemeColors.black,
+                                                gravity: ToastGravity.BOTTOM,
+                                              );
+                                            } else if (state
+                                                is FavouritesSuccess) {
+                                              Fluttertoast.showToast(
+                                                msg: state.addToFavouritemessage ==
+                                                        null
+                                                    ? state.deleteFavouritemessage ??
+                                                        ""
+                                                    : "",
+                                                backgroundColor:
+                                                    ThemeColors.yellow,
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                textColor: ThemeColors.black,
+                                                gravity: ToastGravity.BOTTOM,
+                                              );
+                                              isFavourite =
+                                                  state.isFavourite ?? false;
+                                            }
+                                          },
+                                          child: IconButton(
+                                            icon: const Icon(
+                                                Icons.bookmark_border),
+                                            color: ThemeColors.white,
+                                            onPressed: () {
+                                              getIt<FavouritesCubit>()
+                                                  .getIsFavourite(movie.id);
+                                              if (!isFavourite) {
+                                                getIt<FavouritesCubit>()
+                                                    .addToFavourite(
+                                                  FavouriteModel(
+                                                    movieId:
+                                                        movie.id.toString(),
+                                                    name: movie.title,
+                                                    rating: movie.rating,
+                                                    imageUrl:
+                                                        movie.largeCoverImage,
+                                                    year: movie.year.toString(),
+                                                  ),
+                                                );
+                                              } else {
+                                                getIt<FavouritesCubit>()
+                                                    .deleteFavouirte(
+                                                  movie.id,
+                                                );
+                                              }
+                                            },
+                                          ),
                                         ),
                                       ),
                                     ],
