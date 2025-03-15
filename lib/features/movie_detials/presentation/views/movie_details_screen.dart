@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_null_comparison
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,14 +6,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/service/service_locator.dart';
-import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/features/favourites/data_source/model/favourites_request.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/favourites_cubit.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/favourites_states.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
-import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
 import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/movie_detials/cubit/suggestions_cubit.dart';
 import 'package:movies_app/features/movie_detials/cubit/movie_details_states.dart';
@@ -22,7 +19,6 @@ import 'package:movies_app/features/movie_detials/data/model/movie_details_respo
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_arrow_back.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_description.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_genre.dart';
-import 'package:movies_app/features/movie_detials/presentation/widgets/custom_genre_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_gradient.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_info_row.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_movie_title.dart';
@@ -31,11 +27,7 @@ import 'package:movies_app/features/movie_detials/presentation/widgets/custom_sc
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_similar_movies.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_title.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/custom_watch_button.dart';
-import 'package:movies_app/features/movie_detials/presentation/widgets/info_card.dart';
 import 'package:movies_app/features/movie_detials/presentation/widgets/movie_suggestion_loading_widget.dart';
-import 'package:movies_app/features/movie_detials/presentation/widgets/screenshot_item.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
