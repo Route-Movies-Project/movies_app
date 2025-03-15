@@ -60,7 +60,7 @@ class MovieDetails {
     required this.mediumCoverImage,
     required this.largeCoverImage,
     required this.torrents,
-    required this.dateUploaded,
+    this.dateUploaded,
     required this.dateUploadedUnix,
   });
 
@@ -87,7 +87,7 @@ class MovieDetails {
   final String mediumCoverImage;
   final String largeCoverImage;
   final List<Torrent> torrents;
-  final DateTime dateUploaded;
+  final DateTime? dateUploaded;
   final int dateUploadedUnix;
 
   factory MovieDetails.fromJson(Map<String, dynamic> json) {
@@ -122,7 +122,9 @@ class MovieDetails {
           ? []
           : List<Torrent>.from(
               json["torrents"]!.map((x) => Torrent.fromJson(x))),
-      dateUploaded: DateTime.parse(json["date_uploaded"] ?? ""),
+      dateUploaded: DateTime.tryParse(
+              (json["date_uploaded"] ?? "").replaceFirst(" ", "T")) ??
+          DateTime.now(),
       dateUploadedUnix: json["date_uploaded_unix"] ?? 0,
     );
   }
@@ -175,7 +177,10 @@ class Torrent {
       peers: json["peers"] ?? 0,
       size: json["size"] ?? "",
       sizeBytes: json["size_bytes"] ?? 0,
-      dateUploaded: DateTime.parse(json["date_uploaded"] ?? ""),
+      dateUploaded: DateTime.tryParse(
+            (json["date_uploaded"] ?? ""),
+          ) ??
+          DateTime.now(),
       dateUploadedUnix: json["date_uploaded_unix"] ?? 0,
     );
   }

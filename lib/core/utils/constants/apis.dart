@@ -8,4 +8,7 @@ class ApiConstants {
   static const profileEndPoint = "profile";
   static const resetPasswordEndPoint = "auth/reset-password";
   static const movieDetialsEndPoint = "v2/movie_details.json";
+  static const addToFavouriteEndPoint = "favorites/add";
+  static const deleteFavouriteEndPoint = "favorites/remove";
+  static const isFavouriteEndPoint = "favorites/is-favorite";
 }

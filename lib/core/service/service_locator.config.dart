@@ -27,6 +27,14 @@ import 'package:movies_app/features/auth/domain/repositories/auth_repositorie.da
     as _i28;
 import 'package:movies_app/features/auth/presentation/cubit/auth_cubit.dart'
     as _i489;
+import 'package:movies_app/features/favourites/data_source/data/favourite_api_data_source.dart'
+    as _i664;
+import 'package:movies_app/features/favourites/data_source/data/favourites_data_source.dart'
+    as _i554;
+import 'package:movies_app/features/favourites/presentation/cubit/favourites_cubit.dart'
+    as _i759;
+import 'package:movies_app/features/favourites/repository/favourites_repository.dart'
+    as _i847;
 import 'package:movies_app/features/home/cubit/movies_cubit.dart' as _i790;
 import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart'
     as _i298;
@@ -82,6 +90,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i692.MovieDetailsRepository>(
         () => _i692.MovieDetailsRepository(gh<_i1067.MovieDetailDataSource>()));
     gh.singleton<_i423.ProfileDataSource>(() => _i654.ProfileApiDataSource());
+    gh.singleton<_i554.FavouritesDataSource>(
+        () => _i664.FavouriteApiDataSource());
+    gh.singleton<_i847.FavouritesRepository>(
+        () => _i847.FavouritesRepository(gh<_i554.FavouritesDataSource>()));
     gh.singleton<_i806.MoviesRepository>(
         () => _i806.MoviesRepository(gh<_i992.MoviesDataSource>()));
     gh.singleton<_i364.ProfileRepository>(
@@ -94,6 +106,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i230.MovieDetailsCubit(gh<_i692.MovieDetailsRepository>()));
     gh.singleton<_i562.SuggestionCubit>(
         () => _i562.SuggestionCubit(gh<_i692.MovieDetailsRepository>()));
+    gh.singleton<_i759.FavouritesCubit>(
+        () => _i759.FavouritesCubit(gh<_i847.FavouritesRepository>()));
     gh.singleton<_i790.MoviesCubit>(
         () => _i790.MoviesCubit(gh<_i806.MoviesRepository>()));
     gh.singleton<_i298.MoviesGenreCubit>(
