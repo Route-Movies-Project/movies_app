@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:movies_app/core/Themes/colors.dart';
 import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
@@ -79,15 +78,11 @@ class _SearchTabState extends State<SearchTab> {
                   List<Movie> movies = state.movies;
                   if (_searchController.text.isEmpty || movies.isEmpty) {
                     return Container(
-                      height: 750.h, // Fixed height constraint
+                      height: 750.h, 
                       alignment: Alignment.center,
-                      child: Text(
-                        'No Movies Found',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
+                      child: Image.asset("assets/images/empty.png"),
                     );
                   }
-
                   return Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 16.w,
@@ -121,8 +116,10 @@ class _SearchTabState extends State<SearchTab> {
                     ),
                   );
                 } else {
-                  return const SizedBox.shrink(
-                    child: Text('No Movies Found'),
+                  return Container(
+                    height: 750.h, 
+                    alignment: Alignment.center,
+                    child: Image.asset("assets/images/empty.png"),
                   );
                 }
               },
