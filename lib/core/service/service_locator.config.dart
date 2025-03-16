@@ -50,7 +50,6 @@ import 'package:movies_app/features/home/repository/movies_repository.dart'
     as _i806;
 import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart'
     as _i230;
-
 import 'package:movies_app/features/movie_detials/cubit/suggestions_cubit.dart'
     as _i562;
 import 'package:movies_app/features/movie_detials/data/data_source/movie_details_data_source.dart'
@@ -66,6 +65,12 @@ import 'package:movies_app/features/profile/data/data_source/profile_data_source
     as _i423;
 import 'package:movies_app/features/profile/repository/profile_repository.dart'
     as _i364;
+import 'package:movies_app/features/search/cubit/search_cubit.dart' as _i1018;
+import 'package:movies_app/features/search/data/data_source/search_api_data_source.dart'
+    as _i1042;
+import 'package:movies_app/features/search/data/data_source/search_data_source.dart'
+    as _i762;
+import 'package:movies_app/features/search/repo/search_repo.dart' as _i568;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -97,12 +102,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i423.ProfileDataSource>(() => _i654.ProfileApiDataSource());
     gh.singleton<_i554.FavouritesDataSource>(
         () => _i664.FavouriteApiDataSource());
+    gh.singleton<_i762.SearchDataSource>(() => _i1042.MoviesApiDataSource());
     gh.singleton<_i847.FavouritesRepository>(
         () => _i847.FavouritesRepository(gh<_i554.FavouritesDataSource>()));
+    gh.singleton<_i568.SearchRepository>(
+        () => _i568.SearchRepository(gh<_i762.SearchDataSource>()));
     gh.singleton<_i806.MoviesRepository>(
         () => _i806.MoviesRepository(gh<_i992.MoviesDataSource>()));
     gh.singleton<_i364.ProfileRepository>(
         () => _i364.ProfileRepository(gh<_i423.ProfileDataSource>()));
+    gh.singleton<_i1018.SearchCubit>(
+        () => _i1018.SearchCubit(gh<_i568.SearchRepository>()));
     gh.singleton<_i28.AuthRepositorie>(() => _i186.AuthRepositorieImpl(
           gh<_i94.AuthRemoteDataSource>(),
           gh<_i147.AuthLocalDataSource>(),

@@ -10,6 +10,8 @@ import 'package:movies_app/features/home/cubit/movies_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart';
 import 'package:movies_app/features/home/presentation/view/home_tab.dart';
 import 'package:movies_app/features/profile/presentation/view/profile.dart';
+import 'package:movies_app/features/search/cubit/search_cubit.dart';
+import 'package:movies_app/features/search/presentation/views/search_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home-screen';
@@ -24,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final moviesCubit = getIt<MoviesCubit>();
   static final List<Widget> _screens = [
     const HomeTab(),
-    const HomeTab(),
+    const SearchTab(),
     const BrowseTab(),
     const Profile(),
   ];
@@ -47,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         providers: [
           BlocProvider(create: (context) => getIt.get<MoviesCubit>()),
           BlocProvider(create: (context) => getIt.get<MoviesGenreCubit>()),
+          BlocProvider(create: (context) => getIt.get<SearchCubit>()),
         ],
         child: Stack(
           children: [
