@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/Themes/colors.dart';
 
@@ -6,9 +7,9 @@ class CustomDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return  Row(
       children: [
-        Expanded(
+        const Expanded(
           child: Divider(
             color: ThemeColors.yellow,
             thickness: 1,
@@ -16,16 +17,16 @@ class CustomDivider extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(
-            "OR",
-            style: TextStyle(
+            "or".tr(),
+            style: const TextStyle(
               color: Colors.amber,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        Expanded(
+        const Expanded(
           child: Divider(
             color: ThemeColors.yellow,
             thickness: 1,

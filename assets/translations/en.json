@@ -1,5 +1,12 @@
 {
     "login":"Login",
+    "email_hint" : "Email",
+    "password_hint" : "Password",
+    "forget_password":"Forget Password",
+    "dont_have_account":"Don't have an account?",
+    "create_account":"Create Account",
+    "login_with_google":"Login with Google",
+    "or":"Or",
     "intro_title":"Find Your Next Favourite Movie Here",
     "intro_content":"Get access to a huge library of movies to suit all tastes. You will surely like it.",
     "onboarding_title1":"Discover Movies",
