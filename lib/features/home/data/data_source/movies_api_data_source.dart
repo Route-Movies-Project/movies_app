@@ -14,11 +14,16 @@ class MoviesApiDataSource implements MoviesDataSource {
     ),
   );
   @override
-  Future<MoviesResponse> getMovies() async {
+  Future<MoviesResponse> getMovies(
+    int limit,
+    int page,
+  ) async {
     try {
       final response = await _dio.get(
         ApiConstants.moviesListEndPoint,
         queryParameters: {
+          "limit": limit.toString(),
+          "page": page.toString(),
           "order_by": "desc",
         },
       );
@@ -46,6 +51,7 @@ class MoviesApiDataSource implements MoviesDataSource {
           "page": page.toString(),
           "genre": genre.toString(),
           "with_rt_ratings": "true",
+          "order_by": "asc",
         },
       );
       if (response.statusCode == 200) {

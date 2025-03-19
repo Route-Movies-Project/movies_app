@@ -9,17 +9,36 @@ class SearchCubit extends Cubit<SearchMoviesStates> {
   SearchCubit(this._searchRepository) : super(SearchMoviesInitial());
   final SearchRepository _searchRepository;
   List<Movie> allMovies = [];
-
-  Future<void> searchMovies(String query) async {
-    emit(SearchMoviesLoading());
-    final response = await _searchRepository.searchMovies(query);
+  bool isLoading = false;
+  bool hasMoreData = true;
+  int page = 1;
+  Future<void> searchMovies(
+    String query,
+    int limit, {
+    bool isPagination = false,
+  }) async {
+    if (isLoading || !hasMoreData) return;
+    isLoading = true;
+    if (!isPagination) {
+      emit(SearchMoviesLoading());
+      page = 1;
+      hasMoreData = true;
+      allMovies.clear();
+    }
+    final response = await _searchRepository.searchMovies(query, page, limit);
     response.fold(
-      (l) => emit(SearchMoviesError(l.message)),
+      (l) {
+        emit(SearchMoviesError(l.message));
+        isLoading = false;
+      },
       (r) {
-        allMovies = r.data?.movies ?? [];
+        allMovies.addAll(r.data?.movies ?? []);
+        page++;
+        hasMoreData = r.data?.movies.length == limit;
         emit(
           SearchMoviesSuccess(allMovies),
         );
+        isLoading = false;
       },
     );
   }
@@ -27,5 +46,4 @@ class SearchCubit extends Cubit<SearchMoviesStates> {
   void resetSearchResults() {
     emit(SearchMoviesInitial());
   }
-  
 }

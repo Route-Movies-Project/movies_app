@@ -7,7 +7,15 @@ import 'package:movies_app/core/observer/app_bloc_observer.dart';
 import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/utils/constants/routes.dart';
 import 'package:movies_app/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/add_to_favourites_cubit.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/all_favourites_cubit.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/delete_favourite_cubit.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart';
+import 'package:movies_app/features/home/cubit/movies_cubit.dart';
+import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart';
+import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
+import 'package:movies_app/features/search/cubit/search_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +34,16 @@ Future<void> main() async {
       path: 'assets/translations',
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => getIt.get<AuthCubit>()),
-          BlocProvider(create: (context) => getIt.get<ProfileCubit>()),
+          BlocProvider(create: (context) => getIt<AuthCubit>()),
+          BlocProvider(create: (context) => getIt<ProfileCubit>()),
+          BlocProvider(create: (context) => getIt<MovieDetailsCubit>()),
+          BlocProvider(create: (context) => getIt<AddToFavouritesCubit>()),
+          BlocProvider(create: (context) => getIt<DeleteFavouriteCubit>()),
+          BlocProvider(create: (context) => getIt<IsFavouriteCubit>()),
+          BlocProvider(create: (context) => getIt<MoviesCubit>()),
+          BlocProvider(create: (context) => getIt<MoviesGenreCubit>()),
+          BlocProvider(create: (context) => getIt<SearchCubit>()),
+          BlocProvider(create: (context) => getIt<AllFavouritesCubit>()),
         ],
         child: const Movies(),
       ),

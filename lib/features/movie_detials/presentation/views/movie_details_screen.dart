@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:movies_app/core/service/service_locator.dart';
-import 'package:movies_app/features/favourites/presentation/cubit/add_to_favourites_cubit.dart';
-import 'package:movies_app/features/favourites/presentation/cubit/delete_favourite_cubit.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart';
 import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/movie_detials/cubit/suggestions_cubit.dart';
@@ -50,23 +48,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       isFavouriteCubit.getIsFavourite(movieId);
       isAssigned = true;
     }
-    return Scaffold(
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider.value(
-            value: getIt<MovieDetailsCubit>(),
-          ),
-          BlocProvider.value(
-            value: getIt<AddToFavouritesCubit>(),
-          ),
-          BlocProvider.value(
-            value: getIt<DeleteFavouriteCubit>(),
-          ),
-          BlocProvider.value(
-            value: getIt<IsFavouriteCubit>(),
-          ),
-        ],
-        child: BlocBuilder<MovieDetailsCubit, MovieDetailsStates>(
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: BlocBuilder<MovieDetailsCubit, MovieDetailsStates>(
           builder: (context, state) {
             if (state is MovieDetailsLoading) {
               return SizedBox.expand(

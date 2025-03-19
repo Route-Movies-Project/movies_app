@@ -9,18 +9,42 @@ class MoviesCubit extends Cubit<MoviesStates> {
   MoviesCubit(this._moviesRepository) : super(MoviesInitial());
   final MoviesRepository _moviesRepository;
   List<Movie> allMovies = [];
+  int page = 1;
+  bool isLoading = false;
+  bool hasMoreData = true;
 
-  Future<void> getMovies() async {
-    emit(MoviesLoading());
-    final response = await _moviesRepository.getMovies();
+  Future<void> getMovies(
+    int limit, {
+    bool isPagination = false,
+  }) async {
+    if (isLoading || !hasMoreData) return;
+    isLoading = true;
+    if (!isPagination) {
+      emit(MoviesLoading());
+      hasMoreData == true;
+      page = 1;
+      allMovies.clear();
+    }
+    final response = await _moviesRepository.getMovies(limit, page);
 
     response.fold(
-      (l) => emit(MoviesError(errorMessage: l.message)),
+      (l) {
+        emit(
+          MoviesError(
+            errorMessage: l.message,
+          ),
+        );
+        isLoading = false;
+      },
       (r) {
-        allMovies = r.data?.movies ?? [];
+        allMovies.addAll(r.data?.movies ?? []);
+        page++;
+
+        hasMoreData = r.data?.movies.length == limit;
         emit(
           MoviesSuccess(allMovies),
         );
+        isLoading = false;
       },
     );
   }

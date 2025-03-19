@@ -11,13 +11,16 @@ class SearchRepository {
 
   SearchRepository(this._searchDataSource);
 
-  Future<Either<Faliure, MoviesResponse>> searchMovies( String query) async {
+  Future<Either<Faliure, MoviesResponse>> searchMovies(
+    String query,
+    int page,
+    int limit,
+  ) async {
     try {
-      final response = await _searchDataSource.searchMovies(query);
+      final response = await _searchDataSource.searchMovies(query, page, limit);
       return Right(response);
     } on RemoteExpetion catch (e) {
       return Left(Faliure(e.message));
     }
   }
-
 }

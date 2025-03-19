@@ -28,6 +28,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomtTabState extends State<HomeTab> {
   final movieGenreCubit = getIt<MoviesGenreCubit>();
+  final moviesCubit = getIt<MoviesCubit>();
   int currentIndex = 0;
   String mygenre = "";
   final random = Random();
@@ -48,7 +49,6 @@ class _HomtTabState extends State<HomeTab> {
     generateGenre();
     movieGenreCubit.getGenreMovies(
       4,
-      1,
       mygenre,
     );
   }
@@ -65,8 +65,8 @@ class _HomtTabState extends State<HomeTab> {
             generateGenre();
             currentIndex = 0;
             await Future.wait([
-              context.read<MoviesCubit>().getMovies(),
-              movieGenreCubit.getGenreMovies(4, 1, mygenre),
+              context.read<MoviesCubit>().getMovies(20),
+              movieGenreCubit.getGenreMovies(4, mygenre),
             ]);
           },
           child: SingleChildScrollView(
@@ -79,14 +79,13 @@ class _HomtTabState extends State<HomeTab> {
                     } else if (state is MoviesError) {
                       return ErrorWidget(state.errorMessage);
                     } else if (state is MoviesSuccess) {
-                      List<Movie> movies = state.movies;
-
                       return Stack(
                         children: [
                           Stack(
                             children: [
                               CachedNetworkImage(
-                                imageUrl: movies[currentIndex].largeCoverImage,
+                                imageUrl:
+                                    state.movies[currentIndex].largeCoverImage,
                                 fadeInDuration: const Duration(seconds: 1),
                                 fadeOutDuration: const Duration(seconds: 1),
                                 fadeInCurve: Curves.easeIn,
@@ -137,6 +136,7 @@ class _HomtTabState extends State<HomeTab> {
                                     const EdgeInsets.symmetric(vertical: 16.0),
                                 child: CarouselSlider.builder(
                                   options: CarouselOptions(
+                                    enableInfiniteScroll: true,
                                     onPageChanged: (index, reason) {
                                       setState(() {
                                         currentIndex = index;
@@ -150,7 +150,7 @@ class _HomtTabState extends State<HomeTab> {
                                     viewportFraction: 0.6,
                                     height: 350.h,
                                   ),
-                                  itemCount: movies.length,
+                                  itemCount: state.movies.length,
                                   itemBuilder:
                                       (BuildContext context, int index, _) {
                                     return CustomCard(
@@ -158,12 +158,12 @@ class _HomtTabState extends State<HomeTab> {
                                         Navigator.pushNamed(
                                           context,
                                           MovieDetailsScreen.routeName,
-                                          arguments: movies[index].id,
+                                          arguments: state.movies[index].id,
                                         );
                                       },
                                       customWidth: 234.w,
                                       customHeight: 351.h,
-                                      movie: movies[index],
+                                      movie: state.movies[index],
                                     );
                                   },
                                 ),
@@ -238,9 +238,11 @@ class _HomtTabState extends State<HomeTab> {
                                       padding: EdgeInsets.only(right: 16.w),
                                       child: CustomCard(
                                         onTap: () {
-                                          Navigator.pushNamed(context,
-                                              MovieDetailsScreen.routeName,
-                                              arguments: movies[index].id);
+                                          Navigator.pushNamed(
+                                            context,
+                                            MovieDetailsScreen.routeName,
+                                            arguments: movies[index].id,
+                                          );
                                         },
                                         customWidth: 146.w,
                                         customHeight: 220.h,

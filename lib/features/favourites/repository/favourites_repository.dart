@@ -2,8 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movies_app/core/error/exception.dart';
 import 'package:movies_app/core/error/faliure.dart';
-import 'package:movies_app/features/favourites/data_source/data/favourites_data_source.dart';
-import 'package:movies_app/features/favourites/data_source/model/favourites_request.dart';
+import 'package:movies_app/features/favourites/data/data_source/favourites_data_source.dart';
+import 'package:movies_app/features/favourites/data/model/all_favourites_response.dart';
+import 'package:movies_app/features/favourites/data/model/favourites_request.dart';
 
 @singleton
 class FavouritesRepository {
@@ -35,6 +36,15 @@ class FavouritesRepository {
   Future<Either<Faliure, bool>> getIsFavourite(int movieId) async {
     try {
       final response = await _favouritesDataSource.getIsFavourite(movieId);
+      return Right(response.data);
+    } on RemoteExpetion catch (e) {
+      return Left(Faliure(e.message));
+    }
+  }
+
+  Future<Either<Faliure, List<FavouriteMovieModel>>> getAllFavourites() async {
+    try {
+      final response = await _favouritesDataSource.getAllFavouriteMovies();
       return Right(response.data);
     } on RemoteExpetion catch (e) {
       return Left(Faliure(e.message));

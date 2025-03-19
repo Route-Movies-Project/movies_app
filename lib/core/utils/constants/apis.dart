@@ -11,4 +11,5 @@ class ApiConstants {
   static const addToFavouriteEndPoint = "favorites/add";
   static const deleteFavouriteEndPoint = "favorites/remove";
   static const isFavouriteEndPoint = "favorites/is-favorite";
+  static const allFavouritesEndPoint = "favorites/all";
 }

@@ -3,21 +3,40 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/core/Themes/colors.dart';
+import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/shared/widgets/avatar_images.dart';
 import 'package:movies_app/core/shared/widgets/custom_elevated_button.dart';
 import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
 import 'package:movies_app/features/auth/presentation/views/login.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/all_favourites_cubit.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/favourites_states.dart';
+import 'package:movies_app/features/movie_detials/presentation/views/movie_details_screen.dart';
 import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
 import 'package:movies_app/features/profile/cubit/profile_states.dart';
 import 'package:movies_app/features/profile/presentation/view/update_profile.dart';
+import 'package:movies_app/features/profile/presentation/widgets/custom_all_favourite_card.dart';
 
-class ProfileWidget extends StatelessWidget {
+class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
 
   @override
+  State<ProfileWidget> createState() => _ProfileWidgetState();
+}
+
+class _ProfileWidgetState extends State<ProfileWidget> {
+  int currentIndex = 0;
+  final allFavouriteMovieCubit = getIt<AllFavouritesCubit>();
+  final profileCubit = getIt<ProfileCubit>();
+  @override
+  void initState() {
+    super.initState();
+    allFavouriteMovieCubit.getAllFavouriteMovies();
+    profileCubit.getProfile();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    context.read<ProfileCubit>().getProfile();
     return Scaffold(
       body: BlocBuilder<ProfileCubit, ProfileStates>(
         builder: (context, state) {
@@ -172,6 +191,10 @@ class ProfileWidget extends StatelessWidget {
                       DefaultTabController(
                         length: 2,
                         child: TabBar(
+                          onTap: (index) {
+                            currentIndex = index;
+                            setState(() {});
+                          },
                           indicatorColor: ThemeColors.yellow,
                           indicatorSize: TabBarIndicatorSize.tab,
                           dividerColor: Colors.transparent,
@@ -224,10 +247,63 @@ class ProfileWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 169.h,
-                ),
-                Image.asset("assets/images/empty.png"),
+                currentIndex == 0
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: 169.h,
+                          ),
+                          Image.asset("assets/images/empty.png"),
+                        ],
+                      )
+                    : Expanded(
+                        child:
+                            BlocBuilder<AllFavouritesCubit, FavouritesStates>(
+                          builder: (context, state) {
+                            if (state is AllFavouriteMoviesLoading) {
+                              return const LoadingIndicator();
+                            } else if (state is AllFavouriteMoviesError) {
+                              return ErrorWidget(state.errorMessage);
+                            } else if (state is AllFavouriteMoviesSuccess) {
+                              return GridView.builder(
+                                padding: EdgeInsets.only(
+                                  bottom: 115.h,
+                                  top: 16.h,
+                                  left: 16.w,
+                                  right: 16.w,
+                                ),
+                                itemCount: state.allFavouriteMovies.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  mainAxisSpacing: 16.h,
+                                  crossAxisSpacing: 20.w,
+                                  childAspectRatio: 189.w / 279.h,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return CustomAllFavouriteCard(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        MovieDetailsScreen.routeName,
+                                        arguments: int.parse(
+                                          state.allFavouriteMovies[index]
+                                              .movieId,
+                                        ),
+                                      );
+                                    },
+                                    customWidth: 122.w,
+                                    customHeight: 180.h,
+                                    movie: state.allFavouriteMovies[index],
+                                  );
+                                },
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
+                          },
+                        ),
+                      ),
               ],
             );
           } else {

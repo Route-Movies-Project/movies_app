@@ -6,7 +6,6 @@ import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
 import 'package:movies_app/features/browse/presentation/widgets/custom_tab_item.dart';
 import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_states.dart';
-import 'package:movies_app/features/home/data/model/movie_response.dart';
 import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
 import 'package:movies_app/features/home/presentation/widgets/movies_genre.dart';
 import 'package:movies_app/features/movie_detials/presentation/views/movie_details_screen.dart';
@@ -19,7 +18,7 @@ class BrowseTab extends StatefulWidget {
 }
 
 class _BrowseTabState extends State<BrowseTab> {
-  final scrollController = ScrollController();
+  final _scrollController = ScrollController();
   int selectedIndex = 0;
   bool isSelected = false;
   final MoviesGenreCubit movieGenreCubit = getIt<MoviesGenreCubit>();
@@ -28,9 +27,25 @@ class _BrowseTabState extends State<BrowseTab> {
   void initState() {
     super.initState();
     movieGenreCubit.getGenreMovies(
-      100,
-      1,
-      MoviesGenre.movieGenres[selectedIndex],
+      10,
+      "Action",
+      isPagination: false,
+    );
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _scrollController.addListener(
+          () {
+            if (_scrollController.position.pixels >=
+                _scrollController.position.maxScrollExtent - 200) {
+              movieGenreCubit.getGenreMovies(
+                10,
+                MoviesGenre.movieGenres[selectedIndex],
+                isPagination: true,
+              );
+            }
+          },
+        );
+      },
     );
   }
 
@@ -51,18 +66,21 @@ class _BrowseTabState extends State<BrowseTab> {
               tabAlignment: TabAlignment.start,
               labelPadding: EdgeInsets.symmetric(horizontal: 6.w),
               tabs: MoviesGenre.movieGenres
-                  .map((genre) => CustomTabItem(
+                  .map(
+                    (genre) => CustomTabItem(
                       isSelected: selectedIndex ==
                           MoviesGenre.movieGenres.indexOf(genre),
-                      genre: genre))
+                      genre: genre,
+                    ),
+                  )
                   .toList(),
               onTap: (index) {
                 setState(() {
                   selectedIndex = index;
                 });
+
                 movieGenreCubit.getGenreMovies(
-                  100,
-                  1,
+                  10,
                   MoviesGenre.movieGenres[selectedIndex],
                 );
               },
@@ -78,17 +96,16 @@ class _BrowseTabState extends State<BrowseTab> {
               } else if (state is MoviesGenreError) {
                 return ErrorWidget(state.errorMessage);
               } else if (state is MoviesGenreSuccess) {
-                List<Movie> movies = state.movies;
                 return Padding(
                   padding: EdgeInsets.only(
                     left: 16.w,
                     right: 16.w,
-                    bottom: 110.h,
                   ),
                   child: GridView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount: movies.length,
+                    padding: EdgeInsets.only(bottom: 115.h),
+                    controller: _scrollController,
+                    itemCount: state.movies.length +
+                        (movieGenreCubit.hasMoreData ? 2 : 0),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 16.h,
@@ -96,18 +113,22 @@ class _BrowseTabState extends State<BrowseTab> {
                       childAspectRatio: 189.w / 279.h,
                     ),
                     itemBuilder: (context, index) {
-                      return CustomCard(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            MovieDetailsScreen.routeName,
-                            arguments: movies[index].id,
-                          );
-                        },
-                        customWidth: 189.w,
-                        customHeight: 279.h,
-                        movie: movies[index],
-                      );
+                      if (index >= state.movies.length) {
+                        return const LoadingIndicator();
+                      } else {
+                        return CustomCard(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              MovieDetailsScreen.routeName,
+                              arguments: state.movies[index].id,
+                            );
+                          },
+                          customWidth: 189.w,
+                          customHeight: 279.h,
+                          movie: state.movies[index],
+                        );
+                      }
                     },
                   ),
                 );

@@ -7,19 +7,43 @@ import 'package:movies_app/features/home/repository/movies_repository.dart';
 @singleton
 class MoviesGenreCubit extends Cubit<MoviesStates> {
   MoviesGenreCubit(this._moviesRepository) : super(MoviesInitial());
-  List<Movie> genreMovies = [];
+
   final MoviesRepository _moviesRepository;
-  Future<void> getGenreMovies(int limit, int page, String genre) async {
-    emit(MoviesGenreLoading());
+  bool isLoading = false;
+  bool hasMoreData = true;
+  List<Movie> genreMovies = [];
+  int page = 1;
+
+  Future<void> getGenreMovies(int limit, String genre,
+      {bool isPagination = false}) async {
+    if (isLoading || !hasMoreData) return;
+
+    isLoading = true;
+
+    if (!isPagination) {
+      emit(MoviesGenreLoading());
+      page = 1;
+      hasMoreData = true;
+      genreMovies.clear();
+    }
+
     final response = await _moviesRepository.getGenreMovies(limit, page, genre);
 
     response.fold(
-      (l) => emit(MoviesGenreError(errorMessage: l.message)),
+      (l) {
+        emit(MoviesGenreError(errorMessage: l.message));
+        isLoading = false;
+      },
       (r) {
-        genreMovies = r.data?.movies ?? [];
-        emit(
-          MoviesGenreSuccess(genreMovies),
-        );
+        genreMovies.addAll(r.data?.movies ?? []);
+        page++;
+
+        if (genreMovies.length < limit) {
+          hasMoreData = false;
+        }
+
+        emit(MoviesGenreSuccess(genreMovies));
+        isLoading = false;
       },
     );
   }

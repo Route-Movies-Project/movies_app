@@ -15,10 +15,18 @@ class MoviesApiDataSource implements SearchDataSource {
   );
 
   @override
-  Future<MoviesResponse> searchMovies(String query) async {
+  Future<MoviesResponse> searchMovies(
+    String query,
+    int page,
+    int limit,
+  ) async {
     try {
-      final response = await _dio.get(ApiConstants.moviesListEndPoint,
-          queryParameters: {"query_term": query});
+      final response =
+          await _dio.get(ApiConstants.moviesListEndPoint, queryParameters: {
+        "query_term": query,
+        "limit": limit.toString(),
+        "page": page.toString(),
+      });
       if (response.statusCode == 200) {
         return MoviesResponse.fromJson(response.data);
       } else {

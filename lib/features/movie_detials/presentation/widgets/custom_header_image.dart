@@ -8,8 +8,9 @@ import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
 import 'package:movies_app/core/utils/constants/images.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
-import 'package:movies_app/features/favourites/data_source/model/favourites_request.dart';
+import 'package:movies_app/features/favourites/data/model/favourites_request.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/add_to_favourites_cubit.dart';
+import 'package:movies_app/features/favourites/presentation/cubit/all_favourites_cubit.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/delete_favourite_cubit.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/favourites_states.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart';
@@ -132,6 +133,8 @@ class CustomHeaderImage extends StatelessWidget {
                                     }
                                     getIt<IsFavouriteCubit>()
                                         .getIsFavourite(movieDetails.id);
+                                    getIt<AllFavouritesCubit>()
+                                        .getAllFavouriteMovies();
                                   },
                                   icon: Icon(
                                     state.isFavourite == true

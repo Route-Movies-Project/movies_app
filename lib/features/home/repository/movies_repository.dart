@@ -11,9 +11,12 @@ class MoviesRepository {
 
   MoviesRepository(this._moviesDataSource);
 
-  Future<Either<Faliure, MoviesResponse>> getMovies() async {
+  Future<Either<Faliure, MoviesResponse>> getMovies(
+    int limit,
+    int page,
+  ) async {
     try {
-      final response = await _moviesDataSource.getMovies();
+      final response = await _moviesDataSource.getMovies(limit, page);
       return Right(response);
     } on RemoteExpetion catch (e) {
       return Left(Faliure(e.message));
