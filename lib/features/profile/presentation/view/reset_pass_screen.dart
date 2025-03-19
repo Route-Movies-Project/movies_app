@@ -37,8 +37,12 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
         if (state is ResetLoading) {
           _awesomeLoginDialog = AwesomeDialog(
             dismissOnTouchOutside: false,
+            dismissOnBackKeyPress: false,
             dialogBackgroundColor: ThemeColors.yellow,
             context: context,
+            titleTextStyle: HelperFunction.textTheme(context)
+                .bodyMedium!
+                .copyWith(color: ThemeColors.black),
             dialogType: DialogType.noHeader,
             animType: AnimType.topSlide,
             title: 'Loading....',

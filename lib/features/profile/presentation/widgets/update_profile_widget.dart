@@ -14,9 +14,9 @@ import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
 import 'package:movies_app/features/profile/cubit/profile_states.dart';
 import 'package:movies_app/features/profile/data/model/profile_model.dart';
 import 'package:movies_app/features/profile/data/model/update_profile_request.dart';
-import 'package:movies_app/features/profile/presentation/view/profile.dart';
 import 'package:movies_app/features/profile/presentation/view/reset_pass_screen.dart';
 import 'package:movies_app/features/profile/presentation/widgets/custom_bottom_sheet.dart';
+import 'package:movies_app/home_screen.dart';
 
 class UpdateProfileWidget extends StatefulWidget {
   const UpdateProfileWidget({required this.profileModel, super.key});
@@ -50,11 +50,15 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
         if (state is UpdateProfileLoading) {
           _awesomeUpdateProfileDialog = AwesomeDialog(
             dismissOnTouchOutside: false,
+            dismissOnBackKeyPress: false,
             dialogBackgroundColor: ThemeColors.yellow,
             context: context,
             dialogType: DialogType.noHeader,
             animType: AnimType.topSlide,
             title: 'Loading....',
+            titleTextStyle: HelperFunction.textTheme(context)
+                .bodyMedium!
+                .copyWith(color: ThemeColors.black),
             btnOk: Padding(
               padding: EdgeInsets.all(16.h),
               child: const LoadingIndicator(
@@ -81,7 +85,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
           _awesomeUpdateProfileDialog = AwesomeDialog(
             dismissOnTouchOutside: false,
             onDismissCallback: (type) {
-              Navigator.pushReplacementNamed(context, Profile.routeName);
+              Navigator.pushReplacementNamed(context, LoginScreen.routeName);
             },
             dialogBackgroundColor: ThemeColors.yellow,
             context: context,
@@ -93,7 +97,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
             title: state.message,
             btnOkColor: ThemeColors.green,
             btnOkOnPress: () {
-              Navigator.pushReplacementNamed(context, Profile.routeName);
+              Navigator.pushReplacementNamed(context, LoginScreen.routeName);
             },
           )..show();
         }
@@ -163,11 +167,15 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                   if (state is DeleteProfileLoading) {
                     _awesomeDeleteProfileDialog = AwesomeDialog(
                       dismissOnTouchOutside: false,
+                      dismissOnBackKeyPress: false,
                       dialogBackgroundColor: ThemeColors.yellow,
                       context: context,
                       dialogType: DialogType.noHeader,
                       animType: AnimType.topSlide,
                       title: 'Loading....',
+                      titleTextStyle: HelperFunction.textTheme(context)
+                          .bodyMedium!
+                          .copyWith(color: ThemeColors.black),
                       btnOk: Padding(
                         padding: EdgeInsets.all(16.h),
                         child: const LoadingIndicator(
@@ -227,14 +235,18 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                 height: 20.h,
               ),
               CustomElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    context.read<ProfileCubit>().updateProfile(
+                    await context.read<ProfileCubit>().updateProfile(
                           UpdateProfileRequest(
                             email: _emailController.text,
                             avaterId: selectedAvatarIndex,
                           ),
                         );
+                    Navigator.pushReplacementNamed(
+                      context,
+                      HomeScreen.routeName,
+                    );
                   }
                 },
                 child: const Text("Update Data"),

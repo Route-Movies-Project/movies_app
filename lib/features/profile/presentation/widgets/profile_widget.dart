@@ -119,7 +119,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               child: Column(
                                 children: [
                                   Text(
-                                    "10",
+                                    "${allFavouriteMovieCubit.allFavouriteMovies.length}",
                                     style: HelperFunction.textTheme(context)
                                         .bodyMedium!
                                         .copyWith(

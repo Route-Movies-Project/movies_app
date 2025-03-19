@@ -64,6 +64,9 @@ class _RegisterBodyState extends State<RegisterBody> {
             dialogType: DialogType.noHeader,
             animType: AnimType.topSlide,
             title: 'Loading....',
+            titleTextStyle: HelperFunction.textTheme(context)
+                .bodyMedium!
+                .copyWith(color: ThemeColors.black),
             btnOk: Padding(
               padding: EdgeInsets.all(16.h),
               child: const LoadingIndicator(
