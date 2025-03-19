@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 60.h),
                     DefaultTextFormField(
                       textEditingController: _emailController,
-                      hintText: 'Email',
+                      hintText: "email_hint".tr(),
                       prefixImageName: 'email',
                       textInputType: TextInputType.emailAddress,
                       validator: (email) {
@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 24.h),
                     DefaultTextFormField(
-                      hintText: 'Password',
+                      hintText: "password_hint".tr(),
                       textEditingController: _passwordController,
                       isPassword: true,
                       prefixImageName: 'lock',
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () => Navigator.of(context)
                             .pushNamed(ResetPassScreen.routeName),
                         child: Text(
-                          "Forget Password ?",
+                          "forget_password".tr(),
                           style: textTheme.bodyMedium!.copyWith(
                             color: ThemeColors.yellow,
                             fontSize: 14.sp,
@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Don’t Have Account ? ',
+                            text: "dont_have_account".tr(),
                             style: textTheme.bodyMedium!.copyWith(
                               fontSize: 14.sp,
                             ),
@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Navigator.of(context)
                                     .pushNamed(Register.routeName);
                               },
-                            text: 'Create One',
+                            text: "create_account".tr(),
                             style: textTheme.bodyMedium!.copyWith(
                               color: ThemeColors.yellow,
                               fontSize: 14.sp,
@@ -209,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           SvgPicture.asset("assets/icons/icon _google_.svg"),
                           SizedBox(width: 10.w),
-                          const Text("Login With Google"),
+                          Text("login_with_google".tr()),
                         ],
                       ),
                     ),

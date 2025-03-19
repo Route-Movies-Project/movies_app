@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -123,7 +124,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                   ),
                   DefaultTextFormField(
                     textEditingController: _nameController,
-                    hintText: 'Name',
+                    hintText: 'name_hint'.tr(),
                     prefixImageName: 'name',
                   ),
                   SizedBox(
@@ -131,7 +132,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                   ),
                   DefaultTextFormField(
                     textEditingController: _emailController,
-                    hintText: 'Email',
+                    hintText: 'email_hint'.tr(),
                     prefixImageName: 'email',
                     textInputType: TextInputType.emailAddress,
                     validator: (value) {
@@ -143,7 +144,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                   ),
                   DefaultTextFormField(
                     textEditingController: _passwordController,
-                    hintText: 'password',
+                    hintText: 'password_hint'.tr(),
                     prefixImageName: 'lock',
                     validator: (value) {
                       return ValidationHelper.isValidPassword(value);
@@ -155,7 +156,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                   ),
                   DefaultTextFormField(
                     textEditingController: _confirmPasswordController,
-                    hintText: 'confirm password',
+                    hintText: 'confirm_password_hint'.tr(),
                     prefixImageName: 'lock',
                     validator: (confirmPassword) {
                       return ValidationHelper.isValidConfirmPassword(
@@ -170,7 +171,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                   ),
                   DefaultTextFormField(
                     textEditingController: _phoneNumberController,
-                    hintText: 'Phone Number',
+                    hintText: 'phone_hint'.tr(),
                     prefixImageName: 'phone',
                     textInputFormatter: FilteringTextInputFormatter.allow(
                       RegExp(r'^\+?(010|011|012|015)?[0-9]{0,15}$'),
@@ -185,7 +186,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                     height: MediaQuery.sizeOf(context).height * 0.02,
                   ),
                   CustomElevatedButton(
-                    child: const Text("Create Account"),
+                    child:  Text("register".tr()),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         await getIt<AuthCubit>().regsiter(
@@ -208,7 +209,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: "Already Have Account ? ",
+                          text: "already_have_account".tr(),
                           style: HelperFunction.textTheme(context)
                               .bodyMedium!
                               .copyWith(
@@ -216,7 +217,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                               ),
                         ),
                         TextSpan(
-                          text: "Login",
+                          text: "login".tr(),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.pushReplacementNamed(
