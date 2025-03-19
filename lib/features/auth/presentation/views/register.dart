@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/features/auth/presentation/widgets/register_body.dart';
 import 'package:movies_app/features/auth/presentation/widgets/register_header.dart';
@@ -16,7 +17,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Register"),
+        title: Text("register".tr()),
       ),
       body: SafeArea(
         child: Column(
