@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movies_app/features/home/data/model/movie_response.dart';
@@ -12,6 +13,7 @@ class SearchCubit extends Cubit<SearchMoviesStates> {
   bool isLoading = false;
   bool hasMoreData = true;
   int page = 1;
+  CancelToken cancelToken = CancelToken();
   Future<void> searchMovies(
     String query,
     int limit, {
@@ -24,9 +26,14 @@ class SearchCubit extends Cubit<SearchMoviesStates> {
       allMovies.clear();
     }
     if (isLoading || !hasMoreData) return;
+
     isLoading = true;
 
-    final response = await _searchRepository.searchMovies(query, page, limit);
+    final response = await _searchRepository.searchMovies(
+      query,
+      page,
+      limit,
+    );
     response.fold(
       (l) {
         emit(SearchMoviesError(l.message));

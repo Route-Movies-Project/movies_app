@@ -67,7 +67,14 @@ class _SearchTabState extends State<SearchTab> {
                 prefixImageName: "search",
                 onChanged: (value) async {
                   query = value;
-                  await context.read<SearchCubit>().searchMovies(query, 20);
+                  if (query.isNotEmpty) {
+                    context.read<SearchCubit>().searchMovies(
+                          value.trim(),
+                          20,
+                        );
+                  } else {
+                    context.read<SearchCubit>().resetSearchResults();
+                  }
                 },
               ),
             ),

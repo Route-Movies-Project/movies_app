@@ -21,12 +21,14 @@ class MoviesApiDataSource implements SearchDataSource {
     int limit,
   ) async {
     try {
-      final response =
-          await _dio.get(ApiConstants.moviesListEndPoint, queryParameters: {
-        "query_term": query,
-        "limit": limit.toString(),
-        "page": page.toString(),
-      });
+      final response = await _dio.get(
+        ApiConstants.moviesListEndPoint,
+        queryParameters: {
+          "query_term": query,
+          "limit": limit.toString(),
+          "page": page.toString(),
+        },
+      );
       if (response.statusCode == 200) {
         return MoviesResponse.fromJson(response.data);
       } else {

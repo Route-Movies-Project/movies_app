@@ -17,7 +17,11 @@ class SearchRepository {
     int limit,
   ) async {
     try {
-      final response = await _searchDataSource.searchMovies(query, page, limit);
+      final response = await _searchDataSource.searchMovies(
+        query,
+        page,
+        limit,
+      );
       return Right(response);
     } on RemoteExpetion catch (e) {
       return Left(Faliure(e.message));
