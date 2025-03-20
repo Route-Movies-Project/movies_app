@@ -124,10 +124,7 @@ class _ResetPassScreenState extends State<ResetPassScreen> {
                       hintText: 'Newpassword',
                       prefixImageName: 'lock',
                       validator: (value) {
-                        return ValidationHelper.isValidConfirmPassword(
-                          value,
-                          oldPasswordController,
-                        );
+                        return ValidationHelper.isValidPassword(value);
                       },
                       isPassword: true,
                     ),
