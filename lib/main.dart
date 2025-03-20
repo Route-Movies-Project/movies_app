@@ -11,11 +11,11 @@ import 'package:movies_app/features/favourites/presentation/cubit/add_to_favouri
 import 'package:movies_app/features/favourites/presentation/cubit/all_favourites_cubit.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/delete_favourite_cubit.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart';
+import 'package:movies_app/features/home/cubit/movie_genre_index_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart';
 import 'package:movies_app/features/movie_detials/cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
-import 'package:movies_app/features/search/cubit/search_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,8 +42,8 @@ Future<void> main() async {
           BlocProvider(create: (context) => getIt<IsFavouriteCubit>()),
           BlocProvider(create: (context) => getIt<MoviesCubit>()),
           BlocProvider(create: (context) => getIt<MoviesGenreCubit>()),
-          BlocProvider(create: (context) => getIt<SearchCubit>()),
           BlocProvider(create: (context) => getIt<AllFavouritesCubit>()),
+          BlocProvider(create: (context) => getIt<MovieGenreIndexCubit>()),
         ],
         child: const Movies(),
       ),

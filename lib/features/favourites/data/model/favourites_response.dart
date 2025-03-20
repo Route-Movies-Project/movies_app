@@ -34,7 +34,7 @@ class FavouritesData {
     return FavouritesData(
       movieId: json["movieId"],
       name: json["name"],
-      rating: json["rating"],
+      rating: (json["rating"] as num).toDouble(),
       imageUrl: json["imageURL"],
       year: json["year"],
     );

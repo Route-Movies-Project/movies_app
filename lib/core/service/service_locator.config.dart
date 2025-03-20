@@ -41,6 +41,8 @@ import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_c
     as _i962;
 import 'package:movies_app/features/favourites/repository/favourites_repository.dart'
     as _i847;
+import 'package:movies_app/features/home/cubit/movie_genre_index_cubit.dart'
+    as _i200;
 import 'package:movies_app/features/home/cubit/movies_cubit.dart' as _i790;
 import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart'
     as _i298;
@@ -92,6 +94,8 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.singleton<_i361.Dio>(() => registerModule.dio);
+    gh.singleton<_i200.MovieGenreIndexCubit>(
+        () => _i200.MovieGenreIndexCubit());
     gh.singleton<_i147.AuthLocalDataSource>(
         () => _i381.AuthSharedPrefsDataSource(gh<_i460.SharedPreferences>()));
     gh.singleton<_i37.FavouritesDataSource>(

@@ -1,10 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movies_app/core/error/faliure.dart';
-import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/features/favourites/data/model/favourites_request.dart';
 import 'package:movies_app/features/favourites/presentation/cubit/favourites_states.dart';
-import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart';
 import 'package:movies_app/features/favourites/repository/favourites_repository.dart';
 
 @singleton
@@ -13,13 +10,18 @@ class AddToFavouritesCubit extends Cubit<FavouritesStates> {
   final FavouritesRepository _favouritesRepository;
   Future<void> addToFavourite(FavouriteModel favouriteModel) async {
     emit(FavouritesLoading());
-    getIt<IsFavouriteCubit>().emit(IsFavouriteLoading());
     final response = await _favouritesRepository.addToFavourite(favouriteModel);
     response.fold(
-      (l) => Faliure(l.message),
-      (r) => emit(
-        FavouritesSuccess(r),
-      ),
+      (failure) {
+        emit(
+          FavouritesError(
+            failure.message,
+          ),
+        );
+      },
+      (success) {
+        emit(FavouritesSuccess(success));
+      },
     );
   }
 }

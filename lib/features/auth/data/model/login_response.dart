@@ -7,7 +7,8 @@ class LoginResponse {
   const LoginResponse({required this.message, required this.token});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
-        message: json['message'] as String,
+        message:
+            (json["message"] is List) ? json["message"][0] : json["message"],
         token: json['data'] as String,
       );
 

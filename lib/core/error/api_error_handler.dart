@@ -22,7 +22,9 @@ class ApiErrorHandler {
         );
       case DioExceptionType.badResponse:
         throw RemoteExpetion(
-          e.response?.data["message"] ?? 'Failed To Login',
+          (e.response?.data["message"] is List)
+              ? e.response?.data["message"][0]
+              : e.response?.data["message"],
         );
       case DioExceptionType.cancel:
         throw const RemoteExpetion("Request was cancelled.");

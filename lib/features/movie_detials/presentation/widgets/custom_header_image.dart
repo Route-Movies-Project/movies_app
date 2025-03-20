@@ -115,6 +115,7 @@ class CustomHeaderImage extends StatelessWidget {
                                 ),
                                 child: IconButton(
                                   onPressed: () async {
+                                    getIt<IsFavouriteCubit>().setLoading();
                                     if (state.isFavourite == true) {
                                       await getIt<DeleteFavouriteCubit>()
                                           .deleteFavouirte(movieDetails.id);
@@ -122,7 +123,9 @@ class CustomHeaderImage extends StatelessWidget {
                                       await getIt<AddToFavouritesCubit>()
                                           .addToFavourite(
                                         FavouriteModel(
-                                          movieId: movieDetails.id.toString(),
+                                          movieId: movieDetails.id
+                                              .toInt()
+                                              .toString(),
                                           name: movieDetails.title,
                                           rating: movieDetails.rating,
                                           imageUrl:
@@ -131,9 +134,9 @@ class CustomHeaderImage extends StatelessWidget {
                                         ),
                                       );
                                     }
-                                    getIt<IsFavouriteCubit>()
+                                    await getIt<IsFavouriteCubit>()
                                         .getIsFavourite(movieDetails.id);
-                                    getIt<AllFavouritesCubit>()
+                                    await getIt<AllFavouritesCubit>()
                                         .getAllFavouriteMovies();
                                   },
                                   icon: Icon(

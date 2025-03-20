@@ -7,6 +7,10 @@ import 'package:movies_app/features/favourites/repository/favourites_repository.
 class IsFavouriteCubit extends Cubit<FavouritesStates> {
   IsFavouriteCubit(this._favouritesRepository) : super(FavouritesInitial());
   final FavouritesRepository _favouritesRepository;
+  void setLoading() {
+    emit(IsFavouriteLoading());
+  }
+
   Future<void> getIsFavourite(int movieId) async {
     emit(IsFavouriteLoading());
     final response = await _favouritesRepository.getIsFavourite(movieId);

@@ -7,6 +7,7 @@ import 'package:movies_app/core/Themes/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/utils/helper/helper_functions.dart';
+import 'package:movies_app/features/home/cubit/movie_genre_index_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_states.dart';
@@ -20,7 +21,8 @@ import 'package:shimmer/shimmer.dart';
 
 class HomeTab extends StatefulWidget {
   static const String routeName = 'home_tab';
-  const HomeTab({super.key});
+  const HomeTab({required this.onTap, super.key});
+  final VoidCallback onTap;
 
   @override
   State<HomeTab> createState() => _HomtTabState();
@@ -201,7 +203,15 @@ class _HomtTabState extends State<HomeTab> {
                                       .copyWith(fontSize: 20.sp),
                                 ),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    widget.onTap();
+                                    getIt<MovieGenreIndexCubit>()
+                                        .setGenereIndex(
+                                      MoviesGenre.movieGenres.indexOf(
+                                        mygenre,
+                                      ),
+                                    );
+                                  },
                                   child: Row(
                                     children: [
                                       Text(

@@ -33,6 +33,7 @@ class FavouriteApiDataSource implements FavouritesDataSource {
           },
         ),
       );
+
       return FavouritesResponse.fromJson(response.data);
     } on DioException catch (e) {
       throw ApiErrorHandler.handleDioError(e);
@@ -73,6 +74,7 @@ class FavouriteApiDataSource implements FavouritesDataSource {
           },
         ),
       );
+
       return IsFavouriteRepsonse.fromJson(response.data);
     } on DioException catch (e) {
       throw ApiErrorHandler.handleDioError(e);

@@ -50,12 +50,14 @@ class _RegisterBodyState extends State<RegisterBody> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _phoneNumberController.dispose();
+    _awesomeRegisterDialog?.dismiss();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthStates>(
       listener: (context, state) {
+        _awesomeRegisterDialog?.dismiss();
         if (state is RegisterLoading) {
           _awesomeRegisterDialog = AwesomeDialog(
             dismissOnTouchOutside: false,
@@ -87,7 +89,9 @@ class _RegisterBodyState extends State<RegisterBody> {
                 .bodyMedium!
                 .copyWith(color: ThemeColors.black),
             btnOkColor: ThemeColors.red,
-            btnOkOnPress: () {},
+            btnOkOnPress: () {
+              _awesomeRegisterDialog?.dismiss();
+            },
           )..show();
         } else if (state is RegisterSuccess) {
           _awesomeRegisterDialog!.dismiss();
@@ -126,6 +130,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                     textEditingController: _nameController,
                     hintText: 'name_hint'.tr(),
                     prefixImageName: 'name',
+                    textCapitalization: TextCapitalization.words,
                   ),
                   SizedBox(
                     height: 24.h,
@@ -186,7 +191,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                     height: MediaQuery.sizeOf(context).height * 0.02,
                   ),
                   CustomElevatedButton(
-                    child:  Text("register".tr()),
+                    child: Text("register".tr()),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         await getIt<AuthCubit>().regsiter(
@@ -243,6 +248,11 @@ class _RegisterBodyState extends State<RegisterBody> {
                     onChanged: (i) {
                       setState(
                         () => languageValue = i,
+                      );
+                      context.setLocale(
+                        languageValue == 0
+                            ? const Locale('en')
+                            : const Locale('ar'),
                       );
                     },
                   ),

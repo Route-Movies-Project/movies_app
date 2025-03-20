@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/service/service_locator.dart';
 import 'package:movies_app/core/shared/widgets/loading_indicator.dart';
 import 'package:movies_app/features/browse/presentation/widgets/custom_tab_item.dart';
+import 'package:movies_app/features/home/cubit/movie_genre_index_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_genre_cubit.dart';
 import 'package:movies_app/features/home/cubit/movies_states.dart';
 import 'package:movies_app/features/home/presentation/widgets/custom_card.dart';
@@ -22,13 +23,15 @@ class _BrowseTabState extends State<BrowseTab> {
   int selectedIndex = 0;
   bool isSelected = false;
   final MoviesGenreCubit movieGenreCubit = getIt<MoviesGenreCubit>();
+  final MovieGenreIndexCubit movieGenreIndexCubit =
+      getIt<MovieGenreIndexCubit>();
 
   @override
   void initState() {
     super.initState();
     movieGenreCubit.getGenreMovies(
       10,
-      "Action",
+      MoviesGenre.movieGenres[movieGenreIndexCubit.state],
       isPagination: false,
     );
     WidgetsBinding.instance.addPostFrameCallback(
@@ -59,6 +62,7 @@ class _BrowseTabState extends State<BrowseTab> {
           padding: EdgeInsets.symmetric(horizontal: 8.w),
           child: DefaultTabController(
             length: MoviesGenre.movieGenres.length,
+            initialIndex: movieGenreIndexCubit.state,
             child: TabBar(
               isScrollable: true,
               indicatorColor: Colors.transparent,
@@ -68,7 +72,7 @@ class _BrowseTabState extends State<BrowseTab> {
               tabs: MoviesGenre.movieGenres
                   .map(
                     (genre) => CustomTabItem(
-                      isSelected: selectedIndex ==
+                      isSelected: movieGenreIndexCubit.state ==
                           MoviesGenre.movieGenres.indexOf(genre),
                       genre: genre,
                     ),

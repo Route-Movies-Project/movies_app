@@ -17,14 +17,15 @@ class SearchCubit extends Cubit<SearchMoviesStates> {
     int limit, {
     bool isPagination = false,
   }) async {
-    if (isLoading || !hasMoreData) return;
-    isLoading = true;
     if (!isPagination) {
       emit(SearchMoviesLoading());
       page = 1;
       hasMoreData = true;
       allMovies.clear();
     }
+    if (isLoading || !hasMoreData) return;
+    isLoading = true;
+
     final response = await _searchRepository.searchMovies(query, page, limit);
     response.fold(
       (l) {
@@ -32,8 +33,12 @@ class SearchCubit extends Cubit<SearchMoviesStates> {
         isLoading = false;
       },
       (r) {
-        allMovies.addAll(r.data?.movies ?? []);
-        page++;
+        if (!isPagination) {
+          allMovies = r.data?.movies ?? [];
+        } else {
+          allMovies.addAll(r.data?.movies ?? []);
+          page++;
+        }
         hasMoreData = r.data?.movies.length == limit;
         emit(
           SearchMoviesSuccess(allMovies),

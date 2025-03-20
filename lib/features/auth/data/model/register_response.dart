@@ -11,7 +11,7 @@ class RegisterResponse {
 
   factory RegisterResponse.fromJson(Map<String, dynamic> json) {
     return RegisterResponse(
-      message: json['message'] as String,
+      message: (json["message"] is List) ? json["message"][0] : json["message"],
       user: UserModel.fromJson(json['data'] as Map<String, dynamic>),
     );
   }

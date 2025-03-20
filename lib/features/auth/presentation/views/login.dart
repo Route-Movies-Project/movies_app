@@ -56,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
     return BlocListener<AuthCubit, AuthStates>(
       listener: (context, state) {
+        _awesomeLoginDialog?.dismiss();
         if (state is LoginLoading) {
           _awesomeLoginDialog = AwesomeDialog(
             dismissOnTouchOutside: false,
@@ -87,7 +88,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 .bodyMedium!
                 .copyWith(color: ThemeColors.black),
             btnOkColor: ThemeColors.red,
-            btnOkOnPress: () {},
+            btnOkOnPress: () {
+              _awesomeLoginDialog?.dismiss();
+            },
           )..show();
         } else if (state is LoginSuccess) {
           _awesomeLoginDialog!.dismiss();
@@ -188,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.of(context)
-                                    .pushNamed(Register.routeName);
+                                    .pushReplacementNamed(Register.routeName);
                               },
                             text: "create_account".tr(),
                             style: textTheme.bodyMedium!.copyWith(

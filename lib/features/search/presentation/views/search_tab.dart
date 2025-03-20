@@ -17,15 +17,25 @@ class SearchTab extends StatefulWidget {
 }
 
 class _SearchTabState extends State<SearchTab> {
-  final TextEditingController _searchController = TextEditingController();
   final _scrollController = ScrollController();
   final searchCubit = getIt<SearchCubit>();
   String query = "";
   @override
   void dispose() {
-    _searchController.dispose();
     _scrollController.dispose();
+    _scrollController.removeListener(_onScroll);
     super.dispose();
+  }
+
+  _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      context.read<SearchCubit>().searchMovies(
+            query.trim(),
+            20,
+            isPagination: true,
+          );
+    }
   }
 
   @override
@@ -35,14 +45,7 @@ class _SearchTabState extends State<SearchTab> {
       (timeStamp) {
         _scrollController.addListener(
           () {
-            if (_scrollController.position.pixels >=
-                _scrollController.position.maxScrollExtent - 200) {
-              context.read<SearchCubit>().searchMovies(
-                    query.trim(),
-                    20,
-                    isPagination: true,
-                  );
-            }
+            _onScroll();
           },
         );
       },
@@ -62,14 +65,9 @@ class _SearchTabState extends State<SearchTab> {
               child: DefaultTextFormField(
                 hintText: "Search",
                 prefixImageName: "search",
-                textEditingController: _searchController,
-                onChanged: (value) {
+                onChanged: (value) async {
                   query = value;
-                  if (query.isNotEmpty) {
-                    context.read<SearchCubit>().searchMovies(query.trim(), 20);
-                  } else {
-                    context.read<SearchCubit>().resetSearchResults();
-                  }
+                  await context.read<SearchCubit>().searchMovies(query, 20);
                 },
               ),
             ),
@@ -82,7 +80,7 @@ class _SearchTabState extends State<SearchTab> {
                 } else if (state is SearchMoviesError) {
                   return ErrorWidget(state.errorMessage);
                 } else if (state is SearchMoviesSuccess) {
-                  if (_searchController.text.isEmpty || state.movies.isEmpty) {
+                  if (query.isEmpty || state.movies.isEmpty) {
                     return Container(
                       height: 750.h,
                       alignment: Alignment.center,
