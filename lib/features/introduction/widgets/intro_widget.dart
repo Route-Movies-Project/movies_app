@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
@@ -15,7 +16,7 @@ class IntroWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          "Find Your Next Favorite Movie Here",
+          "intro_title".tr(),
           style: HelperFunction.textTheme(context).bodyLarge,
           textAlign: TextAlign.center,
         ),
@@ -23,7 +24,7 @@ class IntroWidget extends StatelessWidget {
           height: 16.h,
         ),
         Text(
-          "Get access to a huge library of movies to suit all tastes. You will surely like it.",
+          "intro_content".tr(),
           style: HelperFunction.textTheme(context).bodyLarge!.copyWith(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w400,
@@ -39,7 +40,7 @@ class IntroWidget extends StatelessWidget {
             Navigator.pushReplacementNamed(context, OnBoarding.routeName);
           },
           child: Text(
-            "Explore",
+            "explore".tr(),
             style: HelperFunction.textTheme(context).bodyLarge!.copyWith(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
