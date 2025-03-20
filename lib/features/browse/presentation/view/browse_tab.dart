@@ -20,7 +20,6 @@ class BrowseTab extends StatefulWidget {
 
 class _BrowseTabState extends State<BrowseTab> {
   final _scrollController = ScrollController();
-  int selectedIndex = 0;
   bool isSelected = false;
   final MoviesGenreCubit movieGenreCubit = getIt<MoviesGenreCubit>();
   final MovieGenreIndexCubit movieGenreIndexCubit =
@@ -42,7 +41,7 @@ class _BrowseTabState extends State<BrowseTab> {
                 _scrollController.position.maxScrollExtent - 200) {
               movieGenreCubit.getGenreMovies(
                 10,
-                MoviesGenre.movieGenres[selectedIndex],
+                MoviesGenre.movieGenres[movieGenreIndexCubit.state],
                 isPagination: true,
               );
             }
@@ -58,38 +57,39 @@ class _BrowseTabState extends State<BrowseTab> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 32.h),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.w),
-          child: DefaultTabController(
-            length: MoviesGenre.movieGenres.length,
-            initialIndex: movieGenreIndexCubit.state,
-            child: TabBar(
-              isScrollable: true,
-              indicatorColor: Colors.transparent,
-              dividerColor: Colors.transparent,
-              tabAlignment: TabAlignment.start,
-              labelPadding: EdgeInsets.symmetric(horizontal: 6.w),
-              tabs: MoviesGenre.movieGenres
-                  .map(
-                    (genre) => CustomTabItem(
-                      isSelected: movieGenreIndexCubit.state ==
-                          MoviesGenre.movieGenres.indexOf(genre),
-                      genre: genre,
-                    ),
-                  )
-                  .toList(),
-              onTap: (index) {
-                setState(() {
-                  selectedIndex = index;
-                });
-
-                movieGenreCubit.getGenreMovies(
-                  10,
-                  MoviesGenre.movieGenres[selectedIndex],
-                );
-              },
-            ),
-          ),
+        BlocBuilder<MovieGenreIndexCubit, int>(
+          builder: (context, state) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              child: DefaultTabController(
+                length: MoviesGenre.movieGenres.length,
+                initialIndex: movieGenreIndexCubit.state,
+                child: TabBar(
+                  isScrollable: true,
+                  indicatorColor: Colors.transparent,
+                  dividerColor: Colors.transparent,
+                  tabAlignment: TabAlignment.start,
+                  labelPadding: EdgeInsets.symmetric(horizontal: 6.w),
+                  tabs: MoviesGenre.movieGenres
+                      .map(
+                        (genre) => CustomTabItem(
+                          isSelected: movieGenreIndexCubit.state ==
+                              MoviesGenre.movieGenres.indexOf(genre),
+                          genre: genre,
+                        ),
+                      )
+                      .toList(),
+                  onTap: (index) {
+                    movieGenreIndexCubit.setGenereIndex(index);
+                    movieGenreCubit.getGenreMovies(
+                      10,
+                      MoviesGenre.movieGenres[movieGenreIndexCubit.state],
+                    );
+                  },
+                ),
+              ),
+            );
+          },
         ),
         SizedBox(height: 25.h),
         Expanded(
