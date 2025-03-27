@@ -52,9 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    onPressed(index);
     movieGenreIndexCubit.setGenereIndex(0);
   }
 
