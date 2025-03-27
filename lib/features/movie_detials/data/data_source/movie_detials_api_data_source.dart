@@ -9,17 +9,16 @@ import 'package:movies_app/features/movie_detials/data/model/movie_details_respo
 
 @Singleton(as: MovieDetailDataSource)
 class MovieDetailsApiDataSource implements MovieDetailDataSource {
-  final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: ApiConstants.basicYtsUrl,
-      receiveDataWhenStatusError: true,
-    ),
+  final Dio _movieDio;
+
+  MovieDetailsApiDataSource(
+    @Named('MovieDio') this._movieDio,
   );
 
   @override
   Future<MoviesResponse> getSuggestionMovies(int movieId) async {
     try {
-      final response = await _dio.get(
+      final response = await _movieDio.get(
         ApiConstants.suggestionMoviesEndPoint,
         queryParameters: {
           "movie_id": movieId.toString(),
@@ -37,7 +36,7 @@ class MovieDetailsApiDataSource implements MovieDetailDataSource {
   @override
   Future<MovieDetailsResponse> getMovieDetails(int movieId) async {
     try {
-      final response = await _dio.get(
+      final response = await _movieDio.get(
         ApiConstants.movieDetialsEndPoint,
         queryParameters: {
           "movie_id": movieId.toString(),

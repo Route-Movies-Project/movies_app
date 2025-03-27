@@ -11,14 +11,16 @@ import 'package:movies_app/core/utils/constants/apis.dart';
 
 @Singleton(as: AuthRemoteDataSource)
 class AuthApiDataSource implements AuthRemoteDataSource {
-  final Dio _dio;
+  final Dio _mainDio;
 
-  const AuthApiDataSource(this._dio);
+  const AuthApiDataSource(
+    @Named('MainDio') this._mainDio,
+  );
 
   @override
   Future<RegisterResponse> register(RegisterRequest registerRequest) async {
     try {
-      final response = await _dio.post(
+      final response = await _mainDio.post(
         ApiConstants.baseUrl + ApiConstants.registerEndPoint,
         data: registerRequest.toJson(),
       );
@@ -34,7 +36,7 @@ class AuthApiDataSource implements AuthRemoteDataSource {
   @override
   Future<LoginResponse> login(LoginRequest loginRequest) async {
     try {
-      final response = await _dio.post(
+      final response = await _mainDio.post(
         ApiConstants.loginEndPoint,
         data: loginRequest.toJson(),
       );

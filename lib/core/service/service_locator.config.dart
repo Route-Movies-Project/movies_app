@@ -93,52 +93,62 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.prefs,
       preResolve: true,
     );
-    gh.singleton<_i361.Dio>(() => registerModule.dio);
     gh.singleton<_i200.MovieGenreIndexCubit>(
         () => _i200.MovieGenreIndexCubit());
+    gh.singleton<_i361.Dio>(
+      () => registerModule.movieDio,
+      instanceName: 'MovieDio',
+    );
     gh.singleton<_i147.AuthLocalDataSource>(
         () => _i381.AuthSharedPrefsDataSource(gh<_i460.SharedPreferences>()));
-    gh.singleton<_i37.FavouritesDataSource>(
-        () => _i850.FavouriteApiDataSource());
-    gh.singleton<_i1067.MovieDetailDataSource>(
-        () => _i995.MovieDetailsApiDataSource());
     gh.singleton<_i992.MoviesDataSource>(() => _i579.MoviesApiDataSource());
-    gh.singleton<_i94.AuthRemoteDataSource>(
-        () => _i270.AuthApiDataSource(gh<_i361.Dio>()));
+    gh.singleton<_i1067.MovieDetailDataSource>(() =>
+        _i995.MovieDetailsApiDataSource(
+            gh<_i361.Dio>(instanceName: 'MovieDio')));
+    gh.singleton<_i762.SearchDataSource>(() =>
+        _i1042.MoviesApiDataSource(gh<_i361.Dio>(instanceName: 'MovieDio')));
     gh.singleton<_i692.MovieDetailsRepository>(
         () => _i692.MovieDetailsRepository(gh<_i1067.MovieDetailDataSource>()));
-    gh.singleton<_i423.ProfileDataSource>(() => _i654.ProfileApiDataSource());
-    gh.singleton<_i847.FavouritesRepository>(
-        () => _i847.FavouritesRepository(gh<_i37.FavouritesDataSource>()));
-    gh.singleton<_i762.SearchDataSource>(() => _i1042.MoviesApiDataSource());
+    gh.singleton<_i361.Dio>(
+      () => registerModule.mainDio,
+      instanceName: 'MainDio',
+    );
     gh.singleton<_i568.SearchRepository>(
         () => _i568.SearchRepository(gh<_i762.SearchDataSource>()));
     gh.singleton<_i806.MoviesRepository>(
         () => _i806.MoviesRepository(gh<_i992.MoviesDataSource>()));
-    gh.singleton<_i364.ProfileRepository>(
-        () => _i364.ProfileRepository(gh<_i423.ProfileDataSource>()));
     gh.singleton<_i1018.SearchCubit>(
         () => _i1018.SearchCubit(gh<_i568.SearchRepository>()));
-    gh.singleton<_i28.AuthRepositorie>(() => _i186.AuthRepositorieImpl(
-          gh<_i94.AuthRemoteDataSource>(),
-          gh<_i147.AuthLocalDataSource>(),
-        ));
+    gh.singleton<_i94.AuthRemoteDataSource>(
+        () => _i270.AuthApiDataSource(gh<_i361.Dio>(instanceName: 'MainDio')));
     gh.singleton<_i230.MovieDetailsCubit>(
         () => _i230.MovieDetailsCubit(gh<_i692.MovieDetailsRepository>()));
     gh.singleton<_i562.SuggestionCubit>(
         () => _i562.SuggestionCubit(gh<_i692.MovieDetailsRepository>()));
-    gh.singleton<_i472.AddToFavouritesCubit>(
-        () => _i472.AddToFavouritesCubit(gh<_i847.FavouritesRepository>()));
-    gh.singleton<_i70.DeleteFavouriteCubit>(
-        () => _i70.DeleteFavouriteCubit(gh<_i847.FavouritesRepository>()));
-    gh.singleton<_i962.IsFavouriteCubit>(
-        () => _i962.IsFavouriteCubit(gh<_i847.FavouritesRepository>()));
-    gh.singleton<_i212.AllFavouritesCubit>(
-        () => _i212.AllFavouritesCubit(gh<_i847.FavouritesRepository>()));
+    gh.singleton<_i37.FavouritesDataSource>(() =>
+        _i850.FavouriteApiDataSource(gh<_i361.Dio>(instanceName: 'MainDio')));
+    gh.singleton<_i423.ProfileDataSource>(() =>
+        _i654.ProfileApiDataSource(gh<_i361.Dio>(instanceName: 'MainDio')));
+    gh.singleton<_i847.FavouritesRepository>(
+        () => _i847.FavouritesRepository(gh<_i37.FavouritesDataSource>()));
     gh.singleton<_i790.MoviesCubit>(
         () => _i790.MoviesCubit(gh<_i806.MoviesRepository>()));
     gh.singleton<_i298.MoviesGenreCubit>(
         () => _i298.MoviesGenreCubit(gh<_i806.MoviesRepository>()));
+    gh.singleton<_i364.ProfileRepository>(
+        () => _i364.ProfileRepository(gh<_i423.ProfileDataSource>()));
+    gh.singleton<_i28.AuthRepositorie>(() => _i186.AuthRepositorieImpl(
+          gh<_i94.AuthRemoteDataSource>(),
+          gh<_i147.AuthLocalDataSource>(),
+        ));
+    gh.singleton<_i472.AddToFavouritesCubit>(
+        () => _i472.AddToFavouritesCubit(gh<_i847.FavouritesRepository>()));
+    gh.singleton<_i212.AllFavouritesCubit>(
+        () => _i212.AllFavouritesCubit(gh<_i847.FavouritesRepository>()));
+    gh.singleton<_i70.DeleteFavouriteCubit>(
+        () => _i70.DeleteFavouriteCubit(gh<_i847.FavouritesRepository>()));
+    gh.singleton<_i962.IsFavouriteCubit>(
+        () => _i962.IsFavouriteCubit(gh<_i847.FavouritesRepository>()));
     gh.singleton<_i625.ProfileCubit>(
         () => _i625.ProfileCubit(gh<_i364.ProfileRepository>()));
     gh.singleton<_i489.AuthCubit>(

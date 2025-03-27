@@ -6,9 +6,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 @module
 abstract class RegisterModule {
   @singleton
-  Dio get dio => Dio(
+  @Named('MainDio')
+  Dio get mainDio => Dio(
         BaseOptions(
           baseUrl: ApiConstants.baseUrl,
+          receiveDataWhenStatusError: true,
+        ),
+      );
+  @singleton
+  @Named('MovieDio')
+  Dio get movieDio => Dio(
+        BaseOptions(
+          baseUrl: ApiConstants.basicYtsUrl,
           receiveDataWhenStatusError: true,
         ),
       );

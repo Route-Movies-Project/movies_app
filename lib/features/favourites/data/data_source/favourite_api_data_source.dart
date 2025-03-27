@@ -14,16 +14,17 @@ import 'package:movies_app/features/favourites/data/model/is_favourite_resposne.
 
 @Singleton(as: FavouritesDataSource)
 class FavouriteApiDataSource implements FavouritesDataSource {
-  final _dio = Dio(
-    BaseOptions(
-        baseUrl: ApiConstants.baseUrl, receiveDataWhenStatusError: true),
+  final Dio _mainDio;
+
+  FavouriteApiDataSource(
+    @Named('MainDio') this._mainDio,
   );
   @override
   Future<FavouritesResponse> addToFavourite(
     FavouriteModel favouriteRequest,
   ) async {
     try {
-      final response = await _dio.post(
+      final response = await _mainDio.post(
         ApiConstants.addToFavouriteEndPoint,
         data: favouriteRequest.toJson(),
         options: Options(
@@ -45,7 +46,7 @@ class FavouriteApiDataSource implements FavouritesDataSource {
   @override
   Future<DeleteFavouriteResposne> deleteFavourite(int movieId) async {
     try {
-      final response = await _dio.delete(
+      final response = await _mainDio.delete(
         "${ApiConstants.deleteFavouriteEndPoint}/$movieId",
         options: Options(
           headers: {
@@ -65,7 +66,7 @@ class FavouriteApiDataSource implements FavouritesDataSource {
   @override
   Future<IsFavouriteRepsonse> getIsFavourite(int movieId) async {
     try {
-      final response = await _dio.get(
+      final response = await _mainDio.get(
         "${ApiConstants.isFavouriteEndPoint}/$movieId",
         options: Options(
           headers: {
@@ -86,7 +87,7 @@ class FavouriteApiDataSource implements FavouritesDataSource {
   @override
   Future<AllFavouritesRepsonse> getAllFavouriteMovies() async {
     try {
-      final response = await _dio.get(
+      final response = await _mainDio.get(
         ApiConstants.allFavouritesEndPoint,
         options: Options(
           headers: {

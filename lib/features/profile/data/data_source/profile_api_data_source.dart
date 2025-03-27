@@ -14,11 +14,10 @@ import 'package:movies_app/features/profile/data/model/update_profile_response.d
 
 @Singleton(as: ProfileDataSource)
 class ProfileApiDataSource implements ProfileDataSource {
-  final _dio = Dio(
-    BaseOptions(
-      baseUrl: ApiConstants.baseUrl,
-      receiveDataWhenStatusError: true,
-    ),
+  final Dio _mainDio;
+
+  ProfileApiDataSource(
+    @Named('MainDio') this._mainDio,
   );
 
   @override
@@ -26,7 +25,7 @@ class ProfileApiDataSource implements ProfileDataSource {
     UpdateProfileRequest updateProfileRequest,
   ) async {
     try {
-      final response = await _dio.patch(
+      final response = await _mainDio.patch(
         ApiConstants.profileEndPoint,
         data: updateProfileRequest.toJson(),
         options: Options(
@@ -51,7 +50,7 @@ class ProfileApiDataSource implements ProfileDataSource {
   @override
   Future<DeleteProfileResponse> deleteProfile() async {
     try {
-      final response = await _dio.delete(
+      final response = await _mainDio.delete(
         ApiConstants.profileEndPoint,
         options: Options(
           headers: {
@@ -75,7 +74,7 @@ class ProfileApiDataSource implements ProfileDataSource {
   @override
   Future<ProfileResponse> getProfile() async {
     try {
-      final response = await _dio.get(
+      final response = await _mainDio.get(
         ApiConstants.profileEndPoint,
         options: Options(
           headers: {
@@ -99,7 +98,7 @@ class ProfileApiDataSource implements ProfileDataSource {
   Future<ResetResponse> resetPassword(
       ResetRequest request, String token) async {
     try {
-      final response = await _dio.patch(
+      final response = await _mainDio.patch(
         ApiConstants.resetPasswordEndPoint,
         data: request.toJson(),
         options: Options(

@@ -7,12 +7,9 @@ import 'package:movies_app/features/search/data/data_source/search_data_source.d
 
 @Singleton(as: SearchDataSource)
 class MoviesApiDataSource implements SearchDataSource {
-  final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: ApiConstants.basicYtsUrl,
-      receiveDataWhenStatusError: true,
-    ),
-  );
+  final Dio _movieDio;
+
+  MoviesApiDataSource(@Named('MovieDio') this._movieDio);
 
   @override
   Future<MoviesResponse> searchMovies(
@@ -21,7 +18,7 @@ class MoviesApiDataSource implements SearchDataSource {
     int limit,
   ) async {
     try {
-      final response = await _dio.get(
+      final response = await _movieDio.get(
         ApiConstants.moviesListEndPoint,
         queryParameters: {
           "query_term": query,
