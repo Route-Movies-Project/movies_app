@@ -5,6 +5,8 @@ import 'package:movies_app/core/error/exception.dart';
 import 'package:movies_app/core/error/faliure.dart';
 import 'package:movies_app/features/auth/data/data_source/local/auth_local_data_source.dart';
 import 'package:movies_app/features/auth/data/data_source/remote/auth_remote_data_source.dart';
+import 'package:movies_app/features/auth/data/mappers/token_mapper.dart';
+import 'package:movies_app/features/auth/data/mappers/user_mapper.dart';
 import 'package:movies_app/features/auth/data/model/login_request.dart';
 import 'package:movies_app/features/auth/data/model/register_request.dart';
 import 'package:movies_app/features/auth/domain/entities/token.dart';
@@ -23,7 +25,7 @@ class AuthRepositorieImpl implements AuthRepositorie {
   ) async {
     try {
       final repsonse = await _authRemoteDataSource.register(registerRequest);
-      return Right(repsonse.user.toEntity());
+      return Right(repsonse.user.toEntity);
     } on MoviesAppExceptions catch (e) {
       return Left(Faliure(e.message));
     }
@@ -35,7 +37,7 @@ class AuthRepositorieImpl implements AuthRepositorie {
       final response = await _authRemoteDataSource.login(loginRequest);
       _authLocalDataSource.saveToken(response.token);
       log(await _authLocalDataSource.getToken());
-      return Right(response.toEntity());
+      return Right(response.toEntity);
     } on MoviesAppExceptions catch (e) {
       return Left(Faliure(e.message));
     }

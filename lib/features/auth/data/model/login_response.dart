@@ -1,5 +1,3 @@
-import 'package:movies_app/features/auth/domain/entities/token.dart';
-
 class LoginResponse {
   final String message;
   final String token;
@@ -11,6 +9,4 @@ class LoginResponse {
             (json["message"] is List) ? json["message"][0] : json["message"],
         token: json['data'] as String,
       );
-
-  Token toEntity() => Token(token: token);
 }

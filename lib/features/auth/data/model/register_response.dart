@@ -1,4 +1,4 @@
-import 'register_response_data.dart';
+import 'user_model.dart';
 
 class RegisterResponse {
   final String message;
