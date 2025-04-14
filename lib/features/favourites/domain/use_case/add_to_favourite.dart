@@ -5,10 +5,10 @@ import 'package:movies_app/features/favourites/data/model/favourites_request.dar
 import 'package:movies_app/features/favourites/domain/repository/favourite_repository.dart';
 
 @singleton
-class AddToFavourite {
+class AddToFavouriteUseCase {
   final FavouriteRepository _favouriteRepository;
 
-  AddToFavourite(this._favouriteRepository);
+  AddToFavouriteUseCase(this._favouriteRepository);
   Future<Either<Faliure, String>> call(FavouriteModel favouriteModel) =>
       _favouriteRepository.addToFavourite(favouriteModel);
 }

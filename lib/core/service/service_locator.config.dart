@@ -131,14 +131,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i568.SearchRepository(gh<_i762.SearchDataSource>()));
     gh.singleton<_i806.MoviesRepository>(
         () => _i806.MoviesRepository(gh<_i992.MoviesDataSource>()));
-    gh.singleton<_i472.AddToFavouritesCubit>(
-        () => _i472.AddToFavouritesCubit(gh<_i128.FavouritesRepositoryImpl>()));
-    gh.singleton<_i212.AllFavouritesCubit>(
-        () => _i212.AllFavouritesCubit(gh<_i128.FavouritesRepositoryImpl>()));
-    gh.singleton<_i70.DeleteFavouriteCubit>(
-        () => _i70.DeleteFavouriteCubit(gh<_i128.FavouritesRepositoryImpl>()));
-    gh.singleton<_i962.IsFavouriteCubit>(
-        () => _i962.IsFavouriteCubit(gh<_i128.FavouritesRepositoryImpl>()));
     gh.singleton<_i1018.SearchCubit>(
         () => _i1018.SearchCubit(gh<_i568.SearchRepository>()));
     gh.singleton<_i94.AuthRemoteDataSource>(
@@ -169,18 +161,26 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1069.LoginUseCase(gh<_i28.AuthRepositorie>()));
     gh.singleton<_i521.RegisterUseCase>(
         () => _i521.RegisterUseCase(gh<_i28.AuthRepositorie>()));
-    gh.singleton<_i1019.AddToFavourite>(
-        () => _i1019.AddToFavourite(gh<_i321.FavouriteRepository>()));
-    gh.singleton<_i670.DeleteFavourite>(
-        () => _i670.DeleteFavourite(gh<_i321.FavouriteRepository>()));
-    gh.singleton<_i853.GetFavourite>(
-        () => _i853.GetFavourite(gh<_i321.FavouriteRepository>()));
-    gh.singleton<_i613.IsFavourite>(
-        () => _i613.IsFavourite(gh<_i321.FavouriteRepository>()));
+    gh.singleton<_i1019.AddToFavouriteUseCase>(
+        () => _i1019.AddToFavouriteUseCase(gh<_i321.FavouriteRepository>()));
+    gh.singleton<_i670.DeleteFavouriteUseCase>(
+        () => _i670.DeleteFavouriteUseCase(gh<_i321.FavouriteRepository>()));
+    gh.singleton<_i853.GetFavouriteUseCase>(
+        () => _i853.GetFavouriteUseCase(gh<_i321.FavouriteRepository>()));
+    gh.singleton<_i613.IsFavouriteUseCase>(
+        () => _i613.IsFavouriteUseCase(gh<_i321.FavouriteRepository>()));
+    gh.singleton<_i212.AllFavouritesCubit>(
+        () => _i212.AllFavouritesCubit(gh<_i853.GetFavouriteUseCase>()));
     gh.singleton<_i489.AuthCubit>(() => _i489.AuthCubit(
           gh<_i521.RegisterUseCase>(),
           gh<_i1069.LoginUseCase>(),
         ));
+    gh.singleton<_i70.DeleteFavouriteCubit>(
+        () => _i70.DeleteFavouriteCubit(gh<_i670.DeleteFavouriteUseCase>()));
+    gh.singleton<_i962.IsFavouriteCubit>(
+        () => _i962.IsFavouriteCubit(gh<_i613.IsFavouriteUseCase>()));
+    gh.singleton<_i472.AddToFavouritesCubit>(
+        () => _i472.AddToFavouritesCubit(gh<_i1019.AddToFavouriteUseCase>()));
     return this;
   }
 }

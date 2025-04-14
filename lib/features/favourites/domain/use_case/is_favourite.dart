@@ -4,10 +4,10 @@ import 'package:movies_app/core/error/faliure.dart';
 import 'package:movies_app/features/favourites/domain/repository/favourite_repository.dart';
 
 @singleton
-class IsFavourite {
+class IsFavouriteUseCase {
   final FavouriteRepository _favouriteRepository;
 
-  IsFavourite(this._favouriteRepository);
+  IsFavouriteUseCase(this._favouriteRepository);
   Future<Either<Faliure, bool>> call(int movieId) =>
       _favouriteRepository.getIsFavourite(movieId);
 }
