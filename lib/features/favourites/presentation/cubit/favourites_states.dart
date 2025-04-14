@@ -1,4 +1,4 @@
-import 'package:movies_app/features/favourites/data/model/all_favourites_response.dart';
+import 'package:movies_app/features/favourites/domain/entities/favourit_movie.dart';
 
 abstract class FavouritesStates {}
 
@@ -49,7 +49,7 @@ class IsFavouritesError extends FavouritesStates {
 class AllFavouriteMoviesLoading extends FavouritesStates {}
 
 class AllFavouriteMoviesSuccess extends FavouritesStates {
-  final List<FavouriteMovieModel> allFavouriteMovies;
+  final List<FavouriteMovie> allFavouriteMovies;
 
   AllFavouriteMoviesSuccess(this.allFavouriteMovies);
 }

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/Themes/colors.dart';
-import 'package:movies_app/features/favourites/data/model/all_favourites_response.dart';
+import 'package:movies_app/features/favourites/domain/entities/favourit_movie.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomAllFavouriteCard extends StatelessWidget {
@@ -13,7 +13,7 @@ class CustomAllFavouriteCard extends StatelessWidget {
     required this.onTap,
     super.key,
   });
-  final FavouriteMovieModel movie;
+  final FavouriteMovie movie;
   final double customWidth;
   final double customHeight;
   final void Function()? onTap;

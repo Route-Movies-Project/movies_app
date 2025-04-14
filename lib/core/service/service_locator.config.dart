@@ -25,12 +25,28 @@ import 'package:movies_app/features/auth/data/repositories/auth_repositorie.dart
     as _i186;
 import 'package:movies_app/features/auth/domain/repositories/auth_repositorie.dart'
     as _i28;
+import 'package:movies_app/features/auth/domain/use_case/login_use_case.dart'
+    as _i1069;
+import 'package:movies_app/features/auth/domain/use_case/register_use_case.dart'
+    as _i521;
 import 'package:movies_app/features/auth/presentation/cubit/auth_cubit.dart'
     as _i489;
 import 'package:movies_app/features/favourites/data/data_source/favourite_api_data_source.dart'
     as _i850;
 import 'package:movies_app/features/favourites/data/data_source/favourites_data_source.dart'
     as _i37;
+import 'package:movies_app/features/favourites/data/repository/favourites_repository_impl.dart'
+    as _i128;
+import 'package:movies_app/features/favourites/domain/repository/favourite_repository.dart'
+    as _i321;
+import 'package:movies_app/features/favourites/domain/use_case/add_to_favourite.dart'
+    as _i1019;
+import 'package:movies_app/features/favourites/domain/use_case/delete_favourite.dart'
+    as _i670;
+import 'package:movies_app/features/favourites/domain/use_case/get_favourite.dart'
+    as _i853;
+import 'package:movies_app/features/favourites/domain/use_case/is_favourite.dart'
+    as _i613;
 import 'package:movies_app/features/favourites/presentation/cubit/add_to_favourites_cubit.dart'
     as _i472;
 import 'package:movies_app/features/favourites/presentation/cubit/all_favourites_cubit.dart'
@@ -39,8 +55,6 @@ import 'package:movies_app/features/favourites/presentation/cubit/delete_favouri
     as _i70;
 import 'package:movies_app/features/favourites/presentation/cubit/is_favourite_cubit.dart'
     as _i962;
-import 'package:movies_app/features/favourites/repository/favourites_repository.dart'
-    as _i847;
 import 'package:movies_app/features/home/cubit/movie_genre_index_cubit.dart'
     as _i200;
 import 'package:movies_app/features/home/cubit/movies_cubit.dart' as _i790;
@@ -117,6 +131,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i568.SearchRepository(gh<_i762.SearchDataSource>()));
     gh.singleton<_i806.MoviesRepository>(
         () => _i806.MoviesRepository(gh<_i992.MoviesDataSource>()));
+    gh.singleton<_i472.AddToFavouritesCubit>(
+        () => _i472.AddToFavouritesCubit(gh<_i128.FavouritesRepositoryImpl>()));
+    gh.singleton<_i212.AllFavouritesCubit>(
+        () => _i212.AllFavouritesCubit(gh<_i128.FavouritesRepositoryImpl>()));
+    gh.singleton<_i70.DeleteFavouriteCubit>(
+        () => _i70.DeleteFavouriteCubit(gh<_i128.FavouritesRepositoryImpl>()));
+    gh.singleton<_i962.IsFavouriteCubit>(
+        () => _i962.IsFavouriteCubit(gh<_i128.FavouritesRepositoryImpl>()));
     gh.singleton<_i1018.SearchCubit>(
         () => _i1018.SearchCubit(gh<_i568.SearchRepository>()));
     gh.singleton<_i94.AuthRemoteDataSource>(
@@ -129,8 +151,6 @@ extension GetItInjectableX on _i174.GetIt {
         _i850.FavouriteApiDataSource(gh<_i361.Dio>(instanceName: 'MainDio')));
     gh.singleton<_i423.ProfileDataSource>(() =>
         _i654.ProfileApiDataSource(gh<_i361.Dio>(instanceName: 'MainDio')));
-    gh.singleton<_i847.FavouritesRepository>(
-        () => _i847.FavouritesRepository(gh<_i37.FavouritesDataSource>()));
     gh.singleton<_i790.MoviesCubit>(
         () => _i790.MoviesCubit(gh<_i806.MoviesRepository>()));
     gh.singleton<_i298.MoviesGenreCubit>(
@@ -141,18 +161,26 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i94.AuthRemoteDataSource>(),
           gh<_i147.AuthLocalDataSource>(),
         ));
-    gh.singleton<_i472.AddToFavouritesCubit>(
-        () => _i472.AddToFavouritesCubit(gh<_i847.FavouritesRepository>()));
-    gh.singleton<_i212.AllFavouritesCubit>(
-        () => _i212.AllFavouritesCubit(gh<_i847.FavouritesRepository>()));
-    gh.singleton<_i70.DeleteFavouriteCubit>(
-        () => _i70.DeleteFavouriteCubit(gh<_i847.FavouritesRepository>()));
-    gh.singleton<_i962.IsFavouriteCubit>(
-        () => _i962.IsFavouriteCubit(gh<_i847.FavouritesRepository>()));
+    gh.singleton<_i321.FavouriteRepository>(
+        () => _i128.FavouritesRepositoryImpl(gh<_i37.FavouritesDataSource>()));
     gh.singleton<_i625.ProfileCubit>(
         () => _i625.ProfileCubit(gh<_i364.ProfileRepository>()));
-    gh.singleton<_i489.AuthCubit>(
-        () => _i489.AuthCubit(gh<_i28.AuthRepositorie>()));
+    gh.singleton<_i1069.LoginUseCase>(
+        () => _i1069.LoginUseCase(gh<_i28.AuthRepositorie>()));
+    gh.singleton<_i521.RegisterUseCase>(
+        () => _i521.RegisterUseCase(gh<_i28.AuthRepositorie>()));
+    gh.singleton<_i1019.AddToFavourite>(
+        () => _i1019.AddToFavourite(gh<_i321.FavouriteRepository>()));
+    gh.singleton<_i670.DeleteFavourite>(
+        () => _i670.DeleteFavourite(gh<_i321.FavouriteRepository>()));
+    gh.singleton<_i853.GetFavourite>(
+        () => _i853.GetFavourite(gh<_i321.FavouriteRepository>()));
+    gh.singleton<_i613.IsFavourite>(
+        () => _i613.IsFavourite(gh<_i321.FavouriteRepository>()));
+    gh.singleton<_i489.AuthCubit>(() => _i489.AuthCubit(
+          gh<_i521.RegisterUseCase>(),
+          gh<_i1069.LoginUseCase>(),
+        ));
     return this;
   }
 }
