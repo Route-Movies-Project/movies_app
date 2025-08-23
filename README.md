@@ -1,16 +1,30 @@
-# movies_app
+## 🎬 Movies App – Group Project
+```markdown
+# 🎥 Movies App
 
-A new Flutter project.
+A **Flutter group project** that allows users to browse and search movies using the **YTS.mx API**.  
+Includes authentication, real-time data fetching, and favorites management.
 
-## Getting Started
+## 🚀 Features
+- 🔐 Login/Sign-up with API
+- 🎞️ Browse trending & latest movies
+- ❤️ Add/remove favorites
+- 🔎 Search functionality
+- Persistent storage with SharedPreferences
+- State management with Cubit
 
-This project is a starting point for a Flutter application.
+## 🛠️ Tech Stack
+- Flutter, Dart
+- Cubit (State Management)
+- YTS.mx API
+- SharedPreferences
 
-A few resources to get you started if this is your first Flutter project:
+## 📸 Screenshots
+(Add screenshots here)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ⚙️ Installation
+```bash
+git clone https://github.com/Route-Movies-Project/movies_app.git
+cd movies_app
+flutter pub get
+flutter run
