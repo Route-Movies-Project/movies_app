@@ -19,9 +19,6 @@ Includes authentication, real-time data fetching, and favorites management.
 - YTS.mx API
 - SharedPreferences
 
-## 📸 Screenshots
-(Add screenshots here)
-
 ## ⚙️ Installation
 ```bash
 git clone https://github.com/Route-Movies-Project/movies_app.git
